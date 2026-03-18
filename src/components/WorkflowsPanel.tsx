@@ -110,33 +110,6 @@ const workflows: Workflow[] = [
           },
         ],
       },
-      {
-        id: "sec-gpus",
-        title: "GPUs",
-        icon: "gpus",
-        nodes: [
-          {
-            id: "n5d",
-            name: "GPU Node",
-            type: "RTX 4090",
-            params: [
-              { key: "gpu_id", label: "GPU", type: "select", value: "RTX 4090 - 24GB", options: ["RTX 4090 - 24GB", "RTX 3090 - 24GB", "A100 - 80GB", "H100 - 80GB"] },
-              { key: "vram_limit", label: "VRAM Limit (GB)", type: "number", value: 24 },
-              { key: "priority", label: "Priority", type: "select", value: "High", options: ["Low", "Medium", "High"] },
-            ],
-          },
-          {
-            id: "n5e",
-            name: "GPU Node",
-            type: "RTX 3090",
-            params: [
-              { key: "gpu_id", label: "GPU", type: "select", value: "RTX 3090 - 24GB", options: ["RTX 4090 - 24GB", "RTX 3090 - 24GB", "A100 - 80GB", "H100 - 80GB"] },
-              { key: "vram_limit", label: "VRAM Limit (GB)", type: "number", value: 24 },
-              { key: "priority", label: "Priority", type: "select", value: "Medium", options: ["Low", "Medium", "High"] },
-            ],
-          },
-        ],
-      },
     ],
   },
   {
