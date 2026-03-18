@@ -11,7 +11,6 @@ const navItems = [
   { id: "workflows", icon: Workflow, label: "Workflows" },
   { id: "assets", icon: Image, label: "Assets" },
   { id: "loras", icon: Sparkles, label: "LoRAs" },
-  { id: "pods", icon: Zap, label: "Pods" },
   { id: "settings", icon: Settings, label: "Settings" },
 ];
 
