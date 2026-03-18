@@ -247,7 +247,7 @@ const NodeCard = ({ node, onParamChange }: { node: WorkflowNode; onParamChange: 
         className="w-full surface-card p-3.5 flex items-center gap-3 hover:border-primary/30 transition-colors duration-150"
       >
         <ChevronRight className={cn("w-4 h-4 text-muted-foreground transition-transform duration-200", !collapsed && "rotate-90")} />
-        <span className="text-sm font-medium text-foreground">{node.name}</span>
+        <span className="text-sm font-medium text-foreground">no_Name_Input</span>
         <span className="ml-auto text-xs text-muted-foreground">{node.itemCount} prompts</span>
       </button>
     );
