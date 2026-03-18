@@ -50,22 +50,34 @@ const sectionIcons = {
 
 const workflows: Workflow[] = [
   {
-    id: "wf-001",
-    name: "Data Ingestion Pipeline",
+    id: "001",
+    name: "ZBase ZIT Control - ICEKIUB v1",
     status: "running",
-    steps: 12,
-    completed: 8,
-    description: "Automated data collection and normalization pipeline",
+    steps: 21,
+    completed: 16,
+    description: "ZIB + ZIT dual-pass pipeline with ControlNet",
     sections: [
       {
         id: "sec-prompts",
         title: "Prompts",
         icon: "prompts",
         nodes: [
-          { id: "n1", name: "CR Prompt List", type: "CR Prompt List", collapsible: true, itemCount: 40, params: [] },
-          { id: "n2", name: "CR Prompt List", type: "CR Prompt List", collapsible: true, itemCount: 20, params: [] },
-          { id: "n3", name: "CR Prompt List", type: "CR Prompt List", collapsible: true, itemCount: 20, params: [] },
-          { id: "n4", name: "CR Prompt List", type: "CR Prompt List", collapsible: true, itemCount: 20, params: [] },
+          {
+            id: "node-1",
+            name: "CLIPTextEncode",
+            type: "Positive Prompt",
+            params: [
+              { key: "text", label: "Prompt", type: "textarea", value: "young woman taking a angled selfie in hospital hall\n\nthe background is blurry\n\nShe has a large, expensive, gold alloy diamond chain on her neck spelling \"ICEKIUB\"" },
+            ],
+          },
+          {
+            id: "node-2",
+            name: "CLIPTextEncode",
+            type: "Negative Prompt",
+            params: [
+              { key: "text", label: "Negative Prompt", type: "textarea", value: "glossy finish, shallow depth of field, cinematic bokeh, uncanny anatomy, frame-perfect symmetry, blurred background, fat, asian, sad, necklace, chains, low resolution" },
+            ],
+          },
         ],
       },
       {
@@ -74,14 +86,56 @@ const workflows: Workflow[] = [
         icon: "resolution",
         nodes: [
           {
-            id: "n5",
-            name: "EmptyFlux2LatentImage",
-            type: "EmptyFlux2LatentImage",
+            id: "node-8",
+            name: "EmptySD3LatentImage",
+            type: "EmptySD3LatentImage",
             params: [
-              { key: "resolution", label: "Resolution", type: "resolution", value: "832x1216", presets: ["512x512", "768x768", "768x1024", "832x1216", "1024x1024", "1024x768", "1216x832", "1344x768", "768x1344"] },
-              { key: "width", label: "Width", type: "number", value: 832 },
-              { key: "height", label: "Height", type: "number", value: 1216 },
+              { key: "resolution", label: "Resolution", type: "resolution", value: "1072x1920", presets: ["512x512", "768x768", "768x1024", "832x1216", "1024x1024", "1072x1920", "1024x768", "1216x832", "1344x768"] },
+              { key: "width", label: "Width", type: "number", value: 1072 },
+              { key: "height", label: "Height", type: "number", value: 1920 },
               { key: "batch_size", label: "Batch Size", type: "number", value: 1 },
+            ],
+          },
+        ],
+      },
+      {
+        id: "sec-models",
+        title: "Models",
+        icon: "models",
+        nodes: [
+          {
+            id: "node-10",
+            name: "UNETLoader",
+            type: "ZIB Model",
+            params: [
+              { key: "unet_name", label: "UNET Name", type: "text", value: "z_image_bf16.safetensors" },
+              { key: "weight_dtype", label: "Weight Dtype", type: "select", value: "fp8_e4m3fn", options: ["default", "fp8_e4m3fn", "fp8_e5m2", "fp16", "bf16"] },
+            ],
+          },
+          {
+            id: "node-50",
+            name: "UNETLoader",
+            type: "ZIT Model",
+            params: [
+              { key: "unet_name", label: "UNET Name", type: "text", value: "z_image_turbo_bf16.safetensors" },
+              { key: "weight_dtype", label: "Weight Dtype", type: "select", value: "fp8_e4m3fn", options: ["default", "fp8_e4m3fn", "fp8_e5m2", "fp16", "bf16"] },
+            ],
+          },
+          {
+            id: "node-6",
+            name: "CLIPLoader",
+            type: "CLIPLoader",
+            params: [
+              { key: "clip_name", label: "CLIP Name", type: "text", value: "qwen_3_4b.safetensors" },
+              { key: "type", label: "Type", type: "select", value: "lumina2", options: ["stable_diffusion", "stable_cascade", "sd3", "stable_audio", "mochi", "ltxv", "lumina2"] },
+            ],
+          },
+          {
+            id: "node-9",
+            name: "VAELoader",
+            type: "VAELoader",
+            params: [
+              { key: "vae_name", label: "VAE Name", type: "text", value: "ultrafluxvae.safetensors" },
             ],
           },
         ],
@@ -92,147 +146,133 @@ const workflows: Workflow[] = [
         icon: "loras",
         nodes: [
           {
-            id: "n5b",
-            name: "LoraLoader",
-            type: "LoraLoader",
+            id: "node-11",
+            name: "LoraLoaderModelOnly",
+            type: "ZIB LoRA #1",
             params: [
-              { key: "lora_name", label: "LoRA Model", type: "select", value: "flux_realism_v2.safetensors", options: ["flux_realism_v2.safetensors", "flux_anime_v1.safetensors", "flux_portrait_v3.safetensors", "detail_enhancer_v1.safetensors"] },
-              { key: "strength_model", label: "Strength Model", type: "number", value: 1.0 },
-              { key: "strength_clip", label: "Strength Clip", type: "number", value: 1.0 },
+              { key: "lora_name", label: "LoRA Name", type: "text", value: "LOURTA_000000700.safetensors" },
+              { key: "strength_model", label: "Strength", type: "number", value: 1 },
             ],
           },
           {
-            id: "n5c",
-            name: "LoraLoader",
-            type: "LoraLoader",
+            id: "node-18",
+            name: "LoraLoaderModelOnly",
+            type: "ZIB LoRA #2",
             params: [
-              { key: "lora_name", label: "LoRA Model", type: "select", value: "flux_anime_v1.safetensors", options: ["flux_realism_v2.safetensors", "flux_anime_v1.safetensors", "flux_portrait_v3.safetensors", "detail_enhancer_v1.safetensors"] },
-              { key: "strength_model", label: "Strength Model", type: "number", value: 0.8 },
-              { key: "strength_clip", label: "Strength Clip", type: "number", value: 0.8 },
+              { key: "lora_name", label: "LoRA Name", type: "text", value: "nicegirls_zimagebase.safetensors" },
+              { key: "strength_model", label: "Strength", type: "number", value: 0.57 },
+            ],
+          },
+          {
+            id: "node-47",
+            name: "LoraLoaderModelOnly",
+            type: "ZIB LoRA #3",
+            params: [
+              { key: "lora_name", label: "LoRA Name", type: "text", value: "Z-Image-Fun-Lora-Distill-8-Steps-2602-ComfyUI.safetensors" },
+              { key: "strength_model", label: "Strength", type: "number", value: 0.4 },
+            ],
+          },
+          {
+            id: "node-56",
+            name: "LoraLoaderModelOnly",
+            type: "ZIT LoRA",
+            params: [
+              { key: "lora_name", label: "LoRA Name", type: "text", value: "LOURTA_000000700.safetensors" },
+              { key: "strength_model", label: "Strength", type: "number", value: 2 },
             ],
           },
         ],
       },
-    ],
-  },
-  {
-    id: "wf-002",
-    name: "ETL Processing Job",
-    status: "completed",
-    steps: 6,
-    completed: 6,
-    description: "Extract, transform and load pipeline for analytics",
-    sections: [
+      {
+        id: "sec-samplers",
+        title: "Samplers",
+        icon: "samplers",
+        nodes: [
+          {
+            id: "node-48",
+            name: "ClownsharKSampler_Beta",
+            type: "ZIB Pass",
+            params: [
+              { key: "denoise", label: "Denoise", type: "number", value: 0.5 },
+              { key: "sampler", label: "Sampler", type: "select", value: "linear/euler", options: ["linear/euler", "euler", "euler_ancestral", "dpmpp_2m", "dpmpp_2s_ancestral", "dpmpp_sde"] },
+              { key: "scheduler", label: "Scheduler", type: "select", value: "simple", options: ["simple", "normal", "karras", "exponential", "sgm_uniform"] },
+              { key: "steps", label: "Steps", type: "number", value: 8 },
+              { key: "cfg", label: "CFG", type: "number", value: -1 },
+              { key: "seed", label: "Seed", type: "number", value: 894816250230484 },
+              { key: "seed_mode", label: "Seed Mode", type: "select", value: "randomize", options: ["randomize", "fixed", "increment", "decrement"] },
+            ],
+          },
+          {
+            id: "node-51",
+            name: "ClownsharKSampler_Beta",
+            type: "ZIT Pass",
+            params: [
+              { key: "denoise", label: "Denoise", type: "number", value: 0.7 },
+              { key: "sampler", label: "Sampler", type: "select", value: "linear/euler", options: ["linear/euler", "euler", "euler_ancestral", "dpmpp_2m", "dpmpp_2s_ancestral", "dpmpp_sde"] },
+              { key: "scheduler", label: "Scheduler", type: "select", value: "simple", options: ["simple", "normal", "karras", "exponential", "sgm_uniform"] },
+              { key: "steps", label: "Steps", type: "number", value: 8 },
+              { key: "cfg", label: "CFG", type: "number", value: -1 },
+              { key: "start_at_step", label: "Start at Step", type: "number", value: 0.12 },
+              { key: "seed", label: "Seed", type: "number", value: 295658591017439 },
+              { key: "seed_mode", label: "Seed Mode", type: "select", value: "fixed", options: ["randomize", "fixed", "increment", "decrement"] },
+            ],
+          },
+        ],
+      },
+      {
+        id: "sec-controlnet",
+        title: "ControlNet",
+        icon: "controlnet",
+        nodes: [
+          {
+            id: "node-43",
+            name: "ModelPatchLoader",
+            type: "ModelPatchLoader",
+            params: [
+              { key: "model_patch", label: "Model Patch", type: "text", value: "Z-Image-Fun-Controlnet-Union-2.1-lite.safetensors" },
+            ],
+          },
+          {
+            id: "node-41",
+            name: "ZImageFunControlnet",
+            type: "ZImageFunControlnet",
+            params: [
+              { key: "strength", label: "Strength", type: "number", value: 0.71 },
+            ],
+          },
+          {
+            id: "node-66",
+            name: "AIO_Preprocessor",
+            type: "AIO_Preprocessor",
+            params: [
+              { key: "preprocessor", label: "Preprocessor", type: "select", value: "DepthAnythingV2Preprocessor", options: ["DepthAnythingV2Preprocessor", "CannyEdgePreprocessor", "LineArtPreprocessor", "OpenPosePreprocessor", "MiDaS-DepthMapPreprocessor"] },
+              { key: "resolution", label: "Resolution", type: "number", value: 512 },
+            ],
+          },
+        ],
+      },
       {
         id: "sec-images",
         title: "Images",
         icon: "images",
         nodes: [
           {
-            id: "n6",
-            name: "SaveImage",
-            type: "SaveImage",
-            params: [
-              { key: "filename_prefix", label: "Filename Prefix", type: "text", value: "ComfyUI" },
-            ],
-          },
-          {
-            id: "n7",
-            name: "SaveImage",
-            type: "SaveImage",
-            params: [
-              { key: "filename_prefix", label: "Filename Prefix", type: "text", value: "ComfyUI" },
-            ],
-          },
-          {
-            id: "n8",
+            id: "node-13",
             name: "LoadImage",
             type: "LoadImage",
             params: [
-              { key: "image", label: "Image", type: "text", value: "AnimateDiff_00613.png" },
+              { key: "image", label: "Image", type: "text", value: "113202521.png" },
               { key: "upload", label: "Upload", type: "text", value: "image" },
             ],
           },
-        ],
-      },
-    ],
-  },
-  {
-    id: "wf-003",
-    name: "Batch Export 4x",
-    status: "queued",
-    steps: 4,
-    completed: 0,
-    description: "Scheduled batch export to external storage",
-    sections: [
-      {
-        id: "sec-prompts-2",
-        title: "Prompts",
-        icon: "prompts",
-        nodes: [
-          { id: "n9", name: "CR Prompt List", type: "CR Prompt List", collapsible: true, itemCount: 20, params: [] },
-        ],
-      },
-      {
-        id: "sec-resolution-2",
-        title: "Resolution",
-        icon: "resolution",
-        nodes: [
           {
-            id: "n10",
-            name: "EmptyFlux2LatentImage",
-            type: "EmptyFlux2LatentImage",
-            params: [
-              { key: "resolution", label: "Resolution", type: "resolution", value: "1024x1024", presets: ["512x512", "768x768", "1024x1024", "1216x832"] },
-              { key: "width", label: "Width", type: "number", value: 1024 },
-              { key: "height", label: "Height", type: "number", value: 1024 },
-              { key: "batch_size", label: "Batch Size", type: "number", value: 1 },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: "wf-004",
-    name: "Report Generation Pipeline",
-    status: "failed",
-    steps: 8,
-    completed: 3,
-    description: "Automated report generation and distribution",
-    sections: [
-      {
-        id: "sec-images-2",
-        title: "Images",
-        icon: "images",
-        nodes: [
-          {
-            id: "n11",
+            id: "node-57",
             name: "SaveImage",
             type: "SaveImage",
             params: [
-              { key: "filename_prefix", label: "Filename Prefix", type: "text", value: "Report_Output" },
+              { key: "filename_prefix", label: "Filename Prefix", type: "text", value: "ComfyUI" },
             ],
           },
-        ],
-      },
-    ],
-  },
-  {
-    id: "wf-005",
-    name: "Data Sync Workflow",
-    status: "running",
-    steps: 10,
-    completed: 6,
-    description: "Bidirectional data synchronization between systems",
-    sections: [
-      {
-        id: "sec-prompts-3",
-        title: "Prompts",
-        icon: "prompts",
-        nodes: [
-          { id: "n12", name: "CR Prompt List", type: "CR Prompt List", collapsible: true, itemCount: 30, params: [] },
-          { id: "n13", name: "CR Prompt List", type: "CR Prompt List", collapsible: true, itemCount: 15, params: [] },
         ],
       },
     ],
