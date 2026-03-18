@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Play, Clock, CheckCircle2, AlertCircle, ArrowLeft, Save, MessageSquare, Maximize2, ImageIcon, ChevronRight, Minus, Plus, Sparkles, Cpu } from "lucide-react";
+import { Play, Clock, CheckCircle2, AlertCircle, ArrowLeft, Save, MessageSquare, Maximize2, ImageIcon, ChevronRight, ChevronDown, Minus, Plus, Sparkles, Cpu, Server, HardDrive, Activity } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface WorkflowParam {
@@ -106,33 +106,6 @@ const workflows: Workflow[] = [
               { key: "lora_name", label: "LoRA Model", type: "select", value: "flux_anime_v1.safetensors", options: ["flux_realism_v2.safetensors", "flux_anime_v1.safetensors", "flux_portrait_v3.safetensors", "detail_enhancer_v1.safetensors"] },
               { key: "strength_model", label: "Strength Model", type: "number", value: 0.8 },
               { key: "strength_clip", label: "Strength Clip", type: "number", value: 0.8 },
-            ],
-          },
-        ],
-      },
-      {
-        id: "sec-gpus",
-        title: "GPUs",
-        icon: "gpus",
-        nodes: [
-          {
-            id: "n5d",
-            name: "GPU Node",
-            type: "RTX 4090",
-            params: [
-              { key: "gpu_id", label: "GPU", type: "select", value: "RTX 4090 - 24GB", options: ["RTX 4090 - 24GB", "RTX 3090 - 24GB", "A100 - 80GB", "H100 - 80GB"] },
-              { key: "vram_limit", label: "VRAM Limit (GB)", type: "number", value: 24 },
-              { key: "priority", label: "Priority", type: "select", value: "High", options: ["Low", "Medium", "High"] },
-            ],
-          },
-          {
-            id: "n5e",
-            name: "GPU Node",
-            type: "RTX 3090",
-            params: [
-              { key: "gpu_id", label: "GPU", type: "select", value: "RTX 3090 - 24GB", options: ["RTX 4090 - 24GB", "RTX 3090 - 24GB", "A100 - 80GB", "H100 - 80GB"] },
-              { key: "vram_limit", label: "VRAM Limit (GB)", type: "number", value: 24 },
-              { key: "priority", label: "Priority", type: "select", value: "Medium", options: ["Low", "Medium", "High"] },
             ],
           },
         ],
@@ -268,6 +241,130 @@ const statusConfig = {
   completed: { icon: CheckCircle2, color: "text-success", bg: "bg-success/10", label: "Completed" },
   queued: { icon: Clock, color: "text-muted-foreground", bg: "bg-muted", label: "Queued" },
   failed: { icon: AlertCircle, color: "text-destructive", bg: "bg-destructive/10", label: "Failed" },
+};
+
+const gpuPods = [
+  { id: "gpu-4090", name: "RTX 4090", gpu: "NVIDIA RTX 4090", vram: "24 GB", status: "active" as const, cost: "$0.74/hr", utilization: 62 },
+  { id: "gpu-3090", name: "RTX 3090", gpu: "NVIDIA RTX 3090", vram: "24 GB", status: "active" as const, cost: "$0.44/hr", utilization: 45 },
+  { id: "gpu-a100", name: "A100 80GB", gpu: "NVIDIA A100", vram: "80 GB", status: "idle" as const, cost: "$3.12/hr", utilization: 0 },
+  { id: "gpu-h100", name: "H100 SXM", gpu: "NVIDIA H100", vram: "80 GB", status: "offline" as const, cost: "$4.89/hr", utilization: 0 },
+];
+
+const gpuStatusColors = {
+  active: { dot: "bg-accent", text: "text-accent", label: "Active" },
+  idle: { dot: "bg-muted-foreground", text: "text-muted-foreground", label: "Idle" },
+  offline: { dot: "bg-destructive", text: "text-destructive", label: "Offline" },
+};
+
+const GpuSelector = () => {
+  const [expanded, setExpanded] = useState(false);
+  const [selectedGpu, setSelectedGpu] = useState("gpu-4090");
+
+  const selected = gpuPods.find(g => g.id === selectedGpu)!;
+  const selectedStatus = gpuStatusColors[selected.status];
+
+  return (
+    <div>
+      <div className="flex items-center gap-2 mb-3">
+        <Cpu className="w-4 h-4 text-accent" />
+        <h2 className="text-sm font-semibold text-accent">GPUs</h2>
+      </div>
+
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="w-full surface-card p-4 flex items-center justify-between hover:border-primary/30 transition-colors duration-150"
+      >
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-accent/10">
+            <Server className="w-4 h-4 text-accent" />
+          </div>
+          <div className="text-left">
+            <span className="text-sm font-medium text-foreground">{selected.name}</span>
+            <div className="flex items-center gap-2 mt-0.5">
+              <span className="font-mono text-[11px] text-muted-foreground">{selected.vram}</span>
+              <span className="text-border">•</span>
+              <div className="flex items-center gap-1.5">
+                <div className={cn("w-1.5 h-1.5 rounded-full", selectedStatus.dot)} />
+                <span className={cn("text-[11px] font-medium", selectedStatus.text)}>{selectedStatus.label}</span>
+              </div>
+              <span className="text-border">•</span>
+              <span className="font-mono text-[11px] text-muted-foreground">{selected.cost}</span>
+            </div>
+          </div>
+        </div>
+        <ChevronDown className={cn("w-4 h-4 text-muted-foreground transition-transform duration-200", expanded && "rotate-180")} />
+      </button>
+
+      {expanded && (
+        <div className="mt-2 space-y-2 animate-fade-in">
+          {gpuPods.map((pod) => {
+            const status = gpuStatusColors[pod.status];
+            const isSelected = selectedGpu === pod.id;
+
+            return (
+              <div
+                key={pod.id}
+                onClick={() => { setSelectedGpu(pod.id); setExpanded(false); }}
+                className={cn(
+                  "surface-card p-3.5 cursor-pointer transition-all duration-150",
+                  isSelected ? "border-primary/40 glow-primary" : "hover:border-primary/20",
+                  pod.status === "offline" && "opacity-50"
+                )}
+              >
+                <div className="flex items-center justify-between mb-2.5">
+                  <div className="flex items-center gap-3">
+                    <div className={cn("w-9 h-9 rounded-lg flex items-center justify-center", pod.status === "active" ? "bg-accent/10" : "bg-muted")}>
+                      <Server className={cn("w-4 h-4", pod.status === "active" ? "text-accent" : "text-muted-foreground")} />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-foreground">{pod.name}</h3>
+                      <span className="font-mono text-[11px] text-muted-foreground">{pod.id}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className={cn("w-2 h-2 rounded-full", status.dot)} />
+                    <span className={cn("text-xs font-medium", status.text)}>{status.label}</span>
+                  </div>
+                </div>
+                <div className="grid grid-cols-4 gap-4">
+                  <div className="flex items-center gap-2">
+                    <Cpu className="w-3.5 h-3.5 text-muted-foreground" />
+                    <div>
+                      <p className="text-[10px] text-muted-foreground uppercase tracking-wider">GPU</p>
+                      <p className="text-xs text-foreground font-medium">{pod.gpu.replace("NVIDIA ", "")}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <HardDrive className="w-3.5 h-3.5 text-muted-foreground" />
+                    <div>
+                      <p className="text-[10px] text-muted-foreground uppercase tracking-wider">VRAM</p>
+                      <p className="text-xs text-foreground font-medium">{pod.vram}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Activity className="w-3.5 h-3.5 text-muted-foreground" />
+                    <div>
+                      <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Usage</p>
+                      <p className="text-xs text-foreground font-medium">{pod.utilization}%</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Cost</p>
+                    <p className="text-xs text-foreground font-mono font-medium">{pod.cost}</p>
+                  </div>
+                </div>
+                {pod.status === "active" && (
+                  <div className="mt-2.5 w-full h-1 bg-secondary rounded-full overflow-hidden">
+                    <div className="h-full bg-accent rounded-full transition-all duration-500" style={{ width: `${pod.utilization}%` }} />
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
 };
 
 const NumberStepper = ({ value, onChange, label }: { value: number; onChange: (v: number) => void; label: string }) => (
@@ -479,6 +576,8 @@ const WorkflowsPanel = () => {
               </div>
             );
           })}
+
+          <GpuSelector />
         </div>
       </div>
     );
