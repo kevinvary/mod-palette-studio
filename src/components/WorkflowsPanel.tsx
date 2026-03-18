@@ -557,7 +557,7 @@ const WorkflowsPanel = () => {
                       <StatusIcon className={cn("w-4 h-4", status.color)} />
                     </div>
                     <div>
-                      <h3 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors duration-150">no_Name_Input</h3>
+                      <h3 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors duration-150">{wf.description}</h3>
                       <div className="flex items-center gap-1.5">
                         {assignedPodData ? (
                           <>
