@@ -18,8 +18,8 @@ const navItems = [
 const NavRail = ({ activeSection, onSectionChange }: NavRailProps) => {
   return (
     <div className="flex flex-col items-center w-16 bg-sidebar border-r border-border py-4 gap-1">
-      <div className="mb-6 flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10">
-        <Layers className="w-5 h-5 text-primary" />
+      <div className="mb-6 flex items-center justify-center w-10 h-10 rounded-lg overflow-hidden">
+        <img src={logo} alt="Pomodoro" className="w-full h-full object-cover" />
       </div>
 
       {navItems.map((item) => (
