@@ -83,6 +83,60 @@ const workflows: Workflow[] = [
           },
         ],
       },
+      {
+        id: "sec-loras",
+        title: "LoRAs",
+        icon: "loras",
+        nodes: [
+          {
+            id: "n5b",
+            name: "LoraLoader",
+            type: "LoraLoader",
+            params: [
+              { key: "lora_name", label: "LoRA Model", type: "select", value: "flux_realism_v2.safetensors", options: ["flux_realism_v2.safetensors", "flux_anime_v1.safetensors", "flux_portrait_v3.safetensors", "detail_enhancer_v1.safetensors"] },
+              { key: "strength_model", label: "Strength Model", type: "number", value: 1.0 },
+              { key: "strength_clip", label: "Strength Clip", type: "number", value: 1.0 },
+            ],
+          },
+          {
+            id: "n5c",
+            name: "LoraLoader",
+            type: "LoraLoader",
+            params: [
+              { key: "lora_name", label: "LoRA Model", type: "select", value: "flux_anime_v1.safetensors", options: ["flux_realism_v2.safetensors", "flux_anime_v1.safetensors", "flux_portrait_v3.safetensors", "detail_enhancer_v1.safetensors"] },
+              { key: "strength_model", label: "Strength Model", type: "number", value: 0.8 },
+              { key: "strength_clip", label: "Strength Clip", type: "number", value: 0.8 },
+            ],
+          },
+        ],
+      },
+      {
+        id: "sec-gpus",
+        title: "GPUs",
+        icon: "gpus",
+        nodes: [
+          {
+            id: "n5d",
+            name: "GPU Node",
+            type: "RTX 4090",
+            params: [
+              { key: "gpu_id", label: "GPU", type: "select", value: "RTX 4090 - 24GB", options: ["RTX 4090 - 24GB", "RTX 3090 - 24GB", "A100 - 80GB", "H100 - 80GB"] },
+              { key: "vram_limit", label: "VRAM Limit (GB)", type: "number", value: 24 },
+              { key: "priority", label: "Priority", type: "select", value: "High", options: ["Low", "Medium", "High"] },
+            ],
+          },
+          {
+            id: "n5e",
+            name: "GPU Node",
+            type: "RTX 3090",
+            params: [
+              { key: "gpu_id", label: "GPU", type: "select", value: "RTX 3090 - 24GB", options: ["RTX 4090 - 24GB", "RTX 3090 - 24GB", "A100 - 80GB", "H100 - 80GB"] },
+              { key: "vram_limit", label: "VRAM Limit (GB)", type: "number", value: 24 },
+              { key: "priority", label: "Priority", type: "select", value: "Medium", options: ["Low", "Medium", "High"] },
+            ],
+          },
+        ],
+      },
     ],
   },
   {
