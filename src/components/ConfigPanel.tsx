@@ -59,7 +59,7 @@ const ConfigPanel = () => {
         <h3 className="text-label mb-3">Quick Stats</h3>
         <div className="grid grid-cols-2 gap-2">
           {[
-            { label: "Generated", value: "1,247" },
+            { label: "Jobs Run", value: "1,247" },
             { label: "Storage", value: "18 GB" },
             { label: "This Month", value: "$42.80" },
             { label: "Avg Time", value: "12.4s" },

@@ -54,11 +54,11 @@ const SettingsPanel = () => {
                   <input type="email" defaultValue="user@studio.ai" className="w-full px-3 py-2 bg-background border border-border rounded-lg text-sm text-foreground focus:border-primary focus:outline-none transition-colors" />
                 </div>
                 <div>
-                  <label className="text-label mb-1.5 block">Default Model</label>
+                  <label className="text-label mb-1.5 block">Timezone</label>
                   <select className="w-full px-3 py-2 bg-background border border-border rounded-lg text-sm text-foreground focus:border-primary focus:outline-none transition-colors">
-                    <option>SDXL 1.0</option>
-                    <option>SD 1.5</option>
-                    <option>SD 3.0</option>
+                    <option>UTC</option>
+                    <option>America/New_York</option>
+                    <option>Europe/London</option>
                   </select>
                 </div>
               </div>

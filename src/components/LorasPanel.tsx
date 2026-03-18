@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 interface LoRA {
   id: string;
   name: string;
-  base: string;
   weight: number;
   active: boolean;
   triggerWord: string;
@@ -13,11 +12,11 @@ interface LoRA {
 }
 
 const initialLoras: LoRA[] = [
-  { id: "lora-1", name: "Realistic Portraits v2.1", base: "SDXL", weight: 0.75, active: true, triggerWord: "rlstc_portrait", size: "184 MB" },
-  { id: "lora-2", name: "Anime Style XL", base: "SDXL", weight: 0.6, active: true, triggerWord: "anmxl", size: "142 MB" },
-  { id: "lora-3", name: "Cinematic Lighting", base: "SD 1.5", weight: 0.85, active: false, triggerWord: "cnmtc_light", size: "96 MB" },
-  { id: "lora-4", name: "Watercolor Effect", base: "SDXL", weight: 0.5, active: false, triggerWord: "wtrclr", size: "128 MB" },
-  { id: "lora-5", name: "Pixel Art Pro", base: "SD 1.5", weight: 0.9, active: true, triggerWord: "pxlart", size: "67 MB" },
+  { id: "lora-1", name: "Realistic Portraits v2.1", weight: 0.75, active: true, triggerWord: "rlstc_portrait", size: "184 MB" },
+  { id: "lora-2", name: "Anime Style XL", weight: 0.6, active: true, triggerWord: "anmxl", size: "142 MB" },
+  { id: "lora-3", name: "Cinematic Lighting", weight: 0.85, active: false, triggerWord: "cnmtc_light", size: "96 MB" },
+  { id: "lora-4", name: "Watercolor Effect", weight: 0.5, active: false, triggerWord: "wtrclr", size: "128 MB" },
+  { id: "lora-5", name: "Pixel Art Pro", weight: 0.9, active: true, triggerWord: "pxlart", size: "67 MB" },
 ];
 
 const LorasPanel = () => {
@@ -62,8 +61,6 @@ const LorasPanel = () => {
                   <h3 className="text-sm font-medium text-foreground">{lora.name}</h3>
                   <div className="flex items-center gap-2 mt-0.5">
                     <span className="font-mono text-[11px] text-muted-foreground">{lora.triggerWord}</span>
-                    <span className="text-border">•</span>
-                    <span className="text-[11px] text-muted-foreground">{lora.base}</span>
                     <span className="text-border">•</span>
                     <span className="text-[11px] text-muted-foreground">{lora.size}</span>
                   </div>
