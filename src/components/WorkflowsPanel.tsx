@@ -14,7 +14,7 @@ interface WorkflowParam {
 interface WorkflowSection {
   id: string;
   title: string;
-  icon: "prompts" | "resolution" | "images" | "loras" | "gpus";
+  icon: "prompts" | "resolution" | "images" | "loras" | "gpus" | "models" | "samplers" | "controlnet";
   nodes: WorkflowNode[];
 }
 
