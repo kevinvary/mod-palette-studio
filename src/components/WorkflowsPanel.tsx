@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Play, Clock, CheckCircle2, AlertCircle, ArrowLeft, Save, MessageSquare, Maximize2, ImageIcon, ChevronRight, Minus, Plus, Sparkles, Cpu } from "lucide-react";
+import { Play, Clock, CheckCircle2, AlertCircle, ArrowLeft, Save, MessageSquare, Maximize2, ImageIcon, ChevronRight, ChevronDown, Minus, Plus, Sparkles, Cpu, Server, HardDrive, Activity } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface WorkflowParam {
