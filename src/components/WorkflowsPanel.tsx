@@ -595,40 +595,140 @@ const WorkflowsPanel = () => {
           const status = statusConfig[wf.status as keyof typeof statusConfig];
           const StatusIcon = status.icon;
           const progress = (wf.completed / wf.steps) * 100;
+          const assignedPod = workflowPods[wf.id];
+          const assignedPodData = assignedPod ? gpuPods.find(p => p.id === assignedPod) : null;
 
           return (
-            <div
-              key={wf.id}
-              onClick={() => openWorkflow(wf)}
-              className="surface-card p-4 hover:border-primary/30 transition-colors duration-150 cursor-pointer group"
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center", status.bg)}>
-                    <StatusIcon className={cn("w-4 h-4", status.color)} />
+            <div key={wf.id} className="space-y-2">
+              <div
+                onClick={() => openWorkflow(wf)}
+                className="surface-card p-4 hover:border-primary/30 transition-colors duration-150 cursor-pointer group"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center", status.bg)}>
+                      <StatusIcon className={cn("w-4 h-4", status.color)} />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors duration-150">no_Name_Input</h3>
+                      <div className="flex items-center gap-1.5">
+                        {assignedPodData ? (
+                          <>
+                            <Server className="w-3 h-3 text-accent" />
+                            <span className="font-mono text-[11px] text-accent">{assignedPodData.name}</span>
+                          </>
+                        ) : (
+                          <span className="font-mono text-[11px] text-muted-foreground">{wf.id.replace("wf-", "")}</span>
+                        )}
+                        <span className="text-border">•</span>
+                        <span className={cn("text-[11px] font-medium", status.color)}>{status.label}</span>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors duration-150">no_Name_Input</h3>
-                    <span className="font-mono text-[11px] text-muted-foreground">{wf.id}</span>
-                  </div>
-                </div>
 
-                <div className="flex items-center gap-4">
-                  <div className="text-right">
-                    <span className={cn("text-xs font-medium", status.color)}>{status.label}</span>
-                    <p className="text-[11px] text-muted-foreground">{wf.completed}/{wf.steps} steps</p>
-                  </div>
-                  <div className="w-24 h-1.5 bg-secondary rounded-full overflow-hidden">
-                    <div
+                  <div className="flex items-center gap-4">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setDeployingFor(deployingFor === wf.id ? null : wf.id);
+                      }}
                       className={cn(
-                        "h-full rounded-full transition-all duration-500",
-                        wf.status === "failed" ? "bg-destructive" : "bg-primary"
+                        "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors duration-150",
+                        assignedPodData
+                          ? "bg-accent/10 text-accent hover:bg-accent/20"
+                          : "bg-primary text-primary-foreground hover:bg-primary/90"
                       )}
-                      style={{ width: `${progress}%` }}
-                    />
+                    >
+                      <Zap className="w-3.5 h-3.5" />
+                      {assignedPodData ? "Change Pod" : "Deploy Pod"}
+                    </button>
+                    <div className="text-right">
+                      <p className="text-[11px] text-muted-foreground">{wf.completed}/{wf.steps} steps</p>
+                    </div>
+                    <div className="w-24 h-1.5 bg-secondary rounded-full overflow-hidden">
+                      <div
+                        className={cn(
+                          "h-full rounded-full transition-all duration-500",
+                          wf.status === "failed" ? "bg-destructive" : "bg-primary"
+                        )}
+                        style={{ width: `${progress}%` }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
+
+              {deployingFor === wf.id && (
+                <div className="ml-11 space-y-2 animate-fade-in">
+                  {gpuPods.map((pod) => {
+                    const podStatus = gpuStatusColors[pod.status];
+                    const isSelected = workflowPods[wf.id] === pod.id;
+
+                    return (
+                      <div
+                        key={pod.id}
+                        onClick={() => {
+                          setWorkflowPods(prev => ({ ...prev, [wf.id]: pod.id }));
+                          setDeployingFor(null);
+                        }}
+                        className={cn(
+                          "surface-card p-3.5 cursor-pointer transition-all duration-150",
+                          isSelected ? "border-primary/40 glow-primary" : "hover:border-primary/20",
+                          pod.status === "offline" && "opacity-50"
+                        )}
+                      >
+                        <div className="flex items-center justify-between mb-2.5">
+                          <div className="flex items-center gap-3">
+                            <div className={cn("w-9 h-9 rounded-lg flex items-center justify-center", pod.status === "active" ? "bg-accent/10" : "bg-muted")}>
+                              <Server className={cn("w-4 h-4", pod.status === "active" ? "text-accent" : "text-muted-foreground")} />
+                            </div>
+                            <div>
+                              <h3 className="text-sm font-semibold text-foreground">{pod.name}</h3>
+                              <span className="font-mono text-[11px] text-muted-foreground">{pod.id}</span>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className={cn("w-2 h-2 rounded-full", podStatus.dot)} />
+                            <span className={cn("text-xs font-medium", podStatus.text)}>{podStatus.label}</span>
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-4 gap-4">
+                          <div className="flex items-center gap-2">
+                            <Cpu className="w-3.5 h-3.5 text-muted-foreground" />
+                            <div>
+                              <p className="text-[10px] text-muted-foreground uppercase tracking-wider">GPU</p>
+                              <p className="text-xs text-foreground font-medium">{pod.gpu.replace("NVIDIA ", "")}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <HardDrive className="w-3.5 h-3.5 text-muted-foreground" />
+                            <div>
+                              <p className="text-[10px] text-muted-foreground uppercase tracking-wider">VRAM</p>
+                              <p className="text-xs text-foreground font-medium">{pod.vram}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Activity className="w-3.5 h-3.5 text-muted-foreground" />
+                            <div>
+                              <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Usage</p>
+                              <p className="text-xs text-foreground font-medium">{pod.utilization}%</p>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Cost</p>
+                            <p className="text-xs text-foreground font-mono font-medium">{pod.cost}</p>
+                          </div>
+                        </div>
+                        {pod.status === "active" && (
+                          <div className="mt-2.5 w-full h-1 bg-secondary rounded-full overflow-hidden">
+                            <div className="h-full bg-accent rounded-full transition-all duration-500" style={{ width: `${pod.utilization}%` }} />
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           );
         })}
