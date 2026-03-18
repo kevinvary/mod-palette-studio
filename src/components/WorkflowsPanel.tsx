@@ -548,10 +548,10 @@ const WorkflowsPanel = () => {
           return (
             <div key={wf.id} className="space-y-2">
               <div
-                onClick={() => openWorkflow(wf)}
                 className="surface-card p-4 hover:border-primary/30 transition-colors duration-150 cursor-pointer group"
               >
-                <div className="flex items-center justify-between">
+                {/* Header row */}
+                <div className="flex items-center justify-between mb-3" onClick={() => openWorkflow(wf)}>
                   <div className="flex items-center gap-3">
                     <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center", status.bg)}>
                       <StatusIcon className={cn("w-4 h-4", status.color)} />
@@ -572,27 +572,51 @@ const WorkflowsPanel = () => {
                       </div>
                     </div>
                   </div>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setDeployingFor(deployingFor === wf.id ? null : wf.id);
+                    }}
+                    className={cn(
+                      "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors duration-150",
+                      assignedPodData
+                        ? "bg-accent/10 text-accent hover:bg-accent/20"
+                        : "bg-secondary text-muted-foreground hover:text-foreground hover:bg-secondary/80"
+                    )}
+                  >
+                    <Zap className="w-3.5 h-3.5" />
+                    {assignedPodData ? "Change Pod" : "Deploy Pod"}
+                  </button>
+                </div>
 
-                  <div className="flex items-center gap-4">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setDeployingFor(deployingFor === wf.id ? null : wf.id);
-                      }}
-                      className={cn(
-                        "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors duration-150",
-                        assignedPodData
-                          ? "bg-accent/10 text-accent hover:bg-accent/20"
-                          : "bg-primary text-primary-foreground hover:bg-primary/90"
-                      )}
-                    >
-                      <Zap className="w-3.5 h-3.5" />
-                      {assignedPodData ? "Change Pod" : "Deploy Pod"}
-                    </button>
-                    <div className="text-right">
-                      <p className="text-[11px] text-muted-foreground">{wf.completed}/{wf.steps} steps</p>
-                    </div>
-                    <div className="w-24 h-1.5 bg-secondary rounded-full overflow-hidden">
+                {/* Image input + Run button + Steps progress */}
+                <div className="flex items-center gap-3">
+                  {/* Image upload input */}
+                  <label
+                    onClick={(e) => e.stopPropagation()}
+                    className="flex items-center gap-2 px-3 py-2 bg-secondary/60 border border-border rounded-lg cursor-pointer hover:border-primary/30 transition-colors flex-1 min-w-0"
+                  >
+                    <ImageIcon className="w-4 h-4 text-muted-foreground shrink-0" />
+                    <span className="text-xs text-muted-foreground truncate font-mono">
+                      {wf.sections.find(s => s.id === "sec-images")?.nodes.find(n => n.name === "LoadImage")?.params.find(p => p.key === "image")?.value as string || "Select image..."}
+                    </span>
+                    <input type="file" accept="image/*" className="hidden" />
+                  </label>
+
+                  {/* Run button */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                    className="flex items-center gap-2 px-5 py-2 bg-primary text-primary-foreground rounded-lg text-xs font-semibold hover:bg-primary/90 transition-colors duration-150 shrink-0"
+                  >
+                    <Play className="w-3.5 h-3.5" />
+                    Run
+                  </button>
+
+                  {/* Steps progress */}
+                  <div className="flex items-center gap-2 shrink-0 min-w-[140px]">
+                    <div className="flex-1 h-2 bg-secondary rounded-full overflow-hidden">
                       <div
                         className={cn(
                           "h-full rounded-full transition-all duration-500",
@@ -601,6 +625,7 @@ const WorkflowsPanel = () => {
                         style={{ width: `${progress}%` }}
                       />
                     </div>
+                    <span className="text-[11px] text-muted-foreground font-mono whitespace-nowrap">{wf.completed}/{wf.steps}</span>
                   </div>
                 </div>
               </div>
