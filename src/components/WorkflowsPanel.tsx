@@ -55,7 +55,7 @@ const workflows: Workflow[] = [
     status: "running",
     steps: 21,
     completed: 16,
-    description: "ZIB + ZIT dual-pass pipeline with ControlNet",
+    description: "Generador de imágenes realistas. LoRA + Text = Image",
     sections: [
       {
         id: "sec-prompts",
