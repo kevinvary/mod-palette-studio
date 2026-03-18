@@ -1,5 +1,6 @@
-import { Workflow, Image, Settings, Layers, Sparkles, Zap } from "lucide-react";
+import { Workflow, Image, Settings, Sparkles, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
+import logo from "@/assets/logo.jpg";
 
 interface NavRailProps {
   activeSection: string;
