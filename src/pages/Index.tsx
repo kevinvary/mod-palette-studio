@@ -11,7 +11,6 @@ const panels: Record<string, React.FC> = {
   workflows: WorkflowsPanel,
   assets: AssetsPanel,
   loras: LorasPanel,
-  pods: PodsPanel,
   settings: SettingsPanel,
 };
 
