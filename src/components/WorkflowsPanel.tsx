@@ -1,13 +1,30 @@
 import { useState } from "react";
-import { Play, Pause, Clock, CheckCircle2, AlertCircle, ArrowLeft, Save } from "lucide-react";
+import { Play, Clock, CheckCircle2, AlertCircle, ArrowLeft, Save, MessageSquare, Maximize2, ImageIcon, ChevronRight, Minus, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface WorkflowParam {
   key: string;
   label: string;
-  type: "text" | "number" | "select" | "toggle";
+  type: "text" | "number" | "select" | "toggle" | "resolution";
   value: string | number | boolean;
   options?: string[];
+  presets?: string[];
+}
+
+interface WorkflowSection {
+  id: string;
+  title: string;
+  icon: "prompts" | "resolution" | "images";
+  nodes: WorkflowNode[];
+}
+
+interface WorkflowNode {
+  id: string;
+  name: string;
+  type: string;
+  params: WorkflowParam[];
+  collapsible?: boolean;
+  itemCount?: number;
 }
 
 interface Workflow {
@@ -17,8 +34,14 @@ interface Workflow {
   steps: number;
   completed: number;
   description: string;
-  params: WorkflowParam[];
+  sections: WorkflowSection[];
 }
+
+const sectionIcons = {
+  prompts: MessageSquare,
+  resolution: Maximize2,
+  images: ImageIcon,
+};
 
 const workflows: Workflow[] = [
   {
@@ -28,12 +51,36 @@ const workflows: Workflow[] = [
     steps: 12,
     completed: 8,
     description: "Automated data collection and normalization pipeline",
-    params: [
-      { key: "batch_size", label: "Batch Size", type: "number", value: 256 },
-      { key: "source", label: "Data Source", type: "select", value: "API", options: ["API", "CSV", "Database", "Stream"] },
-      { key: "retry_count", label: "Retry Count", type: "number", value: 3 },
-      { key: "auto_validate", label: "Auto Validate", type: "toggle", value: true },
-      { key: "output_format", label: "Output Format", type: "select", value: "JSON", options: ["JSON", "Parquet", "CSV"] },
+    sections: [
+      {
+        id: "sec-prompts",
+        title: "Prompts",
+        icon: "prompts",
+        nodes: [
+          { id: "n1", name: "CR Prompt List", type: "CR Prompt List", collapsible: true, itemCount: 40, params: [] },
+          { id: "n2", name: "CR Prompt List", type: "CR Prompt List", collapsible: true, itemCount: 20, params: [] },
+          { id: "n3", name: "CR Prompt List", type: "CR Prompt List", collapsible: true, itemCount: 20, params: [] },
+          { id: "n4", name: "CR Prompt List", type: "CR Prompt List", collapsible: true, itemCount: 20, params: [] },
+        ],
+      },
+      {
+        id: "sec-resolution",
+        title: "Resolution",
+        icon: "resolution",
+        nodes: [
+          {
+            id: "n5",
+            name: "EmptyFlux2LatentImage",
+            type: "EmptyFlux2LatentImage",
+            params: [
+              { key: "resolution", label: "Resolution", type: "resolution", value: "832x1216", presets: ["512x512", "768x768", "768x1024", "832x1216", "1024x1024", "1024x768", "1216x832", "1344x768", "768x1344"] },
+              { key: "width", label: "Width", type: "number", value: 832 },
+              { key: "height", label: "Height", type: "number", value: 1216 },
+              { key: "batch_size", label: "Batch Size", type: "number", value: 1 },
+            ],
+          },
+        ],
+      },
     ],
   },
   {
@@ -43,10 +90,39 @@ const workflows: Workflow[] = [
     steps: 6,
     completed: 6,
     description: "Extract, transform and load pipeline for analytics",
-    params: [
-      { key: "chunk_size", label: "Chunk Size", type: "number", value: 1000 },
-      { key: "compression", label: "Compression", type: "select", value: "gzip", options: ["none", "gzip", "snappy", "lz4"] },
-      { key: "dedup", label: "Deduplication", type: "toggle", value: true },
+    sections: [
+      {
+        id: "sec-images",
+        title: "Images",
+        icon: "images",
+        nodes: [
+          {
+            id: "n6",
+            name: "SaveImage",
+            type: "SaveImage",
+            params: [
+              { key: "filename_prefix", label: "Filename Prefix", type: "text", value: "ComfyUI" },
+            ],
+          },
+          {
+            id: "n7",
+            name: "SaveImage",
+            type: "SaveImage",
+            params: [
+              { key: "filename_prefix", label: "Filename Prefix", type: "text", value: "ComfyUI" },
+            ],
+          },
+          {
+            id: "n8",
+            name: "LoadImage",
+            type: "LoadImage",
+            params: [
+              { key: "image", label: "Image", type: "text", value: "AnimateDiff_00613.png" },
+              { key: "upload", label: "Upload", type: "text", value: "image" },
+            ],
+          },
+        ],
+      },
     ],
   },
   {
@@ -56,10 +132,33 @@ const workflows: Workflow[] = [
     steps: 4,
     completed: 0,
     description: "Scheduled batch export to external storage",
-    params: [
-      { key: "destination", label: "Destination", type: "select", value: "S3", options: ["S3", "GCS", "Azure Blob", "Local"] },
-      { key: "parallel_workers", label: "Parallel Workers", type: "number", value: 4 },
-      { key: "encrypt", label: "Encrypt Output", type: "toggle", value: false },
+    sections: [
+      {
+        id: "sec-prompts-2",
+        title: "Prompts",
+        icon: "prompts",
+        nodes: [
+          { id: "n9", name: "CR Prompt List", type: "CR Prompt List", collapsible: true, itemCount: 20, params: [] },
+        ],
+      },
+      {
+        id: "sec-resolution-2",
+        title: "Resolution",
+        icon: "resolution",
+        nodes: [
+          {
+            id: "n10",
+            name: "EmptyFlux2LatentImage",
+            type: "EmptyFlux2LatentImage",
+            params: [
+              { key: "resolution", label: "Resolution", type: "resolution", value: "1024x1024", presets: ["512x512", "768x768", "1024x1024", "1216x832"] },
+              { key: "width", label: "Width", type: "number", value: 1024 },
+              { key: "height", label: "Height", type: "number", value: 1024 },
+              { key: "batch_size", label: "Batch Size", type: "number", value: 1 },
+            ],
+          },
+        ],
+      },
     ],
   },
   {
@@ -69,10 +168,22 @@ const workflows: Workflow[] = [
     steps: 8,
     completed: 3,
     description: "Automated report generation and distribution",
-    params: [
-      { key: "template", label: "Template", type: "select", value: "Monthly", options: ["Daily", "Weekly", "Monthly", "Custom"] },
-      { key: "recipients", label: "Recipients Email", type: "text", value: "team@company.com" },
-      { key: "include_charts", label: "Include Charts", type: "toggle", value: true },
+    sections: [
+      {
+        id: "sec-images-2",
+        title: "Images",
+        icon: "images",
+        nodes: [
+          {
+            id: "n11",
+            name: "SaveImage",
+            type: "SaveImage",
+            params: [
+              { key: "filename_prefix", label: "Filename Prefix", type: "text", value: "Report_Output" },
+            ],
+          },
+        ],
+      },
     ],
   },
   {
@@ -82,10 +193,16 @@ const workflows: Workflow[] = [
     steps: 10,
     completed: 6,
     description: "Bidirectional data synchronization between systems",
-    params: [
-      { key: "sync_interval", label: "Sync Interval (min)", type: "number", value: 15 },
-      { key: "conflict_resolution", label: "Conflict Resolution", type: "select", value: "Latest wins", options: ["Latest wins", "Source wins", "Manual"] },
-      { key: "dry_run", label: "Dry Run", type: "toggle", value: false },
+    sections: [
+      {
+        id: "sec-prompts-3",
+        title: "Prompts",
+        icon: "prompts",
+        nodes: [
+          { id: "n12", name: "CR Prompt List", type: "CR Prompt List", collapsible: true, itemCount: 30, params: [] },
+          { id: "n13", name: "CR Prompt List", type: "CR Prompt List", collapsible: true, itemCount: 15, params: [] },
+        ],
+      },
     ],
   },
 ];
@@ -97,17 +214,147 @@ const statusConfig = {
   failed: { icon: AlertCircle, color: "text-destructive", bg: "bg-destructive/10", label: "Failed" },
 };
 
+const NumberStepper = ({ value, onChange, label }: { value: number; onChange: (v: number) => void; label: string }) => (
+  <div>
+    <span className="text-xs text-muted-foreground mb-1.5 block">{label}</span>
+    <div className="flex items-center">
+      <button
+        onClick={() => onChange(Math.max(0, value - 1))}
+        className="w-9 h-9 flex items-center justify-center bg-secondary rounded-l-lg border border-border hover:bg-secondary/80 transition-colors"
+      >
+        <Minus className="w-3.5 h-3.5 text-muted-foreground" />
+      </button>
+      <div className="flex-1 h-9 flex items-center justify-center bg-background border-y border-border font-mono text-sm text-foreground min-w-[80px]">
+        {value}
+      </div>
+      <button
+        onClick={() => onChange(value + 1)}
+        className="w-9 h-9 flex items-center justify-center bg-secondary rounded-r-lg border border-border hover:bg-secondary/80 transition-colors"
+      >
+        <Plus className="w-3.5 h-3.5 text-muted-foreground" />
+      </button>
+    </div>
+  </div>
+);
+
+const NodeCard = ({ node, onParamChange }: { node: WorkflowNode; onParamChange: (nodeId: string, key: string, value: string | number | boolean) => void }) => {
+  const [collapsed, setCollapsed] = useState(true);
+
+  if (node.collapsible) {
+    return (
+      <button
+        onClick={() => setCollapsed(!collapsed)}
+        className="w-full surface-card p-3.5 flex items-center gap-3 hover:border-primary/30 transition-colors duration-150"
+      >
+        <ChevronRight className={cn("w-4 h-4 text-muted-foreground transition-transform duration-200", !collapsed && "rotate-90")} />
+        <span className="text-sm font-medium text-foreground">{node.name}</span>
+        <span className="ml-auto text-xs text-muted-foreground">{node.itemCount} prompts</span>
+      </button>
+    );
+  }
+
+  return (
+    <div className="surface-card p-4 space-y-4">
+      <div className="flex items-center justify-between">
+        <span className="text-sm font-semibold text-foreground">{node.name}</span>
+        <span className="text-xs text-muted-foreground">{node.type}</span>
+      </div>
+
+      {node.params.map((param) => {
+        if (param.type === "resolution" && param.presets) {
+          return (
+            <div key={param.key} className="flex flex-wrap gap-2">
+              {param.presets.map((preset) => (
+                <button
+                  key={preset}
+                  onClick={() => {
+                    onParamChange(node.id, param.key, preset);
+                    const [w, h] = preset.split("x").map(Number);
+                    onParamChange(node.id, "width", w);
+                    onParamChange(node.id, "height", h);
+                  }}
+                  className={cn(
+                    "px-3 py-1.5 rounded-md text-xs font-mono transition-colors duration-150 border",
+                    param.value === preset
+                      ? "bg-accent/20 border-accent text-accent"
+                      : "bg-secondary border-border text-muted-foreground hover:text-foreground hover:border-muted-foreground"
+                  )}
+                >
+                  {preset}
+                </button>
+              ))}
+            </div>
+          );
+        }
+
+        if (param.type === "number") {
+          return (
+            <NumberStepper
+              key={param.key}
+              label={param.label}
+              value={param.value as number}
+              onChange={(v) => onParamChange(node.id, param.key, v)}
+            />
+          );
+        }
+
+        if (param.type === "text") {
+          return (
+            <div key={param.key}>
+              <span className="text-xs text-muted-foreground mb-1.5 block">{param.label}</span>
+              <input
+                type="text"
+                value={param.value as string}
+                onChange={(e) => onParamChange(node.id, param.key, e.target.value)}
+                className="w-full px-3 py-2 bg-background border border-border rounded-lg text-sm text-foreground focus:border-primary focus:outline-none transition-colors font-mono"
+              />
+            </div>
+          );
+        }
+
+        if (param.type === "select") {
+          return (
+            <div key={param.key}>
+              <span className="text-xs text-muted-foreground mb-1.5 block">{param.label}</span>
+              <select
+                value={param.value as string}
+                onChange={(e) => onParamChange(node.id, param.key, e.target.value)}
+                className="w-full px-3 py-2 bg-background border border-border rounded-lg text-sm text-foreground focus:border-primary focus:outline-none transition-colors"
+              >
+                {param.options?.map((opt) => (
+                  <option key={opt} value={opt}>{opt}</option>
+                ))}
+              </select>
+            </div>
+          );
+        }
+
+        return null;
+      })}
+    </div>
+  );
+};
+
 const WorkflowsPanel = () => {
   const [selectedWorkflow, setSelectedWorkflow] = useState<Workflow | null>(null);
-  const [editParams, setEditParams] = useState<WorkflowParam[]>([]);
+  const [editSections, setEditSections] = useState<WorkflowSection[]>([]);
 
   const openWorkflow = (wf: Workflow) => {
     setSelectedWorkflow(wf);
-    setEditParams(wf.params.map(p => ({ ...p })));
+    setEditSections(JSON.parse(JSON.stringify(wf.sections)));
   };
 
-  const updateParam = (key: string, value: string | number | boolean) => {
-    setEditParams(prev => prev.map(p => p.key === key ? { ...p, value } : p));
+  const handleParamChange = (nodeId: string, key: string, value: string | number | boolean) => {
+    setEditSections(prev =>
+      prev.map(section => ({
+        ...section,
+        nodes: section.nodes.map(node =>
+          node.id === nodeId
+            ? { ...node, params: node.params.map(p => p.key === key ? { ...p, value } : p) }
+            : node
+        ),
+      }))
+    );
   };
 
   if (selectedWorkflow) {
@@ -115,7 +362,7 @@ const WorkflowsPanel = () => {
     const StatusIcon = status.icon;
 
     return (
-      <div className="flex-1 p-6 animate-fade-in">
+      <div className="flex-1 p-6 animate-fade-in overflow-y-auto">
         <button
           onClick={() => setSelectedWorkflow(null)}
           className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4"
@@ -124,21 +371,27 @@ const WorkflowsPanel = () => {
           Back to Workflows
         </button>
 
-        <div className="flex items-center gap-3 mb-2">
-          <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center", status.bg)}>
-            <StatusIcon className={cn("w-4 h-4", status.color)} />
-          </div>
-          <div>
-            <h1 className="text-xl font-semibold text-foreground">{selectedWorkflow.name}</h1>
-            <div className="flex items-center gap-2 mt-0.5">
-              <span className="font-mono text-[11px] text-muted-foreground">{selectedWorkflow.id}</span>
-              <span className="text-border">•</span>
-              <span className={cn("text-xs font-medium", status.color)}>{status.label}</span>
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-3">
+            <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center", status.bg)}>
+              <StatusIcon className={cn("w-4 h-4", status.color)} />
+            </div>
+            <div>
+              <h1 className="text-xl font-semibold text-foreground">{selectedWorkflow.name}</h1>
+              <div className="flex items-center gap-2 mt-0.5">
+                <span className="font-mono text-[11px] text-muted-foreground">{selectedWorkflow.id}</span>
+                <span className="text-border">•</span>
+                <span className={cn("text-xs font-medium", status.color)}>{status.label}</span>
+              </div>
             </div>
           </div>
+          <button className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-xs font-medium hover:bg-primary/90 transition-colors duration-150">
+            <Save className="w-3.5 h-3.5" />
+            Save Changes
+          </button>
         </div>
 
-        <p className="text-sm text-muted-foreground mb-6">{selectedWorkflow.description}</p>
+        <p className="text-sm text-muted-foreground mb-4">{selectedWorkflow.description}</p>
 
         <div className="flex items-center gap-2 mb-6">
           <span className="text-sm text-muted-foreground">{selectedWorkflow.completed}/{selectedWorkflow.steps} steps</span>
@@ -153,69 +406,23 @@ const WorkflowsPanel = () => {
           </div>
         </div>
 
-        <div className="surface-card p-5">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-semibold text-foreground">Workflow Parameters</h2>
-            <button className="flex items-center gap-2 px-3 py-1.5 bg-primary text-primary-foreground rounded-lg text-xs font-medium hover:bg-primary/90 transition-colors duration-150">
-              <Save className="w-3.5 h-3.5" />
-              Save Changes
-            </button>
-          </div>
-
-          <div className="space-y-4">
-            {editParams.map((param) => (
-              <div key={param.key} className="flex items-center gap-4">
-                <label className="text-label w-40 shrink-0">{param.label}</label>
-
-                {param.type === "text" && (
-                  <input
-                    type="text"
-                    value={param.value as string}
-                    onChange={(e) => updateParam(param.key, e.target.value)}
-                    className="flex-1 px-3 py-2 bg-background border border-border rounded-lg text-sm text-foreground focus:border-primary focus:outline-none transition-colors font-mono"
-                  />
-                )}
-
-                {param.type === "number" && (
-                  <input
-                    type="number"
-                    value={param.value as number}
-                    onChange={(e) => updateParam(param.key, parseFloat(e.target.value) || 0)}
-                    className="w-32 px-3 py-2 bg-background border border-border rounded-lg text-sm text-foreground focus:border-primary focus:outline-none transition-colors font-mono"
-                  />
-                )}
-
-                {param.type === "select" && (
-                  <select
-                    value={param.value as string}
-                    onChange={(e) => updateParam(param.key, e.target.value)}
-                    className="flex-1 px-3 py-2 bg-background border border-border rounded-lg text-sm text-foreground focus:border-primary focus:outline-none transition-colors"
-                  >
-                    {param.options?.map((opt) => (
-                      <option key={opt} value={opt}>{opt}</option>
-                    ))}
-                  </select>
-                )}
-
-                {param.type === "toggle" && (
-                  <button
-                    onClick={() => updateParam(param.key, !(param.value as boolean))}
-                    className={cn(
-                      "w-10 h-5 rounded-full transition-colors duration-200 relative",
-                      param.value ? "bg-primary" : "bg-secondary"
-                    )}
-                  >
-                    <div
-                      className={cn(
-                        "w-4 h-4 rounded-full bg-foreground absolute top-0.5 transition-transform duration-200",
-                        param.value ? "translate-x-5" : "translate-x-0.5"
-                      )}
-                    />
-                  </button>
-                )}
+        <div className="space-y-8">
+          {editSections.map((section) => {
+            const SectionIcon = sectionIcons[section.icon];
+            return (
+              <div key={section.id}>
+                <div className="flex items-center gap-2 mb-3">
+                  <SectionIcon className="w-4 h-4 text-accent" />
+                  <h2 className="text-sm font-semibold text-accent">{section.title}</h2>
+                </div>
+                <div className="space-y-3">
+                  {section.nodes.map((node) => (
+                    <NodeCard key={node.id} node={node} onParamChange={handleParamChange} />
+                  ))}
+                </div>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
     );
