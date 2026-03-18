@@ -491,6 +491,8 @@ const NodeCard = ({ node, onParamChange }: { node: WorkflowNode; onParamChange: 
 const WorkflowsPanel = () => {
   const [selectedWorkflow, setSelectedWorkflow] = useState<Workflow | null>(null);
   const [editSections, setEditSections] = useState<WorkflowSection[]>([]);
+  const [workflowPods, setWorkflowPods] = useState<Record<string, string>>({});
+  const [deployingFor, setDeployingFor] = useState<string | null>(null);
 
   const openWorkflow = (wf: Workflow) => {
     setSelectedWorkflow(wf);
