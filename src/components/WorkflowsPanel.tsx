@@ -41,6 +41,8 @@ const sectionIcons = {
   prompts: MessageSquare,
   resolution: Maximize2,
   images: ImageIcon,
+  loras: Sparkles,
+  gpus: Cpu,
 };
 
 const workflows: Workflow[] = [
