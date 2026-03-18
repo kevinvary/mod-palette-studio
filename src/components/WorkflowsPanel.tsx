@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 interface WorkflowParam {
   key: string;
   label: string;
-  type: "text" | "number" | "select" | "toggle" | "resolution";
+  type: "text" | "textarea" | "number" | "select" | "toggle" | "resolution";
   value: string | number | boolean;
   options?: string[];
   presets?: string[];
