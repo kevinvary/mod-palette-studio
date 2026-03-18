@@ -256,7 +256,7 @@ const NodeCard = ({ node, onParamChange }: { node: WorkflowNode; onParamChange: 
   return (
     <div className="surface-card p-4 space-y-4">
       <div className="flex items-center justify-between">
-        <span className="text-sm font-semibold text-foreground">{node.name}</span>
+        <span className="text-sm font-semibold text-foreground">no_Name_Input</span>
         <span className="text-xs text-muted-foreground">{node.type}</span>
       </div>
 
