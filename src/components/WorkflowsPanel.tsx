@@ -384,6 +384,20 @@ const NodeCard = ({ node, onParamChange }: { node: WorkflowNode; onParamChange: 
           );
         }
 
+        if (param.type === "textarea") {
+          return (
+            <div key={param.key}>
+              <span className="text-xs text-muted-foreground mb-1.5 block">{param.label}</span>
+              <textarea
+                value={param.value as string}
+                onChange={(e) => onParamChange(node.id, param.key, e.target.value)}
+                rows={4}
+                className="w-full px-3 py-2 bg-background border border-border rounded-lg text-sm text-foreground focus:border-primary focus:outline-none transition-colors font-mono resize-y"
+              />
+            </div>
+          );
+        }
+
         if (param.type === "text") {
           return (
             <div key={param.key}>
