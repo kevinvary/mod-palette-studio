@@ -453,7 +453,7 @@ const WorkflowsPanel = () => {
                     <StatusIcon className={cn("w-4 h-4", status.color)} />
                   </div>
                   <div>
-                    <h3 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors duration-150">{wf.name}</h3>
+                    <h3 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors duration-150">no_Name_Input</h3>
                     <span className="font-mono text-[11px] text-muted-foreground">{wf.id}</span>
                   </div>
                 </div>
