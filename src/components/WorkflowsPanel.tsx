@@ -43,6 +43,9 @@ const sectionIcons = {
   images: ImageIcon,
   loras: Sparkles,
   gpus: Cpu,
+  models: Box,
+  samplers: Sliders,
+  controlnet: Shield,
 };
 
 const workflows: Workflow[] = [
