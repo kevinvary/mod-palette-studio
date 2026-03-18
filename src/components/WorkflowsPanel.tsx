@@ -576,6 +576,8 @@ const WorkflowsPanel = () => {
               </div>
             );
           })}
+
+          <GpuSelector />
         </div>
       </div>
     );
