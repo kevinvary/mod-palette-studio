@@ -3,7 +3,7 @@ import NavRail from "@/components/NavRail";
 import WorkflowsPanel from "@/components/WorkflowsPanel";
 import AssetsPanel from "@/components/AssetsPanel";
 import LorasPanel from "@/components/LorasPanel";
-import PodsPanel from "@/components/PodsPanel";
+
 import SettingsPanel from "@/components/SettingsPanel";
 import ConfigPanel from "@/components/ConfigPanel";
 
