@@ -11,9 +11,9 @@ interface ModelOption {
 }
 
 const initialModels: ModelOption[] = [
-  { id: "flux-klein", name: "FLUX Klein", description: "Modelo ligero y rápido para entrenamientos ágiles", params: "9B", selected: true },
-  { id: "wan", name: "Wan", description: "Especializado en video y animación de alta calidad", params: "14B", selected: false },
-  { id: "zt-turbo", name: "ZT Turbo", description: "Máxima velocidad de inferencia con calidad competitiva", params: "12B", selected: false },
+  { id: "flux-klein", name: "FLUX Klein", description: "Modelo ligero y rápido para entrenamientos ágiles", params: "", selected: true },
+  { id: "wan", name: "Wan", description: "Especializado en video y animación de alta calidad", params: "", selected: false },
+  { id: "zt-turbo", name: "ZT Turbo", description: "Máxima velocidad de inferencia con calidad competitiva", params: "", selected: false },
 ];
 
 const TrainLoraPanel = () => {
@@ -112,9 +112,11 @@ const TrainLoraPanel = () => {
                   </div>
                   <h3 className="text-sm font-semibold text-foreground">{model.name}</h3>
                   <p className="text-[10px] text-muted-foreground mt-1 leading-relaxed">{model.description}</p>
-                  <span className="inline-block mt-2 px-2 py-0.5 bg-secondary rounded text-[10px] font-mono text-muted-foreground">
-                    {model.params}
-                  </span>
+                  {model.params && (
+                    <span className="inline-block mt-2 px-2 py-0.5 bg-secondary rounded text-[10px] font-mono text-muted-foreground">
+                      {model.params}
+                    </span>
+                  )}
                 </button>
               ))}
             </div>
