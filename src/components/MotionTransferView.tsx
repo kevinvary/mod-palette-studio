@@ -235,7 +235,7 @@ const MotionTransferView = () => {
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   La foto de nuestra modelo debe ser <span className="text-foreground font-medium">muy limpia y nítida</span>. Esto reduce significativamente el margen de error en el resultado final.
                 </p>
-                <div className="grid grid-cols-2 gap-3 mt-2">
+                <div className="grid grid-cols-3 gap-3 mt-2">
                   <div className="rounded-lg overflow-hidden border border-border">
                     <img src={exampleCleanPhoto} alt="Nuestra modelo" className="w-full object-contain" />
                     <div className="px-2 py-1.5 bg-secondary">
@@ -246,6 +246,12 @@ const MotionTransferView = () => {
                     <img src={exampleResultPhoto} alt="Primer frame del video" className="w-full object-contain" />
                     <div className="px-2 py-1.5 bg-secondary">
                       <p className="text-[10px] text-muted-foreground text-center">Primer frame del video</p>
+                    </div>
+                  </div>
+                  <div className="rounded-lg overflow-hidden border border-border">
+                    <img src={exampleFinalResult} alt="Resultado final" className="w-full object-contain" />
+                    <div className="px-2 py-1.5 bg-secondary">
+                      <p className="text-[10px] text-muted-foreground text-center">Resultado final</p>
                     </div>
                   </div>
                 </div>
