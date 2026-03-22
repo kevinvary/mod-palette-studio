@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Play, Upload, ImageIcon, Sparkles, ChevronDown, Clock, RotateCcw, Copy, Trash2, Volume2, Monitor } from "lucide-react";
+import { Play, Upload, Sparkles, Clock, RotateCcw, Copy, Trash2, Monitor } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Switch } from "@/components/ui/switch";
 
