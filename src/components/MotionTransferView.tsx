@@ -3,6 +3,7 @@ import { Play, Upload, Clock, RotateCcw, Copy, Trash2, Video, ImageIcon, AlertTr
 import { cn } from "@/lib/utils";
 import exampleCleanPhoto from "@/assets/example-clean-photo.jpg";
 import exampleResultPhoto from "@/assets/example-result-photo.jpg";
+import exampleFinalResult from "@/assets/example-final-result.jpg";
 
 interface GeneratedItem {
   id: string;
