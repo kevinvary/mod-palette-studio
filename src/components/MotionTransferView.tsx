@@ -228,6 +228,29 @@ const MotionTransferView = () => {
               <h2 className="text-lg font-semibold text-foreground">¿Cómo funciona Motion Transfer?</h2>
 
               <div className="surface-card p-5 rounded-xl space-y-4">
+                <h3 className="text-sm font-semibold text-primary flex items-center gap-2">
+                  <Camera className="w-4 h-4" /> Paso 1 — Foto de la modelo limpia y nítida
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  La foto de nuestra modelo debe ser <span className="text-foreground font-medium">muy limpia y nítida</span>. Esto reduce significativamente el margen de error en el resultado final.
+                </p>
+                <div className="grid grid-cols-2 gap-3 mt-2">
+                  <div className="rounded-lg overflow-hidden border border-border">
+                    <img src={exampleCleanPhoto} alt="Ejemplo foto limpia" className="w-full h-40 object-cover object-top" />
+                    <div className="px-2 py-1.5 bg-secondary">
+                      <p className="text-[10px] text-muted-foreground text-center">Foto limpia de entrada</p>
+                    </div>
+                  </div>
+                  <div className="rounded-lg overflow-hidden border border-border">
+                    <img src={exampleResultPhoto} alt="Ejemplo resultado" className="w-full h-40 object-cover object-top" />
+                    <div className="px-2 py-1.5 bg-secondary">
+                      <p className="text-[10px] text-muted-foreground text-center">Resultado con motion</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="surface-card p-5 rounded-xl space-y-4">
                 <h3 className="text-sm font-semibold text-destructive flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4" /> Errores notorios a evitar
                 </h3>
