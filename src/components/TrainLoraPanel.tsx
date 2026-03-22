@@ -112,9 +112,11 @@ const TrainLoraPanel = () => {
                   </div>
                   <h3 className="text-sm font-semibold text-foreground">{model.name}</h3>
                   <p className="text-[10px] text-muted-foreground mt-1 leading-relaxed">{model.description}</p>
-                  <span className="inline-block mt-2 px-2 py-0.5 bg-secondary rounded text-[10px] font-mono text-muted-foreground">
-                    {model.params}
-                  </span>
+                  {model.params && (
+                    <span className="inline-block mt-2 px-2 py-0.5 bg-secondary rounded text-[10px] font-mono text-muted-foreground">
+                      {model.params}
+                    </span>
+                  )}
                 </button>
               ))}
             </div>
