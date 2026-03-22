@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Play, Upload, Clock, RotateCcw, Copy, Trash2, Video, ImageIcon } from "lucide-react";
+import { Play, Upload, Clock, RotateCcw, Copy, Trash2, Video, ImageIcon, AlertTriangle, Scissors, Star, MessageSquare } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface GeneratedItem {
