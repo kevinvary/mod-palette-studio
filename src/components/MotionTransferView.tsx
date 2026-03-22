@@ -242,7 +242,7 @@ const MotionTransferView = () => {
                     </div>
                   </div>
                   <div className="rounded-lg overflow-hidden border border-border">
-                    <img src={exampleResultPhoto} alt="Primer frame del video" className="w-full h-40 object-cover object-top" />
+                    <img src={exampleResultPhoto} alt="Primer frame del video" className="w-full object-contain" />
                     <div className="px-2 py-1.5 bg-secondary">
                       <p className="text-[10px] text-muted-foreground text-center">Primer frame del video</p>
                     </div>
