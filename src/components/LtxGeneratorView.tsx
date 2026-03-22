@@ -312,4 +312,4 @@ const WorkflowsPanel = () => {
   );
 };
 
-export default WorkflowsPanel;
+export default LtxGeneratorView;
