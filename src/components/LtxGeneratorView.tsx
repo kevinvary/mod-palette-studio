@@ -23,7 +23,7 @@ const mockHistory: GeneratedItem[] = [
   { id: "gen-004", model: "ZBase ZIT v1", resolution: "1080p", duration: "10.0s", thumbnails: [], status: "completed" },
 ];
 
-const WorkflowsPanel = () => {
+const LtxGeneratorView = () => {
   const [selectedModel, setSelectedModel] = useState(models[0]);
   const [prompt, setPrompt] = useState("");
   const [enhanceOn, setEnhanceOn] = useState(true);
@@ -312,4 +312,4 @@ const WorkflowsPanel = () => {
   );
 };
 
-export default WorkflowsPanel;
+export default LtxGeneratorView;
