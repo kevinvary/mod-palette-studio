@@ -255,6 +255,20 @@ const MotionTransferView = () => {
                     </div>
                   </div>
                 </div>
+                <div className="grid grid-cols-2 gap-3 mt-3">
+                  <div className="rounded-lg overflow-hidden border border-border">
+                    <video src="/videos/example-reference.mp4" className="w-full object-contain" controls muted loop />
+                    <div className="px-2 py-1.5 bg-secondary">
+                      <p className="text-[10px] text-muted-foreground text-center">Video de referencia</p>
+                    </div>
+                  </div>
+                  <div className="rounded-lg overflow-hidden border border-border">
+                    <video src="/videos/example-result.mp4" className="w-full object-contain" controls muted loop />
+                    <div className="px-2 py-1.5 bg-secondary">
+                      <p className="text-[10px] text-muted-foreground text-center">Resultado final</p>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div className="surface-card p-5 rounded-xl space-y-4">
