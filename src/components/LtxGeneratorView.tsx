@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Play, Upload, ImageIcon, Sparkles, ChevronDown, Clock, RotateCcw, Copy, Trash2, Volume2, Monitor } from "lucide-react";
+import { Play, Upload, Sparkles, Clock, RotateCcw, Copy, Trash2, Monitor } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Switch } from "@/components/ui/switch";
 
@@ -12,7 +12,6 @@ interface GeneratedItem {
   status: "completed" | "processing" | "failed";
 }
 
-const models = ["Kling 2.6", "ZBase ZIT v1", "Lumina 2.0", "SD3 Turbo"];
 const durations = ["5s", "10s", "15s"];
 const aspects = ["1:1", "9:16", "16:9", "4:3", "3:4"];
 
@@ -24,13 +23,11 @@ const mockHistory: GeneratedItem[] = [
 ];
 
 const LtxGeneratorView = () => {
-  const [selectedModel, setSelectedModel] = useState(models[0]);
-  const [prompt, setPrompt] = useState("");
-  const [enhanceOn, setEnhanceOn] = useState(true);
-  const [audioOn, setAudioOn] = useState(false);
+  const [positivePrompt, setPositivePrompt] = useState("");
+  const [negativePrompt, setNegativePrompt] = useState("");
+  const [enhancePrompt, setEnhancePrompt] = useState(true);
   const [selectedDuration, setSelectedDuration] = useState("5s");
   const [selectedAspect, setSelectedAspect] = useState("9:16");
-  const [showModelDropdown, setShowModelDropdown] = useState(false);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"history" | "howItWorks">("history");
 
@@ -46,17 +43,13 @@ const LtxGeneratorView = () => {
     <div className="flex h-full overflow-hidden">
       {/* Left Sidebar - Creation Panel */}
       <div className="w-64 border-r border-border bg-sidebar flex flex-col overflow-y-auto shrink-0">
-        {/* Model Selector Card */}
+        {/* Model Label */}
         <div className="p-4">
           <div className="relative rounded-xl overflow-hidden h-28 bg-gradient-to-br from-primary/30 via-accent/20 to-primary/10 mb-1">
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMwMC5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJub25lIi8+PC9zdmc+')] opacity-20" />
             <div className="absolute bottom-3 left-3">
-              <p className="text-xs font-bold text-accent uppercase tracking-wider">GENERAL</p>
-              <p className="text-[10px] text-muted-foreground">{selectedModel}</p>
+              <p className="text-xs font-bold text-accent uppercase tracking-wider">VIDEO</p>
+              <p className="text-[10px] text-muted-foreground">LTX 2.3</p>
             </div>
-            <button className="absolute top-2 right-2 px-2 py-1 bg-accent text-accent-foreground text-[10px] font-semibold rounded-md hover:bg-accent/90 transition-colors">
-              ✎ Change
-            </button>
           </div>
         </div>
 
@@ -87,68 +80,52 @@ const LtxGeneratorView = () => {
           </div>
         </div>
 
-        {/* Prompt */}
+        {/* Positive Prompt */}
         <div className="px-4 pb-3">
           <div className="surface-card p-3">
-            <p className="text-xs font-semibold text-foreground mb-1">Prompt</p>
+            <p className="text-xs font-semibold text-accent mb-1">Positive Prompt</p>
             <textarea
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
+              value={positivePrompt}
+              onChange={(e) => setPositivePrompt(e.target.value)}
               placeholder="Describe the scene you imagine, with details."
               rows={3}
               className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none resize-none font-mono text-[11px]"
             />
-            <div className="flex items-center gap-1.5 mt-2 pt-2 border-t border-border">
-              <Sparkles className="w-3 h-3 text-accent" />
-              <span className="text-[11px] text-foreground font-medium">Enhance on</span>
-            </div>
           </div>
         </div>
 
-        {/* Audio toggle */}
+        {/* Negative Prompt */}
+        <div className="px-4 pb-3">
+          <div className="surface-card p-3">
+            <p className="text-xs font-semibold text-destructive mb-1">Negative Prompt</p>
+            <textarea
+              value={negativePrompt}
+              onChange={(e) => setNegativePrompt(e.target.value)}
+              placeholder="What to avoid: blurry, low quality, distorted..."
+              rows={2}
+              className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none resize-none font-mono text-[11px]"
+            />
+          </div>
+        </div>
+
+        {/* Mejorar Prompt toggle */}
         <div className="px-4 pb-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-medium text-foreground">Audio</span>
-              <div className="w-4 h-4 rounded-full bg-muted flex items-center justify-center">
-                <Volume2 className="w-2.5 h-2.5 text-muted-foreground" />
-              </div>
+              <Sparkles className="w-3.5 h-3.5 text-accent" />
+              <span className="text-xs font-medium text-foreground">Mejorar Prompt</span>
             </div>
-            <Switch checked={audioOn} onCheckedChange={setAudioOn} />
+            <Switch checked={enhancePrompt} onCheckedChange={setEnhancePrompt} />
           </div>
         </div>
 
-        {/* Model dropdown */}
+        {/* Model (static) */}
         <div className="px-4 pb-3">
           <div className="surface-card p-3">
             <p className="text-[10px] text-muted-foreground mb-1">Model</p>
-            <div className="relative">
-              <button
-                onClick={() => setShowModelDropdown(!showModelDropdown)}
-                className="w-full flex items-center justify-between text-sm text-foreground font-medium"
-              >
-                <span className="flex items-center gap-2">
-                  {selectedModel}
-                  <span className="text-accent text-[10px]">✦</span>
-                </span>
-                <ChevronDown className={cn("w-4 h-4 text-muted-foreground transition-transform", showModelDropdown && "rotate-180")} />
-              </button>
-              {showModelDropdown && (
-                <div className="absolute top-full left-0 right-0 mt-1 bg-popover border border-border rounded-lg shadow-lg z-10 animate-fade-in">
-                  {models.map((m) => (
-                    <button
-                      key={m}
-                      onClick={() => { setSelectedModel(m); setShowModelDropdown(false); }}
-                      className={cn(
-                        "w-full text-left px-3 py-2 text-xs hover:bg-secondary transition-colors first:rounded-t-lg last:rounded-b-lg",
-                        m === selectedModel ? "text-accent font-medium" : "text-foreground"
-                      )}
-                    >
-                      {m}
-                    </button>
-                  ))}
-                </div>
-              )}
+            <div className="flex items-center gap-2 text-sm text-foreground font-medium">
+              LTX 2.3
+              <span className="text-accent text-[10px]">✦</span>
             </div>
           </div>
         </div>
