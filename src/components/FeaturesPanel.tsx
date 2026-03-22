@@ -131,7 +131,7 @@ const FeaturesPanel = () => {
             </button>
           </div>
           <div className="flex-1 overflow-hidden">
-            <LtxGeneratorView />
+            {feature.id === "ltx-i2v" ? <LtxGeneratorView /> : <MotionTransferView />}
           </div>
         </div>
       );
