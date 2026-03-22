@@ -47,7 +47,7 @@ const features: Feature[] = [
   },
   {
     id: "iceklub-workflows",
-    name: "Iceklub Workflows",
+    name: "Kevin Workflows",
     title: "Iceklub Workflows",
     subtitle: "10 workflows de generación — imágenes, vídeos y captions",
     category: "Multi",
