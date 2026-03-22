@@ -271,7 +271,7 @@ const LtxGeneratorView = () => {
               </div>
 
               <div className="surface-card p-5 rounded-xl space-y-3">
-                <h3 className="text-sm font-semibold text-accent">✨ Mejorar Prompt — Mantener SIEMPRE activado</h3>
+                <h3 className="text-sm font-semibold text-accent flex items-center gap-2"><Sparkles className="w-4 h-4" /> Mejorar Prompt — Mantener SIEMPRE activado</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   La opción <span className="text-foreground font-medium">"Mejorar Prompt"</span> debe estar encendida en todo momento. Esta función optimiza automáticamente tu prompt para obtener los mejores resultados posibles del modelo. Solo desactívala si sabes al 100% lo que estás haciendo y tienes experiencia avanzada con prompt engineering.
                 </p>
