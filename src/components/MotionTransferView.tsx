@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Play, Upload, Clock, RotateCcw, Copy, Trash2, Video, ImageIcon } from "lucide-react";
+import { Play, Upload, Clock, RotateCcw, Copy, Trash2, Video, ImageIcon, AlertTriangle, Scissors, Star, MessageSquare } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface GeneratedItem {
@@ -224,9 +224,46 @@ const MotionTransferView = () => {
           ) : (
             <div className="max-w-2xl mx-auto space-y-6 py-4">
               <h2 className="text-lg font-semibold text-foreground">¿Cómo funciona Motion Transfer?</h2>
-              <div className="surface-card p-5 rounded-xl space-y-3">
+
+              <div className="surface-card p-5 rounded-xl space-y-4">
+                <h3 className="text-sm font-semibold text-destructive flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4" /> Errores notorios a evitar
+                </h3>
+                <ul className="text-xs text-muted-foreground leading-relaxed space-y-2 list-disc list-inside">
+                  <li>Videos donde la <span className="text-foreground font-medium">cara del sujeto está muy lejos</span> — ningún motor de imagen-video actual puede procesarlos bien.</li>
+                  <li>Videos con <span className="text-foreground font-medium">fondos negros muy notorios</span> — generan artefactos y resultados pobres.</li>
+                </ul>
+              </div>
+
+              <div className="surface-card p-5 rounded-xl space-y-4">
+                <h3 className="text-sm font-semibold text-accent flex items-center gap-2">
+                  <Scissors className="w-4 h-4" /> Duración del video
+                </h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  Sube una <span className="text-foreground font-medium">imagen del personaje</span> y un <span className="text-foreground font-medium">vídeo de referencia de movimiento</span>. El modelo transferirá el movimiento del vídeo al personaje de la imagen, generando un nuevo vídeo con el movimiento aplicado.
+                  Se recomienda usar videos de <span className="text-foreground font-medium">no más de 10 segundos</span>. En caso de tener un video más largo, <span className="text-foreground font-medium">fraccionarlo en partes</span> para obtener mejores resultados. No hay un límite estricto de segundos, pero esta es la recomendación.
+                </p>
+              </div>
+
+              <div className="surface-card p-5 rounded-xl space-y-4">
+                <h3 className="text-sm font-semibold text-primary flex items-center gap-2">
+                  <Star className="w-4 h-4" /> Recomendación más importante
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Sacar el <span className="text-foreground font-medium">primer frame del video de muestra</span> y poner a nuestra modelo en ese frame. Esto se puede hacer con cualquier motor de generación de imágenes (<span className="text-foreground font-medium">Nano Banana Pro</span>).
+                </p>
+              </div>
+
+              <div className="surface-card p-5 rounded-xl space-y-4">
+                <h3 className="text-sm font-semibold text-accent flex items-center gap-2">
+                  <MessageSquare className="w-4 h-4" /> Prompt de ejemplo
+                </h3>
+                <div className="bg-secondary rounded-lg p-3">
+                  <p className="text-xs text-foreground font-mono leading-relaxed italic">
+                    "foto 1, posando como foto 2, copiando la misma ropa y background que la foto 2"
+                  </p>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Este prompt funciona en muchos casos. Si no da el resultado esperado, buscar variantes del mismo enfoque.
                 </p>
               </div>
             </div>
