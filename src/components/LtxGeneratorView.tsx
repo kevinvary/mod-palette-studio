@@ -165,9 +165,15 @@ const LtxGeneratorView = () => {
             ⓘ How it works
           </button>
 
-          <div className="ml-auto flex items-center gap-2">
-            <button className="px-3 py-1.5 bg-secondary rounded-lg text-xs text-muted-foreground hover:text-foreground transition-colors">☰ List</button>
-            <button className="px-3 py-1.5 bg-secondary rounded-lg text-xs text-muted-foreground hover:text-foreground transition-colors">⊞ Grid</button>
+          <div className="ml-auto flex items-center gap-1 bg-secondary rounded-lg p-0.5">
+            <button
+              onClick={() => setViewMode("list")}
+              className={cn("px-3 py-1.5 rounded-md text-xs transition-colors", viewMode === "list" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground")}
+            >☰ List</button>
+            <button
+              onClick={() => setViewMode("grid")}
+              className={cn("px-3 py-1.5 rounded-md text-xs transition-colors", viewMode === "grid" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground")}
+            >⊞ Grid</button>
           </div>
         </div>
 
