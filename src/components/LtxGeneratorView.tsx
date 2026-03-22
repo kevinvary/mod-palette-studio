@@ -130,45 +130,6 @@ const LtxGeneratorView = () => {
           </div>
         </div>
 
-        {/* Duration & Aspect */}
-        <div className="px-4 pb-4">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2">
-              <Clock className="w-3.5 h-3.5 text-muted-foreground" />
-              <div className="flex bg-secondary rounded-lg overflow-hidden">
-                {durations.map((d) => (
-                  <button
-                    key={d}
-                    onClick={() => setSelectedDuration(d)}
-                    className={cn(
-                      "px-3 py-1.5 text-[11px] font-medium transition-colors",
-                      d === selectedDuration ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    {d}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <Monitor className="w-3.5 h-3.5 text-muted-foreground" />
-              <div className="flex bg-secondary rounded-lg overflow-hidden">
-                {aspects.slice(0, 2).map((a) => (
-                  <button
-                    key={a}
-                    onClick={() => setSelectedAspect(a)}
-                    className={cn(
-                      "px-2.5 py-1.5 text-[11px] font-medium transition-colors",
-                      a === selectedAspect ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    {a}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* Generate button */}
         <div className="px-4 pb-4 mt-auto">
