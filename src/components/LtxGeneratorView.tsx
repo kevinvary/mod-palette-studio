@@ -201,10 +201,6 @@ const LtxGeneratorView = () => {
                     </div>
                     <div className="p-3">
                       <p className="text-xs font-semibold text-foreground mb-1">{item.model}</p>
-                      <div className="flex items-center gap-2">
-                        <span className="px-2 py-0.5 bg-secondary rounded text-[10px] text-muted-foreground">{item.resolution}</span>
-                        <span className="px-2 py-0.5 bg-secondary rounded text-[10px] text-muted-foreground">{item.duration}</span>
-                      </div>
                       <div className="flex items-center gap-1 mt-2">
                         <button className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors">
                           <RotateCcw className="w-3 h-3" /> Rerun
@@ -240,10 +236,6 @@ const LtxGeneratorView = () => {
                     <div className="flex flex-col justify-between flex-1 min-w-0">
                       <div>
                         <p className="text-xs font-semibold text-foreground mb-1">{item.model}</p>
-                        <div className="flex items-center gap-2">
-                          <span className="px-2 py-0.5 bg-secondary rounded text-[10px] text-muted-foreground">♡ {item.resolution}</span>
-                          <span className="px-2 py-0.5 bg-secondary rounded text-[10px] text-muted-foreground">⏱ {item.duration}</span>
-                        </div>
                       </div>
                       <div className="flex items-center gap-2">
                         <button className="flex items-center gap-1.5 text-[11px] text-muted-foreground hover:text-foreground transition-colors">
