@@ -290,7 +290,7 @@ const LtxGeneratorView = () => {
                   Si necesitas vídeos más largos, la recomendación es <span className="text-foreground font-medium">fraccionar por partes</span>: genera clips de 5 segundos y únelos en posproducción. Esto mantiene la calidad en cada segmento.
                 </p>
                 <div className="flex items-center gap-2 px-3 py-2 bg-primary/10 rounded-lg border border-primary/20">
-                  <span className="text-primary text-sm">💬</span>
+                  <Headphones className="w-3.5 h-3.5 text-primary shrink-0" />
                   <span className="text-[11px] text-primary font-medium">¿Necesitas más segundos? Contacta con soporte para habilitar la opción de duración extendida.</span>
                 </div>
               </div>
