@@ -14,7 +14,7 @@ const panels: Record<string, React.FC> = {
 };
 
 const Index = () => {
-  const [activeSection, setActiveSection] = useState("workflows");
+  const [activeSection, setActiveSection] = useState("features");
   const ActivePanel = panels[activeSection];
 
   return (
