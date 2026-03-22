@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Play, Upload, Clock, RotateCcw, Copy, Trash2, Video, ImageIcon, AlertTriangle, Scissors, Star, MessageSquare, Camera } from "lucide-react";
+import { Play, Upload, Clock, RotateCcw, Copy, Trash2, Video, ImageIcon, AlertTriangle, Scissors, Star, MessageSquare, Camera, Timer } from "lucide-react";
 import { cn } from "@/lib/utils";
 import exampleCleanPhoto from "@/assets/example-clean-photo.jpg";
 import exampleResultPhoto from "@/assets/example-result-photo.jpg";
@@ -272,6 +272,29 @@ const MotionTransferView = () => {
               </div>
 
               <div className="surface-card p-5 rounded-xl space-y-4">
+                <h3 className="text-sm font-semibold text-accent flex items-center gap-2">
+                  <MessageSquare className="w-4 h-4" /> Prompt de ejemplo
+                </h3>
+                <div className="bg-secondary rounded-lg p-3">
+                  <p className="text-xs text-foreground font-mono leading-relaxed italic">
+                    "foto 1, posando como foto 2, copiando la misma ropa y background que la foto 2"
+                  </p>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Este prompt funciona en muchos casos. Si no da el resultado esperado, buscar variantes del mismo enfoque.
+                </p>
+              </div>
+
+              <div className="surface-card p-5 rounded-xl space-y-4">
+                <h3 className="text-sm font-semibold text-destructive flex items-center gap-2">
+                  <Timer className="w-4 h-4" /> Tiempo de procesamiento
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Este es el <span className="text-foreground font-medium">proceso más pesado</span> de todos, por lo cual requiere tiempo por video. Aproximadamente <span className="text-foreground font-medium">10-20 minutos por cada 10 segundos de video</span>.
+                </p>
+              </div>
+
+              <div className="surface-card p-5 rounded-xl space-y-4">
                 <h3 className="text-sm font-semibold text-destructive flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4" /> Errores notorios a evitar
                 </h3>
@@ -296,20 +319,6 @@ const MotionTransferView = () => {
                 </h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   Sacar el <span className="text-foreground font-medium">primer frame del video de muestra</span> y poner a nuestra modelo en ese frame. Esto se puede hacer con cualquier motor de generación de imágenes (<span className="text-foreground font-medium">Nano Banana Pro</span>).
-                </p>
-              </div>
-
-              <div className="surface-card p-5 rounded-xl space-y-4">
-                <h3 className="text-sm font-semibold text-accent flex items-center gap-2">
-                  <MessageSquare className="w-4 h-4" /> Prompt de ejemplo
-                </h3>
-                <div className="bg-secondary rounded-lg p-3">
-                  <p className="text-xs text-foreground font-mono leading-relaxed italic">
-                    "foto 1, posando como foto 2, copiando la misma ropa y background que la foto 2"
-                  </p>
-                </div>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  Este prompt funciona en muchos casos. Si no da el resultado esperado, buscar variantes del mismo enfoque.
                 </p>
               </div>
             </div>
