@@ -236,7 +236,7 @@ const MotionTransferView = () => {
                 </p>
                 <div className="grid grid-cols-2 gap-3 mt-2">
                   <div className="rounded-lg overflow-hidden border border-border">
-                    <img src={exampleCleanPhoto} alt="Nuestra modelo" className="w-full h-40 object-cover object-top" />
+                    <img src={exampleCleanPhoto} alt="Nuestra modelo" className="w-full object-contain" />
                     <div className="px-2 py-1.5 bg-secondary">
                       <p className="text-[10px] text-muted-foreground text-center">Nuestra modelo</p>
                     </div>
