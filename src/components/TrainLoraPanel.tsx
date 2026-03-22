@@ -11,9 +11,9 @@ interface ModelOption {
 }
 
 const initialModels: ModelOption[] = [
-  { id: "flux-klein", name: "FLUX Klein", description: "Modelo ligero y rápido para entrenamientos ágiles", params: "9B", selected: true },
-  { id: "wan", name: "Wan", description: "Especializado en video y animación de alta calidad", params: "14B", selected: false },
-  { id: "zt-turbo", name: "ZT Turbo", description: "Máxima velocidad de inferencia con calidad competitiva", params: "12B", selected: false },
+  { id: "flux-klein", name: "FLUX Klein", description: "Modelo ligero y rápido para entrenamientos ágiles", params: "", selected: true },
+  { id: "wan", name: "Wan", description: "Especializado en video y animación de alta calidad", params: "", selected: false },
+  { id: "zt-turbo", name: "ZT Turbo", description: "Máxima velocidad de inferencia con calidad competitiva", params: "", selected: false },
 ];
 
 const TrainLoraPanel = () => {
