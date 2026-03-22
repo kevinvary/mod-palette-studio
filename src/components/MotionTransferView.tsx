@@ -236,15 +236,15 @@ const MotionTransferView = () => {
                 </p>
                 <div className="grid grid-cols-2 gap-3 mt-2">
                   <div className="rounded-lg overflow-hidden border border-border">
-                    <img src={exampleCleanPhoto} alt="Ejemplo foto limpia" className="w-full h-40 object-cover object-top" />
+                    <img src={exampleCleanPhoto} alt="Nuestra modelo" className="w-full h-40 object-cover object-top" />
                     <div className="px-2 py-1.5 bg-secondary">
-                      <p className="text-[10px] text-muted-foreground text-center">Foto limpia de entrada</p>
+                      <p className="text-[10px] text-muted-foreground text-center">Nuestra modelo</p>
                     </div>
                   </div>
                   <div className="rounded-lg overflow-hidden border border-border">
-                    <img src={exampleResultPhoto} alt="Ejemplo resultado" className="w-full h-40 object-cover object-top" />
+                    <img src={exampleResultPhoto} alt="Primer frame del video" className="w-full h-40 object-cover object-top" />
                     <div className="px-2 py-1.5 bg-secondary">
-                      <p className="text-[10px] text-muted-foreground text-center">Resultado con motion</p>
+                      <p className="text-[10px] text-muted-foreground text-center">Primer frame del video</p>
                     </div>
                   </div>
                 </div>
