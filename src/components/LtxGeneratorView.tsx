@@ -282,7 +282,7 @@ const LtxGeneratorView = () => {
               </div>
 
               <div className="surface-card p-5 rounded-xl space-y-3">
-                <h3 className="text-sm font-semibold text-accent">⏱ Duración del vídeo — 5 segundos por defecto</h3>
+                <h3 className="text-sm font-semibold text-accent flex items-center gap-2"><Timer className="w-4 h-4" /> Duración del vídeo — 5 segundos por defecto</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   Por defecto, el modelo genera vídeos de <span className="text-foreground font-medium">5 segundos</span>. Esta es la duración donde se obtiene la <span className="text-foreground font-medium">mejor calidad</span> y se evitan deformidades en el resultado.
                 </p>
