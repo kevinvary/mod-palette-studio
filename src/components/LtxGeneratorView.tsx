@@ -276,7 +276,7 @@ const LtxGeneratorView = () => {
                   La opción <span className="text-foreground font-medium">"Mejorar Prompt"</span> debe estar encendida en todo momento. Esta función optimiza automáticamente tu prompt para obtener los mejores resultados posibles del modelo. Solo desactívala si sabes al 100% lo que estás haciendo y tienes experiencia avanzada con prompt engineering.
                 </p>
                 <div className="flex items-center gap-2 px-3 py-2 bg-accent/10 rounded-lg border border-accent/20">
-                  <span className="text-accent text-sm">⚠</span>
+                  <AlertTriangle className="w-3.5 h-3.5 text-accent shrink-0" />
                   <span className="text-[11px] text-accent font-medium">Recomendación: No desactivar "Mejorar Prompt" a menos que seas un usuario avanzado.</span>
                 </div>
               </div>
