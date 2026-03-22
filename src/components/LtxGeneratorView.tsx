@@ -30,6 +30,7 @@ const LtxGeneratorView = () => {
   const [selectedAspect, setSelectedAspect] = useState("9:16");
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"history" | "howItWorks">("history");
+  const [viewMode, setViewMode] = useState<"list" | "grid">("list");
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
