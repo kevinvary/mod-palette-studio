@@ -1,14 +1,13 @@
 import { useState } from "react";
 import NavRail from "@/components/NavRail";
-import WorkflowsPanel from "@/components/WorkflowsPanel";
 import AssetsPanel from "@/components/AssetsPanel";
 import LorasPanel from "@/components/LorasPanel";
-
+import FeaturesPanel from "@/components/FeaturesPanel";
 import SettingsPanel from "@/components/SettingsPanel";
 import ConfigPanel from "@/components/ConfigPanel";
 
 const panels: Record<string, React.FC> = {
-  workflows: WorkflowsPanel,
+  features: FeaturesPanel,
   assets: AssetsPanel,
   loras: LorasPanel,
   settings: SettingsPanel,
