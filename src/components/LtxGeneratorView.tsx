@@ -180,72 +180,85 @@ const LtxGeneratorView = () => {
         {/* Results Grid */}
         <div className="flex-1 overflow-y-auto p-6">
           {activeTab === "history" ? (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-              {mockHistory.map((item) => (
-                <div key={item.id} className="flex gap-4">
-                  {/* Thumbnail */}
-                  <div className="w-72 h-48 bg-secondary rounded-xl overflow-hidden relative shrink-0 group">
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
-                    {item.status === "processing" ? (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-10 h-10 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+            viewMode === "grid" ? (
+              /* Grid View */
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+                {mockHistory.map((item) => (
+                  <div key={item.id} className="surface-card rounded-xl overflow-hidden group">
+                    <div className="aspect-video bg-secondary relative">
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
+                      {item.status === "processing" ? (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+                        </div>
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                          <div className="w-10 h-10 bg-background/80 rounded-full flex items-center justify-center">
+                            <Play className="w-4 h-4 text-foreground ml-0.5" />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-3">
+                      <p className="text-xs font-semibold text-foreground mb-1">{item.model}</p>
+                      <div className="flex items-center gap-2">
+                        <span className="px-2 py-0.5 bg-secondary rounded text-[10px] text-muted-foreground">{item.resolution}</span>
+                        <span className="px-2 py-0.5 bg-secondary rounded text-[10px] text-muted-foreground">{item.duration}</span>
                       </div>
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                        <div className="w-12 h-12 bg-background/80 rounded-full flex items-center justify-center">
-                          <Play className="w-5 h-5 text-foreground ml-0.5" />
+                      <div className="flex items-center gap-1 mt-2">
+                        <button className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors">
+                          <RotateCcw className="w-3 h-3" /> Rerun
+                        </button>
+                        <div className="ml-auto flex gap-1">
+                          <button className="w-6 h-6 flex items-center justify-center rounded hover:bg-secondary text-muted-foreground hover:text-foreground"><Copy className="w-3 h-3" /></button>
+                          <button className="w-6 h-6 flex items-center justify-center rounded hover:bg-secondary text-muted-foreground hover:text-destructive"><Trash2 className="w-3 h-3" /></button>
                         </div>
                       </div>
-                    )}
+                    </div>
                   </div>
-
-                  {/* Info Card */}
-                  <div className="flex flex-col justify-between flex-1 min-w-0">
-                    <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-[10px] text-muted-foreground">⚡</span>
-                        <span className="text-xs font-semibold text-foreground">{item.model}</span>
-                      </div>
-
-                      {/* Thumbnails row */}
-                      <div className="flex items-center gap-1.5 mb-3">
-                        {[1, 2].map((i) => (
-                          <div key={i} className="w-9 h-9 rounded-lg bg-secondary border border-border overflow-hidden">
-                            <div className="w-full h-full bg-muted" />
+                ))}
+              </div>
+            ) : (
+              /* List View */
+              <div className="space-y-3">
+                {mockHistory.map((item) => (
+                  <div key={item.id} className="flex gap-4 surface-card p-3 rounded-xl group">
+                    <div className="w-48 h-28 bg-secondary rounded-lg overflow-hidden relative shrink-0">
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
+                      {item.status === "processing" ? (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+                        </div>
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                          <div className="w-10 h-10 bg-background/80 rounded-full flex items-center justify-center">
+                            <Play className="w-4 h-4 text-foreground ml-0.5" />
                           </div>
-                        ))}
-                      </div>
-
-                      {/* Meta badges */}
-                      <div className="flex items-center gap-2">
-                        <span className="flex items-center gap-1 px-2 py-1 bg-secondary rounded-md text-[10px] text-muted-foreground">
-                          ♡ {item.resolution}
-                        </span>
-                        <span className="flex items-center gap-1 px-2 py-1 bg-secondary rounded-md text-[10px] text-muted-foreground">
-                          ⏱ {item.duration}
-                        </span>
-                      </div>
+                        </div>
+                      )}
                     </div>
-
-                    {/* Actions */}
-                    <div className="flex items-center gap-2 mt-3">
-                      <button className="flex items-center gap-1.5 text-[11px] text-muted-foreground hover:text-foreground transition-colors">
-                        <RotateCcw className="w-3 h-3" />
-                        Rerun
-                      </button>
-                      <div className="ml-auto flex items-center gap-1">
-                        <button className="w-7 h-7 flex items-center justify-center rounded-md hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground">
-                          <Copy className="w-3.5 h-3.5" />
+                    <div className="flex flex-col justify-between flex-1 min-w-0">
+                      <div>
+                        <p className="text-xs font-semibold text-foreground mb-1">{item.model}</p>
+                        <div className="flex items-center gap-2">
+                          <span className="px-2 py-0.5 bg-secondary rounded text-[10px] text-muted-foreground">♡ {item.resolution}</span>
+                          <span className="px-2 py-0.5 bg-secondary rounded text-[10px] text-muted-foreground">⏱ {item.duration}</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button className="flex items-center gap-1.5 text-[11px] text-muted-foreground hover:text-foreground transition-colors">
+                          <RotateCcw className="w-3 h-3" /> Rerun
                         </button>
-                        <button className="w-7 h-7 flex items-center justify-center rounded-md hover:bg-secondary transition-colors text-muted-foreground hover:text-destructive">
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
+                        <div className="ml-auto flex items-center gap-1">
+                          <button className="w-7 h-7 flex items-center justify-center rounded-md hover:bg-secondary text-muted-foreground hover:text-foreground"><Copy className="w-3.5 h-3.5" /></button>
+                          <button className="w-7 h-7 flex items-center justify-center rounded-md hover:bg-secondary text-muted-foreground hover:text-destructive"><Trash2 className="w-3.5 h-3.5" /></button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )
           ) : (
             <div className="flex items-center justify-center h-64 text-muted-foreground text-sm">
               <p>Learn how to use workflows and generate content.</p>
