@@ -24,13 +24,11 @@ const mockHistory: GeneratedItem[] = [
 ];
 
 const LtxGeneratorView = () => {
-  const [selectedModel, setSelectedModel] = useState(models[0]);
-  const [prompt, setPrompt] = useState("");
-  const [enhanceOn, setEnhanceOn] = useState(true);
-  const [audioOn, setAudioOn] = useState(false);
+  const [positivePrompt, setPositivePrompt] = useState("");
+  const [negativePrompt, setNegativePrompt] = useState("");
+  const [enhancePrompt, setEnhancePrompt] = useState(true);
   const [selectedDuration, setSelectedDuration] = useState("5s");
   const [selectedAspect, setSelectedAspect] = useState("9:16");
-  const [showModelDropdown, setShowModelDropdown] = useState(false);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"history" | "howItWorks">("history");
 
