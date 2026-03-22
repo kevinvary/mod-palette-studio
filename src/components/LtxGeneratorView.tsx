@@ -264,7 +264,7 @@ const LtxGeneratorView = () => {
               <h2 className="text-lg font-semibold text-foreground">¿Cómo funciona LTX 2.3?</h2>
 
               <div className="surface-card p-5 rounded-xl space-y-3">
-                <h3 className="text-sm font-semibold text-accent">🎯 Prompts: Positive y Negative</h3>
+                <h3 className="text-sm font-semibold text-accent flex items-center gap-2"><MessageSquare className="w-4 h-4" /> Prompts: Positive y Negative</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   El modelo trabaja con dos tipos de prompts. El <span className="text-foreground font-medium">Positive Prompt</span> describe lo que quieres ver en el vídeo: escena, personajes, estilo, iluminación, etc. El <span className="text-foreground font-medium">Negative Prompt</span> indica lo que quieres evitar: baja calidad, deformaciones, artefactos, etc. Ambos trabajan juntos para refinar el resultado final.
                 </p>
