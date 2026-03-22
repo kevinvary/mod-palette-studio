@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Play, Upload, Sparkles, Clock, RotateCcw, Copy, Trash2, Monitor } from "lucide-react";
+import { Play, Upload, Sparkles, Clock, RotateCcw, Copy, Trash2, Monitor, MessageSquare, Zap, AlertTriangle, Timer, Headphones } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Switch } from "@/components/ui/switch";
 
@@ -264,25 +264,25 @@ const LtxGeneratorView = () => {
               <h2 className="text-lg font-semibold text-foreground">¿Cómo funciona LTX 2.3?</h2>
 
               <div className="surface-card p-5 rounded-xl space-y-3">
-                <h3 className="text-sm font-semibold text-accent">🎯 Prompts: Positive y Negative</h3>
+                <h3 className="text-sm font-semibold text-accent flex items-center gap-2"><MessageSquare className="w-4 h-4" /> Prompts: Positive y Negative</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   El modelo trabaja con dos tipos de prompts. El <span className="text-foreground font-medium">Positive Prompt</span> describe lo que quieres ver en el vídeo: escena, personajes, estilo, iluminación, etc. El <span className="text-foreground font-medium">Negative Prompt</span> indica lo que quieres evitar: baja calidad, deformaciones, artefactos, etc. Ambos trabajan juntos para refinar el resultado final.
                 </p>
               </div>
 
               <div className="surface-card p-5 rounded-xl space-y-3">
-                <h3 className="text-sm font-semibold text-accent">✨ Mejorar Prompt — Mantener SIEMPRE activado</h3>
+                <h3 className="text-sm font-semibold text-accent flex items-center gap-2"><Sparkles className="w-4 h-4" /> Mejorar Prompt — Mantener SIEMPRE activado</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   La opción <span className="text-foreground font-medium">"Mejorar Prompt"</span> debe estar encendida en todo momento. Esta función optimiza automáticamente tu prompt para obtener los mejores resultados posibles del modelo. Solo desactívala si sabes al 100% lo que estás haciendo y tienes experiencia avanzada con prompt engineering.
                 </p>
                 <div className="flex items-center gap-2 px-3 py-2 bg-accent/10 rounded-lg border border-accent/20">
-                  <span className="text-accent text-sm">⚠</span>
+                  <AlertTriangle className="w-3.5 h-3.5 text-accent shrink-0" />
                   <span className="text-[11px] text-accent font-medium">Recomendación: No desactivar "Mejorar Prompt" a menos que seas un usuario avanzado.</span>
                 </div>
               </div>
 
               <div className="surface-card p-5 rounded-xl space-y-3">
-                <h3 className="text-sm font-semibold text-accent">⏱ Duración del vídeo — 5 segundos por defecto</h3>
+                <h3 className="text-sm font-semibold text-accent flex items-center gap-2"><Timer className="w-4 h-4" /> Duración del vídeo — 5 segundos por defecto</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   Por defecto, el modelo genera vídeos de <span className="text-foreground font-medium">5 segundos</span>. Esta es la duración donde se obtiene la <span className="text-foreground font-medium">mejor calidad</span> y se evitan deformidades en el resultado.
                 </p>
@@ -290,7 +290,7 @@ const LtxGeneratorView = () => {
                   Si necesitas vídeos más largos, la recomendación es <span className="text-foreground font-medium">fraccionar por partes</span>: genera clips de 5 segundos y únelos en posproducción. Esto mantiene la calidad en cada segmento.
                 </p>
                 <div className="flex items-center gap-2 px-3 py-2 bg-primary/10 rounded-lg border border-primary/20">
-                  <span className="text-primary text-sm">💬</span>
+                  <Headphones className="w-3.5 h-3.5 text-primary shrink-0" />
                   <span className="text-[11px] text-primary font-medium">¿Necesitas más segundos? Contacta con soporte para habilitar la opción de duración extendida.</span>
                 </div>
               </div>
