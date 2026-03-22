@@ -44,17 +44,13 @@ const LtxGeneratorView = () => {
     <div className="flex h-full overflow-hidden">
       {/* Left Sidebar - Creation Panel */}
       <div className="w-64 border-r border-border bg-sidebar flex flex-col overflow-y-auto shrink-0">
-        {/* Model Selector Card */}
+        {/* Model Label */}
         <div className="p-4">
           <div className="relative rounded-xl overflow-hidden h-28 bg-gradient-to-br from-primary/30 via-accent/20 to-primary/10 mb-1">
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMwMC5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJub25lIi8+PC9zdmc+')] opacity-20" />
             <div className="absolute bottom-3 left-3">
-              <p className="text-xs font-bold text-accent uppercase tracking-wider">GENERAL</p>
-              <p className="text-[10px] text-muted-foreground">{selectedModel}</p>
+              <p className="text-xs font-bold text-accent uppercase tracking-wider">VIDEO</p>
+              <p className="text-[10px] text-muted-foreground">LTX 2.3</p>
             </div>
-            <button className="absolute top-2 right-2 px-2 py-1 bg-accent text-accent-foreground text-[10px] font-semibold rounded-md hover:bg-accent/90 transition-colors">
-              ✎ Change
-            </button>
           </div>
         </div>
 
