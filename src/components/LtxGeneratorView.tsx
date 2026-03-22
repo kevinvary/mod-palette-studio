@@ -12,7 +12,7 @@ interface GeneratedItem {
   status: "completed" | "processing" | "failed";
 }
 
-const models = ["Kling 2.6", "ZBase ZIT v1", "Lumina 2.0", "SD3 Turbo"];
+const durations = ["5s", "10s", "15s"];
 const durations = ["5s", "10s", "15s"];
 const aspects = ["1:1", "9:16", "16:9", "4:3", "3:4"];
 
