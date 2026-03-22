@@ -13,7 +13,6 @@ interface GeneratedItem {
 }
 
 const durations = ["5s", "10s", "15s"];
-const durations = ["5s", "10s", "15s"];
 const aspects = ["1:1", "9:16", "16:9", "4:3", "3:4"];
 
 const mockHistory: GeneratedItem[] = [
