@@ -1,12 +1,10 @@
 import { useState } from "react";
 import NavRail from "@/components/NavRail";
 import AssetsPanel from "@/components/AssetsPanel";
-import LorasPanel from "@/components/LorasPanel";
 import FeaturesPanel from "@/components/FeaturesPanel";
 import SettingsPanel from "@/components/SettingsPanel";
 import ConfigPanel from "@/components/ConfigPanel";
 import PodsPanel from "@/components/PodsPanel";
-import TrainLoraPanel from "@/components/TrainLoraPanel";
 
 const PlaceholderPanel = ({ title }: { title: string }) => (
   <div className="flex-1 p-6 animate-fade-in">
