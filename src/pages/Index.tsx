@@ -14,15 +14,11 @@ const PlaceholderPanel = ({ title }: { title: string }) => (
 );
 
 const WorkflowsPlaceholder = () => <PlaceholderPanel title="Workflows" />;
-const DatasetPlaceholder = () => <PlaceholderPanel title="Dataset" />;
 
 const panels: Record<string, React.FC> = {
   workflows: WorkflowsPlaceholder,
   features: FeaturesPanel,
   assets: AssetsPanel,
-  loras: LorasPanel,
-  entrenar: TrainLoraPanel,
-  dataset: DatasetPlaceholder,
   pods: PodsPanel,
   settings: SettingsPanel,
 };

@@ -10,9 +10,6 @@ interface NavRailProps {
 const navItems = [
   { id: "workflows", icon: Workflow, label: "Workflows" },
   { id: "assets", icon: Image, label: "Assets" },
-  { id: "loras", icon: Sparkles, label: "LoRAs" },
-  { id: "entrenar", icon: GraduationCap, label: "Entrenar" },
-  { id: "dataset", icon: Database, label: "Dataset" },
   { id: "features", icon: Boxes, label: "Features" },
   { id: "pods", icon: Server, label: "Pods" },
   { id: "settings", icon: Settings, label: "Settings" },
