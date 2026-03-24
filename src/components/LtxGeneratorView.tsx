@@ -49,7 +49,7 @@ const LtxGeneratorView = () => {
           <div className="relative rounded-xl overflow-hidden h-28 bg-gradient-to-br from-primary/30 via-accent/20 to-primary/10 mb-1">
             <div className="absolute bottom-3 left-3">
               <p className="text-xs font-bold text-accent uppercase tracking-wider">VIDEO</p>
-              <p className="text-[10px] text-muted-foreground">LTX 2.3</p>
+              <p className="text-[10px] text-muted-foreground">Image to Video</p>
             </div>
           </div>
         </div>
