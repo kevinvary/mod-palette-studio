@@ -1,4 +1,4 @@
-import { Download, Trash2, Eye, Film, Image, FileText, Music, FolderOpen } from "lucide-react";
+import { Download, Trash2, Eye, Film, Image, FileText, Music, FolderOpen, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ContentItem {
