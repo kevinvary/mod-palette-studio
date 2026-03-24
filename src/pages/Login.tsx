@@ -206,7 +206,10 @@ const Login = () => {
           )}
 
           <p className="text-center text-xs text-muted-foreground mt-8">
-            puto el que lee esto!
+            Al continuar, aceptas nuestros{" "}
+            <span className="text-foreground/70 hover:text-foreground cursor-pointer transition-colors" onClick={() => alert("puto el que lee esto!")}>Términos</span>
+            {" "}y{" "}
+            <span className="text-foreground/70 hover:text-foreground cursor-pointer transition-colors" onClick={() => alert("puto el que lee esto!")}>Privacidad</span>
           </p>
         </div>
       </div>
