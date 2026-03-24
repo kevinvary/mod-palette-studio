@@ -16,10 +16,10 @@ const durations = ["5s", "10s", "15s"];
 const aspects = ["1:1", "9:16", "16:9", "4:3", "3:4"];
 
 const mockHistory: GeneratedItem[] = [
-  { id: "gen-001", model: "ZBase ZIT v1", resolution: "1080p", duration: "29.0s", thumbnails: [], status: "completed" },
-  { id: "gen-002", model: "ZBase ZIT v1", resolution: "1080p", duration: "29.0s", thumbnails: [], status: "completed" },
-  { id: "gen-003", model: "Kling 2.6", resolution: "720p", duration: "15.0s", thumbnails: [], status: "processing" },
-  { id: "gen-004", model: "ZBase ZIT v1", resolution: "1080p", duration: "10.0s", thumbnails: [], status: "completed" },
+  { id: "gen-001", model: "Image to Video", resolution: "1080p", duration: "29.0s", thumbnails: [], status: "completed" },
+  { id: "gen-002", model: "Image to Video", resolution: "1080p", duration: "29.0s", thumbnails: [], status: "completed" },
+  { id: "gen-003", model: "Image to Video", resolution: "720p", duration: "15.0s", thumbnails: [], status: "processing" },
+  { id: "gen-004", model: "Image to Video", resolution: "1080p", duration: "10.0s", thumbnails: [], status: "completed" },
 ];
 
 const LtxGeneratorView = () => {
