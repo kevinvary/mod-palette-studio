@@ -51,7 +51,7 @@ const PodsPanel = () => {
         </div>
       </div>
 
-      {/* Saldos de plataformas */}
+
       <div className="grid grid-cols-2 gap-3 mb-6">
         <div className="surface-card p-4">
           <div className="flex items-center gap-2 mb-2">
