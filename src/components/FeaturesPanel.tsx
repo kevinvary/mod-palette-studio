@@ -18,6 +18,7 @@ interface Feature {
   icon: React.ReactNode;
   podLabel: string;
   podDescription: string;
+  comingSoon?: boolean;
 }
 
 const features: Feature[] = [
