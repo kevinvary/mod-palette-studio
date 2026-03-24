@@ -253,7 +253,7 @@ const LtxGeneratorView = () => {
             )
           ) : (
             <div className="max-w-2xl mx-auto space-y-6 py-4">
-              <h2 className="text-lg font-semibold text-foreground">¿Cómo funciona LTX 2.3?</h2>
+              <h2 className="text-lg font-semibold text-foreground">¿Cómo funciona Image to Video?</h2>
 
               <div className="surface-card p-5 rounded-xl space-y-3">
                 <h3 className="text-sm font-semibold text-accent flex items-center gap-2"><MessageSquare className="w-4 h-4" /> Prompts: Positive y Negative</h3>

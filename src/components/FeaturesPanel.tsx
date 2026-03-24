@@ -56,7 +56,7 @@ const features: Feature[] = [
     category: "Multi",
     categoryColor: "bg-accent text-accent-foreground",
     description: "10 workflows de generación — imágenes, vídeos y captions. Click para editar parámetros y ejecutar.",
-    tags: ["SDXL", "LTX", "Wan 2.1", "Florence-2"],
+    tags: [],
     icon: <Wand2 className="w-5 h-5 text-accent" />,
     podLabel: "Iniciar Iceklub",
     podDescription: "Se creará una instancia GPU en RunPod.",
