@@ -118,6 +118,7 @@ const FeaturesPanel = () => {
           onBack={() => setViewState(null)}
           onContinue={() => setViewState({ featureId: feature.id, step: "deploy" })}
           showPrompts={feature.id === "ltx-i2v"}
+          showVideo={feature.id === "motion-transfer"}
         />
       );
     }
