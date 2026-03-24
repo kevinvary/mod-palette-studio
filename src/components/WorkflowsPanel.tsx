@@ -24,6 +24,16 @@ const workflows: WorkflowCard[] = [
     category: "video",
   },
   {
+    id: "motion-transfer-lora",
+    name: "Motion Transfer 2.1",
+    description: "Motion Transfer con LoRA — Plug & Play, solo pega el link del vídeo a replicar",
+    icon: <Film className="w-6 h-6 text-primary" />,
+    comingSoon: true,
+    badge: "COMING SOON",
+    badgeColor: "bg-muted text-muted-foreground",
+    category: "video",
+  },
+  {
     id: "ltx-i2v",
     name: "Image to Video",
     description: "Genera vídeos cinematográficos a partir de una imagen con prompts",
