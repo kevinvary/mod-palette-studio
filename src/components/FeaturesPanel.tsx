@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Video, ArrowLeft, ChevronRight, Wand2, Film } from "lucide-react";
+import { Video, ArrowLeft, ChevronRight, Wand2, Film, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import LtxGeneratorView from "@/components/LtxGeneratorView";
 import MotionTransferView from "@/components/MotionTransferView";
