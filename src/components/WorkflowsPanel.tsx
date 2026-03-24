@@ -1,6 +1,7 @@
+import { useState } from "react";
 import {
-  Film, Image, Wand2, Play, Lock, Paintbrush, Box, Mic, Volume2,
-  LayoutGrid, BarChart3, Users, MessageSquare, PenTool
+  Film, Image, Wand2, Lock, Paintbrush, Box, Mic, Volume2,
+  LayoutGrid, BarChart3, Users, PenTool, Info, X
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
