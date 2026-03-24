@@ -1,4 +1,4 @@
-import { Zap, Server, Cpu, HardDrive, Activity } from "lucide-react";
+import { Zap, Server, Cpu, HardDrive, Activity, AlertTriangle, Wallet } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
