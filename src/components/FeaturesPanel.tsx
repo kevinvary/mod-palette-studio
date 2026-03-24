@@ -178,8 +178,12 @@ const FeaturesPanel = () => {
         {features.map((feature) => (
           <button
             key={feature.id}
-            onClick={() => setViewState({ featureId: feature.id, step: "schedule" })}
-            className="w-full surface-card p-5 text-left hover:border-primary/30 transition-colors duration-150 group"
+            onClick={() => !feature.comingSoon && setViewState({ featureId: feature.id, step: "schedule" })}
+            disabled={feature.comingSoon}
+            className={cn(
+              "w-full surface-card p-5 text-left transition-colors duration-150 group",
+              feature.comingSoon ? "opacity-50 cursor-not-allowed" : "hover:border-primary/30"
+            )}
           >
             <div className="flex items-start gap-4">
               <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center shrink-0 mt-0.5">
