@@ -38,7 +38,7 @@ const workflows: WorkflowCard[] = [
     comingSoon: true,
     badge: "COMING SOON",
     badgeColor: "bg-muted text-muted-foreground",
-    category: "imagen",
+    category: "modelo",
   },
   {
     id: "train-lora",
@@ -78,7 +78,7 @@ const workflows: WorkflowCard[] = [
     comingSoon: true,
     badge: "COMING SOON",
     badgeColor: "bg-muted text-muted-foreground",
-    category: "contenido",
+    category: "modelo",
   },
   {
     id: "reel-tracker",
@@ -88,7 +88,7 @@ const workflows: WorkflowCard[] = [
     comingSoon: true,
     badge: "COMING SOON",
     badgeColor: "bg-muted text-muted-foreground",
-    category: "analytics",
+    category: "gestión",
   },
   {
     id: "va-management",
@@ -108,7 +108,7 @@ const workflows: WorkflowCard[] = [
     comingSoon: true,
     badge: "COMING SOON",
     badgeColor: "bg-muted text-muted-foreground",
-    category: "ia",
+    category: "gestión",
   },
   {
     id: "iceklub-workflows",
@@ -124,12 +124,8 @@ const workflows: WorkflowCard[] = [
 
 const categories: { key: string; label: string }[] = [
   { key: "video", label: "VIDEO" },
-  { key: "imagen", label: "IMAGEN" },
   { key: "modelo", label: "MODELO" },
-  { key: "contenido", label: "CONTENIDO" },
-  { key: "analytics", label: "ANALYTICS" },
   { key: "gestión", label: "GESTIÓN" },
-  { key: "ia", label: "IA" },
   { key: "multi", label: "MULTI" },
 ];
 
