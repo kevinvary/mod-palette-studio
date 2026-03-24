@@ -88,7 +88,7 @@ const workflows: WorkflowCard[] = [
     comingSoon: true,
     badge: "COMING SOON",
     badgeColor: "bg-muted text-muted-foreground",
-    category: "analytics",
+    category: "gestión",
   },
   {
     id: "va-management",
