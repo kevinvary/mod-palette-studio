@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Plus, Upload, Trash2, ArrowLeft, ArrowRight, Film } from "lucide-react";
+import { useState, useCallback } from "react";
+import { Plus, Upload, Trash2, ArrowLeft, ArrowRight, Film, GripVertical } from "lucide-react";
 
 interface ContentItem {
   id: string;
