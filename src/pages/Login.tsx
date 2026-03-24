@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Eye, EyeOff, Mail, Lock, ArrowRight } from "lucide-react";
 import logo from "@/assets/logo.png";
+import loginBg from "@/assets/login-bg.jpg";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
