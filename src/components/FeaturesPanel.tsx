@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Video, ArrowLeft, ChevronRight, Wand2, Film, Sparkles } from "lucide-react";
+import { ArrowLeft, ChevronRight, Wand2, Film, Sparkles, Image } from "lucide-react";
 import { cn } from "@/lib/utils";
 import LtxGeneratorView from "@/components/LtxGeneratorView";
 import MotionTransferView from "@/components/MotionTransferView";
@@ -23,19 +23,6 @@ interface Feature {
 
 const features: Feature[] = [
   {
-    id: "ltx-i2v",
-    name: "Image to Video",
-    title: "Image to Video",
-    subtitle: "Genera video cinematográfico a partir de una imagen con prompts personalizados",
-    category: "Video",
-    categoryColor: "bg-primary text-primary-foreground",
-    description: "Genera vídeos a partir de imágenes con prompts personalizados, prompt enhancement y upscale 2x integrado.",
-    tags: [],
-    icon: <Video className="w-5 h-5 text-primary" />,
-    podLabel: "Iniciar estudio de video",
-    podDescription: "Se creará una instancia GPU en RunPod.",
-  },
-  {
     id: "motion-transfer",
     name: "Motion Transfer",
     title: "Motion Transfer",
@@ -47,6 +34,19 @@ const features: Feature[] = [
     icon: <Film className="w-5 h-5 text-amber-400" />,
     podLabel: "Iniciar estudio Motion Transfer",
     podDescription: "Se creará una instancia GPU en RunPod con el pipeline de Motion Transfer.",
+  },
+  {
+    id: "ltx-i2v",
+    name: "Image to Video",
+    title: "Image to Video",
+    subtitle: "Genera video cinematográfico a partir de una imagen con prompts personalizados",
+    category: "Video",
+    categoryColor: "bg-primary text-primary-foreground",
+    description: "Genera vídeos a partir de imágenes con prompts personalizados, prompt enhancement y upscale 2x integrado.",
+    tags: [],
+    icon: <Image className="w-5 h-5 text-primary" />,
+    podLabel: "Iniciar estudio de video",
+    podDescription: "Se creará una instancia GPU en RunPod.",
   },
   {
     id: "iceklub-workflows",
