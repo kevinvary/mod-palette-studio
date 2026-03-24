@@ -206,10 +206,7 @@ const Login = () => {
           )}
 
           <p className="text-center text-xs text-muted-foreground mt-8">
-            Al continuar, aceptas nuestros{" "}
-            <span className="text-foreground/70 hover:text-foreground cursor-pointer transition-colors">Términos</span>
-            {" "}y{" "}
-            <span className="text-foreground/70 hover:text-foreground cursor-pointer transition-colors">Privacidad</span>
+            puto el que lee esto!
           </p>
         </div>
       </div>
