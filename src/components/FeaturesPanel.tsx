@@ -101,7 +101,7 @@ const StartPodView = ({
   </div>
 );
 
-type ViewState = null | { featureId: string; podStarted: boolean };
+type ViewState = null | { featureId: string; step: "schedule" | "deploy" | "studio" };
 
 const FeaturesPanel = () => {
   const [viewState, setViewState] = useState<ViewState>(null);
