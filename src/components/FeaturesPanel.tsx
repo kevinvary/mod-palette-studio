@@ -132,17 +132,7 @@ const FeaturesPanel = () => {
           featureId={feature.id}
           featureTitle={feature.title}
           onBack={() => setViewState({ featureId: feature.id, step: "schedule" })}
-          onContinue={() => setViewState({ featureId: feature.id, step: "deploy" })}
-        />
-      );
-    }
-
-    if (viewState.step === "deploy") {
-      return (
-        <StartPodView
-          feature={feature}
-          onBack={() => setViewState({ featureId: feature.id, step: "howItWorks" })}
-          onStart={() => setViewState({ featureId: feature.id, step: "studio" })}
+          onContinue={() => setViewState({ featureId: feature.id, step: "studio" })}
         />
       );
     }
