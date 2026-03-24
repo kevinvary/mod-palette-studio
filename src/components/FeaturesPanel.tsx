@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft, ChevronRight, Wand2, Film, Sparkles, Image } from "lucide-react";
+import { ArrowLeft, Play, Wand2, Film, Sparkles, Image, Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import LtxGeneratorView from "@/components/LtxGeneratorView";
 import MotionTransferView from "@/components/MotionTransferView";
@@ -14,11 +14,12 @@ interface Feature {
   category: string;
   categoryColor: string;
   description: string;
-  tags: string[];
   icon: React.ReactNode;
   podLabel: string;
   podDescription: string;
   comingSoon?: boolean;
+  badge?: string;
+  badgeColor?: string;
 }
 
 const features: Feature[] = [
@@ -29,9 +30,8 @@ const features: Feature[] = [
     subtitle: "Movimiento de un vídeo + una imagen",
     category: "Video",
     categoryColor: "bg-primary text-primary-foreground",
-    description: "Combina el movimiento de un vídeo de referencia con una imagen estática — ideal para crear contenido dinámico.",
-    tags: [],
-    icon: <Film className="w-5 h-5 text-amber-400" />,
+    description: "Transfiere el movimiento de un vídeo a cualquier imagen estática",
+    icon: <Film className="w-6 h-6 text-primary" />,
     podLabel: "Iniciar estudio Motion Transfer",
     podDescription: "Se creará una instancia GPU en RunPod con el pipeline de Motion Transfer.",
   },
@@ -39,12 +39,11 @@ const features: Feature[] = [
     id: "ltx-i2v",
     name: "Image to Video",
     title: "Image to Video",
-    subtitle: "Genera video cinematográfico a partir de una imagen con prompts personalizados",
+    subtitle: "Genera video cinematográfico a partir de una imagen",
     category: "Video",
     categoryColor: "bg-primary text-primary-foreground",
-    description: "Genera vídeos a partir de imágenes con prompts personalizados, prompt enhancement y upscale 2x integrado.",
-    tags: [],
-    icon: <Image className="w-5 h-5 text-primary" />,
+    description: "Genera vídeos cinematográficos a partir de una imagen con prompts",
+    icon: <Image className="w-6 h-6 text-primary" />,
     podLabel: "Iniciar estudio de video",
     podDescription: "Se creará una instancia GPU en RunPod.",
   },
@@ -52,17 +51,21 @@ const features: Feature[] = [
     id: "iceklub-workflows",
     name: "Kevin Workflows",
     title: "Iceklub Workflows",
-    subtitle: "10 workflows de generación — imágenes, vídeos y captions",
+    subtitle: "10 workflows de generación",
     category: "Multi",
     categoryColor: "bg-accent text-accent-foreground",
-    description: "10 workflows de generación — imágenes, vídeos y captions. Click para editar parámetros y ejecutar.",
-    tags: [],
-    icon: <Wand2 className="w-5 h-5 text-accent" />,
+    description: "10 workflows — imágenes, vídeos y captions",
+    icon: <Wand2 className="w-6 h-6 text-accent" />,
     podLabel: "Iniciar Iceklub",
     podDescription: "Se creará una instancia GPU en RunPod.",
     comingSoon: true,
+    badge: "COMING SOON",
+    badgeColor: "bg-muted text-muted-foreground",
   },
 ];
+
+const sectionTitle = "GENERACIÓN DE VIDEO";
+const sectionSubtitle = "Herramientas de generación de contenido con IA";
 
 const StartPodView = ({
   feature,
@@ -80,7 +83,7 @@ const StartPodView = ({
         className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
-        Back to Features
+        Volver a Funciones
       </button>
     </div>
     <div className="flex-1 p-6">
@@ -105,6 +108,61 @@ const StartPodView = ({
 );
 
 type ViewState = null | { featureId: string; step: "schedule" | "howItWorks" | "deploy" | "studio" };
+
+const FeatureCard = ({
+  feature,
+  onClick,
+}: {
+  feature: Feature;
+  onClick: () => void;
+}) => (
+  <div
+    className={cn(
+      "group rounded-xl overflow-hidden border border-border bg-card transition-all duration-200",
+      feature.comingSoon
+        ? "opacity-60 cursor-not-allowed"
+        : "hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 cursor-pointer"
+    )}
+    onClick={() => !feature.comingSoon && onClick()}
+  >
+    {/* Thumbnail area */}
+    <div className="relative aspect-[16/10] bg-secondary/50 flex items-center justify-center overflow-hidden">
+      <div className="w-14 h-14 rounded-2xl bg-background/80 backdrop-blur flex items-center justify-center">
+        {feature.icon}
+      </div>
+      {feature.badge && (
+        <span className={cn(
+          "absolute bottom-2 left-2 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider",
+          feature.badgeColor || "bg-primary text-primary-foreground"
+        )}>
+          {feature.badge}
+        </span>
+      )}
+      {feature.comingSoon && (
+        <div className="absolute inset-0 bg-background/40 backdrop-blur-[1px] flex items-center justify-center">
+          <Lock className="w-5 h-5 text-muted-foreground" />
+        </div>
+      )}
+    </div>
+
+    {/* Info */}
+    <div className="p-4">
+      <h3 className="text-sm font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
+        {feature.name}
+      </h3>
+      <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+        {feature.description}
+      </p>
+
+      {!feature.comingSoon && (
+        <button className="mt-3 flex items-center gap-2 text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+          <Play className="w-3.5 h-3.5" />
+          Iniciar
+        </button>
+      )}
+    </div>
+  </div>
+);
 
 const FeaturesPanel = () => {
   const [viewState, setViewState] = useState<ViewState>(null);
@@ -156,7 +214,7 @@ const FeaturesPanel = () => {
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
-              Back to Features
+              Volver a Funciones
             </button>
           </div>
           <div className="flex-1 overflow-hidden">
@@ -168,53 +226,21 @@ const FeaturesPanel = () => {
   }
 
   return (
-    <div className="flex-1 p-6 animate-fade-in">
+    <div className="flex-1 p-6 animate-fade-in overflow-y-auto">
       <div className="mb-6">
-        <h1 className="text-xl font-semibold text-foreground">Features</h1>
-        <p className="text-sm text-muted-foreground mt-1">Herramientas de generación de contenido</p>
+        <h1 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1">
+          {sectionTitle}
+        </h1>
+        <p className="text-sm text-muted-foreground">{sectionSubtitle}</p>
       </div>
 
-      <div className="space-y-3 max-w-3xl">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-w-5xl">
         {features.map((feature) => (
-          <button
+          <FeatureCard
             key={feature.id}
-            onClick={() => !feature.comingSoon && setViewState({ featureId: feature.id, step: "schedule" })}
-            disabled={feature.comingSoon}
-            className={cn(
-              "w-full surface-card p-5 text-left transition-colors duration-150 group",
-              feature.comingSoon ? "opacity-50 cursor-not-allowed" : "hover:border-primary/30"
-            )}
-          >
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center shrink-0 mt-0.5">
-                {feature.icon}
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <h3 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
-                    {feature.name}
-                  </h3>
-                  <span className={cn("px-2 py-0.5 rounded text-[10px] font-semibold", feature.categoryColor)}>
-                    {feature.category}
-                  </span>
-                  {feature.comingSoon && (
-                    <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-muted text-muted-foreground">
-                      Coming soon
-                    </span>
-                  )}
-                </div>
-                <p className="text-xs text-muted-foreground mb-3 leading-relaxed">{feature.description}</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {feature.tags.map((tag) => (
-                    <span key={tag} className="px-2 py-1 bg-secondary rounded text-[10px] font-mono text-muted-foreground">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0 mt-2 group-hover:text-foreground transition-colors" />
-            </div>
-          </button>
+            feature={feature}
+            onClick={() => setViewState({ featureId: feature.id, step: "schedule" })}
+          />
         ))}
       </div>
     </div>
