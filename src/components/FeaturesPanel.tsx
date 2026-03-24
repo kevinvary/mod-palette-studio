@@ -3,6 +3,7 @@ import { Video, ArrowLeft, ChevronRight, Wand2, Film, Sparkles } from "lucide-re
 import { cn } from "@/lib/utils";
 import LtxGeneratorView from "@/components/LtxGeneratorView";
 import MotionTransferView from "@/components/MotionTransferView";
+import ContentScheduler from "@/components/ContentScheduler";
 
 interface Feature {
   id: string;
@@ -100,7 +101,7 @@ const StartPodView = ({
   </div>
 );
 
-type ViewState = null | { featureId: string; podStarted: boolean };
+type ViewState = null | { featureId: string; step: "schedule" | "deploy" | "studio" };
 
 const FeaturesPanel = () => {
   const [viewState, setViewState] = useState<ViewState>(null);
@@ -108,17 +109,30 @@ const FeaturesPanel = () => {
   if (viewState) {
     const feature = features.find((f) => f.id === viewState.featureId)!;
 
-    if (!viewState.podStarted) {
+    if (viewState.step === "schedule") {
       return (
-        <StartPodView
-          feature={feature}
+        <ContentScheduler
+          featureId={feature.id}
+          featureTitle={feature.title}
+          featureSubtitle={feature.subtitle}
           onBack={() => setViewState(null)}
-          onStart={() => setViewState({ ...viewState, podStarted: true })}
+          onContinue={() => setViewState({ featureId: feature.id, step: "deploy" })}
+          showPrompts={feature.id === "ltx-i2v"}
         />
       );
     }
 
-    if (feature.id === "ltx-i2v" || feature.id === "motion-transfer") {
+    if (viewState.step === "deploy") {
+      return (
+        <StartPodView
+          feature={feature}
+          onBack={() => setViewState({ featureId: feature.id, step: "schedule" })}
+          onStart={() => setViewState({ featureId: feature.id, step: "studio" })}
+        />
+      );
+    }
+
+    if (viewState.step === "studio" && (feature.id === "ltx-i2v" || feature.id === "motion-transfer")) {
       return (
         <div className="flex flex-col h-full">
           <div className="px-6 pt-5 pb-3 border-b border-border">
@@ -149,7 +163,7 @@ const FeaturesPanel = () => {
         {features.map((feature) => (
           <button
             key={feature.id}
-            onClick={() => setViewState({ featureId: feature.id, podStarted: false })}
+            onClick={() => setViewState({ featureId: feature.id, step: "schedule" })}
             className="w-full surface-card p-5 text-left hover:border-primary/30 transition-colors duration-150 group"
           >
             <div className="flex items-start gap-4">
