@@ -163,7 +163,7 @@ const FeaturesPanel = () => {
         {features.map((feature) => (
           <button
             key={feature.id}
-            onClick={() => setViewState({ featureId: feature.id, podStarted: false })}
+            onClick={() => setViewState({ featureId: feature.id, step: "schedule" })}
             className="w-full surface-card p-5 text-left hover:border-primary/30 transition-colors duration-150 group"
           >
             <div className="flex items-start gap-4">
