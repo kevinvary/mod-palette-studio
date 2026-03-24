@@ -34,7 +34,7 @@ const Index = () => {
         <div className="flex-1 overflow-y-auto">
           <ActivePanel />
         </div>
-        {activeSection !== "settings" && activeSection !== "features" && <ConfigPanel />}
+        
       </div>
     </div>
   );
