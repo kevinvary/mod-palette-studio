@@ -23,8 +23,8 @@ const AssetsPanel = () => {
     <div className="flex-1 p-6 animate-fade-in">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-semibold text-foreground">Assets</h1>
-          <p className="text-sm text-muted-foreground mt-1">{assets.length} files · 18.0 MB total</p>
+          <h1 className="text-xl font-semibold text-foreground">Trabajos</h1>
+          <p className="text-sm text-muted-foreground mt-1">Almacén de contenido · {assets.length} archivos · 18.0 MB total</p>
         </div>
         <button className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors duration-150">
           <Upload className="w-4 h-4" />
