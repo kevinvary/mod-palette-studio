@@ -205,7 +205,17 @@ const Login = () => {
             </div>
           )}
 
-          <p className="text-center text-xs text-muted-foreground mt-8">
+          {/* Advice ComfyUI */}
+          <div className="mt-8 rounded-xl border border-primary/20 bg-primary/5 p-4 text-center space-y-1">
+            <p className="text-sm font-medium text-foreground">¿Eres programador de ComfyUI?</p>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Contáctame y usa esta plataforma para vender tus workflows.
+              <br />
+              <span className="text-primary font-semibold">0% de comisión</span> · <span className="text-foreground font-medium">100% de seguridad</span>
+            </p>
+          </div>
+
+          <p className="text-center text-xs text-muted-foreground mt-4">
             Al continuar, aceptas nuestros{" "}
             <span className="text-foreground/70 hover:text-foreground cursor-pointer transition-colors" onClick={() => alert("puto el que lee esto!")}>Términos</span>
             {" "}y{" "}
