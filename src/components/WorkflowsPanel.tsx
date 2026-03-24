@@ -128,10 +128,6 @@ const categories: { key: string; label: string }[] = [
   { key: "gestión", label: "GESTIÓN" },
   { key: "multi", label: "MULTI" },
 ];
-  { key: "gestión", label: "GESTIÓN" },
-  { key: "ia", label: "IA" },
-  { key: "multi", label: "MULTI" },
-];
 
 const WorkflowsPanel = () => {
   const grouped = categories
