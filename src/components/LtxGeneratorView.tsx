@@ -125,7 +125,7 @@ const LtxGeneratorView = () => {
           <div className="surface-card p-3">
             <p className="text-[10px] text-muted-foreground mb-1">Model</p>
             <div className="flex items-center gap-2 text-sm text-foreground font-medium">
-              LTX 2.3
+              Image to Video
               <span className="text-accent text-[10px]">✦</span>
             </div>
           </div>
