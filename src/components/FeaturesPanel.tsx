@@ -60,6 +60,7 @@ const features: Feature[] = [
     icon: <Wand2 className="w-5 h-5 text-accent" />,
     podLabel: "Iniciar Iceklub",
     podDescription: "Se creará una instancia GPU en RunPod.",
+    comingSoon: true,
   },
 ];
 
