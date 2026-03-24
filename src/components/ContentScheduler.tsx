@@ -39,6 +39,9 @@ const ContentScheduler = ({
 }: ContentSchedulerProps) => {
   const [items, setItems] = useState<ContentItem[]>([createItem()]);
 
+  const [dragIdx, setDragIdx] = useState<number | null>(null);
+  const [dragOverIdx, setDragOverIdx] = useState<number | null>(null);
+
   const addItem = () => setItems((prev) => [...prev, createItem()]);
 
   const removeItem = (id: string) => {
