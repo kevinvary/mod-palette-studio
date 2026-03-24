@@ -197,6 +197,11 @@ const FeaturesPanel = () => {
                   <span className={cn("px-2 py-0.5 rounded text-[10px] font-semibold", feature.categoryColor)}>
                     {feature.category}
                   </span>
+                  {feature.comingSoon && (
+                    <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-muted text-muted-foreground">
+                      Coming soon
+                    </span>
+                  )}
                 </div>
                 <p className="text-xs text-muted-foreground mb-3 leading-relaxed">{feature.description}</p>
                 <div className="flex flex-wrap gap-1.5">
