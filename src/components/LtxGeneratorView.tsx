@@ -16,10 +16,10 @@ const durations = ["5s", "10s", "15s"];
 const aspects = ["1:1", "9:16", "16:9", "4:3", "3:4"];
 
 const mockHistory: GeneratedItem[] = [
-  { id: "gen-001", model: "ZBase ZIT v1", resolution: "1080p", duration: "29.0s", thumbnails: [], status: "completed" },
-  { id: "gen-002", model: "ZBase ZIT v1", resolution: "1080p", duration: "29.0s", thumbnails: [], status: "completed" },
-  { id: "gen-003", model: "Kling 2.6", resolution: "720p", duration: "15.0s", thumbnails: [], status: "processing" },
-  { id: "gen-004", model: "ZBase ZIT v1", resolution: "1080p", duration: "10.0s", thumbnails: [], status: "completed" },
+  { id: "gen-001", model: "Image to Video", resolution: "1080p", duration: "29.0s", thumbnails: [], status: "completed" },
+  { id: "gen-002", model: "Image to Video", resolution: "1080p", duration: "29.0s", thumbnails: [], status: "completed" },
+  { id: "gen-003", model: "Image to Video", resolution: "720p", duration: "15.0s", thumbnails: [], status: "processing" },
+  { id: "gen-004", model: "Image to Video", resolution: "1080p", duration: "10.0s", thumbnails: [], status: "completed" },
 ];
 
 const LtxGeneratorView = () => {
@@ -49,7 +49,7 @@ const LtxGeneratorView = () => {
           <div className="relative rounded-xl overflow-hidden h-28 bg-gradient-to-br from-primary/30 via-accent/20 to-primary/10 mb-1">
             <div className="absolute bottom-3 left-3">
               <p className="text-xs font-bold text-accent uppercase tracking-wider">VIDEO</p>
-              <p className="text-[10px] text-muted-foreground">LTX 2.3</p>
+              <p className="text-[10px] text-muted-foreground">Image to Video</p>
             </div>
           </div>
         </div>
@@ -125,7 +125,7 @@ const LtxGeneratorView = () => {
           <div className="surface-card p-3">
             <p className="text-[10px] text-muted-foreground mb-1">Model</p>
             <div className="flex items-center gap-2 text-sm text-foreground font-medium">
-              LTX 2.3
+              Image to Video
               <span className="text-accent text-[10px]">✦</span>
             </div>
           </div>
@@ -253,7 +253,7 @@ const LtxGeneratorView = () => {
             )
           ) : (
             <div className="max-w-2xl mx-auto space-y-6 py-4">
-              <h2 className="text-lg font-semibold text-foreground">¿Cómo funciona LTX 2.3?</h2>
+              <h2 className="text-lg font-semibold text-foreground">¿Cómo funciona Image to Video?</h2>
 
               <div className="surface-card p-5 rounded-xl space-y-3">
                 <h3 className="text-sm font-semibold text-accent flex items-center gap-2"><MessageSquare className="w-4 h-4" /> Prompts: Positive y Negative</h3>
