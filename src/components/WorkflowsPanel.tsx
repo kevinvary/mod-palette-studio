@@ -1,9 +1,13 @@
-import { useState } from "react";
 import {
   Film, Image, Wand2, Lock, Paintbrush, Box, Mic, Volume2,
-  LayoutGrid, BarChart3, Users, PenTool, Info, X
+  LayoutGrid, BarChart3, Users, PenTool, Info
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 interface WorkflowCard {
   id: string;
