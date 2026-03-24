@@ -1,4 +1,4 @@
-import { Workflow, Image, Settings, Sparkles, GraduationCap, Database, Boxes, Server } from "lucide-react";
+import { Workflow, Image, Settings, Boxes, Server } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/logo.png";
 
@@ -10,9 +10,6 @@ interface NavRailProps {
 const navItems = [
   { id: "workflows", icon: Workflow, label: "Workflows" },
   { id: "assets", icon: Image, label: "Assets" },
-  { id: "loras", icon: Sparkles, label: "LoRAs" },
-  { id: "entrenar", icon: GraduationCap, label: "Entrenar" },
-  { id: "dataset", icon: Database, label: "Dataset" },
   { id: "features", icon: Boxes, label: "Features" },
   { id: "pods", icon: Server, label: "Pods" },
   { id: "settings", icon: Settings, label: "Settings" },
