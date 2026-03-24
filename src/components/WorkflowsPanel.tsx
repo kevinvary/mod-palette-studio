@@ -78,7 +78,7 @@ const workflows: WorkflowCard[] = [
     comingSoon: true,
     badge: "COMING SOON",
     badgeColor: "bg-muted text-muted-foreground",
-    category: "contenido",
+    category: "modelo",
   },
   {
     id: "reel-tracker",
