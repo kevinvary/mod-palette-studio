@@ -109,17 +109,30 @@ const FeaturesPanel = () => {
   if (viewState) {
     const feature = features.find((f) => f.id === viewState.featureId)!;
 
-    if (!viewState.podStarted) {
+    if (viewState.step === "schedule") {
       return (
-        <StartPodView
-          feature={feature}
+        <ContentScheduler
+          featureId={feature.id}
+          featureTitle={feature.title}
+          featureSubtitle={feature.subtitle}
           onBack={() => setViewState(null)}
-          onStart={() => setViewState({ ...viewState, podStarted: true })}
+          onContinue={() => setViewState({ featureId: feature.id, step: "deploy" })}
+          showPrompts={feature.id === "ltx-i2v"}
         />
       );
     }
 
-    if (feature.id === "ltx-i2v" || feature.id === "motion-transfer") {
+    if (viewState.step === "deploy") {
+      return (
+        <StartPodView
+          feature={feature}
+          onBack={() => setViewState({ featureId: feature.id, step: "schedule" })}
+          onStart={() => setViewState({ featureId: feature.id, step: "studio" })}
+        />
+      );
+    }
+
+    if (viewState.step === "studio" && (feature.id === "ltx-i2v" || feature.id === "motion-transfer")) {
       return (
         <div className="flex flex-col h-full">
           <div className="px-6 pt-5 pb-3 border-b border-border">
