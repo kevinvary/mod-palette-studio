@@ -1,4 +1,4 @@
-import { User, Key, Bell, Monitor, Shield, Globe } from "lucide-react";
+import { User, Key, Bell, Monitor, Shield, Globe, Eye, EyeOff, Copy } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
