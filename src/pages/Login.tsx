@@ -20,32 +20,44 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Fondo con grid + gradientes */}
-      <div className="fixed inset-0 pointer-events-none">
-        {/* Grid sutil */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
-            backgroundSize: "60px 60px",
-          }}
-        />
-        {/* Blob primario */}
-        <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-primary/8 blur-[120px]" />
-        {/* Blob accent */}
-        <div className="absolute bottom-[-15%] left-[-10%] w-[500px] h-[500px] rounded-full bg-accent/6 blur-[100px]" />
-        {/* Blob central sutil */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-primary/3 blur-[150px]" />
-        {/* Línea diagonal decorativa */}
-        <div
-          className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 100px, hsl(var(--primary)) 100px, hsl(var(--primary)) 101px)`,
-          }}
-        />
-        {/* Noise texture overlay */}
-        <div className="absolute inset-0 opacity-[0.015]" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+      {/* Fondo inmersivo */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        {/* Gradiente radial central */}
+        <div className="absolute inset-0" style={{
+          background: `radial-gradient(ellipse 80% 60% at 50% -10%, hsl(var(--primary) / 0.15), transparent 70%)`
+        }} />
+        {/* Gradiente inferior accent */}
+        <div className="absolute inset-0" style={{
+          background: `radial-gradient(ellipse 70% 50% at 70% 110%, hsl(var(--accent) / 0.08), transparent 60%)`
+        }} />
+        {/* Orbe flotante izquierdo */}
+        <div className="absolute top-[15%] left-[8%] w-72 h-72 rounded-full animate-pulse" style={{
+          background: `radial-gradient(circle, hsl(var(--primary) / 0.12), transparent 70%)`,
+          animationDuration: '6s',
+        }} />
+        {/* Orbe flotante derecho */}
+        <div className="absolute bottom-[20%] right-[5%] w-96 h-96 rounded-full animate-pulse" style={{
+          background: `radial-gradient(circle, hsl(var(--accent) / 0.07), transparent 70%)`,
+          animationDuration: '8s',
+          animationDelay: '2s',
+        }} />
+        {/* Líneas de flujo curvadas via SVG */}
+        <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,200 Q400,100 800,300 T1600,200" fill="none" stroke="hsl(var(--primary))" strokeWidth="1"/>
+          <path d="M0,400 Q300,250 700,450 T1400,350" fill="none" stroke="hsl(var(--primary))" strokeWidth="0.8"/>
+          <path d="M0,600 Q500,500 900,650 T1800,550" fill="none" stroke="hsl(var(--accent))" strokeWidth="0.6"/>
+          <path d="M200,0 Q350,300 200,600 T400,900" fill="none" stroke="hsl(var(--primary))" strokeWidth="0.5"/>
+          <path d="M1200,0 Q1050,400 1200,700 T1000,1000" fill="none" stroke="hsl(var(--accent))" strokeWidth="0.7"/>
+        </svg>
+        {/* Puntos de luz dispersos */}
+        <div className="absolute top-[30%] left-[20%] w-1 h-1 rounded-full bg-primary/30 shadow-[0_0_8px_4px_hsl(var(--primary)/0.15)]" />
+        <div className="absolute top-[18%] right-[25%] w-1.5 h-1.5 rounded-full bg-accent/25 shadow-[0_0_10px_5px_hsl(var(--accent)/0.1)]" />
+        <div className="absolute bottom-[35%] left-[35%] w-1 h-1 rounded-full bg-primary/20 shadow-[0_0_6px_3px_hsl(var(--primary)/0.1)]" />
+        <div className="absolute bottom-[25%] right-[18%] w-1 h-1 rounded-full bg-accent/20 shadow-[0_0_8px_4px_hsl(var(--accent)/0.08)]" />
+        <div className="absolute top-[55%] left-[65%] w-0.5 h-0.5 rounded-full bg-primary/25 shadow-[0_0_6px_3px_hsl(var(--primary)/0.12)]" />
+        {/* Noise texture */}
+        <div className="absolute inset-0 opacity-[0.012]" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
         }} />
       </div>
 
