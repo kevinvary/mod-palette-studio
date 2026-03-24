@@ -56,20 +56,12 @@ const Login = () => {
           <p className="text-lg text-muted-foreground leading-relaxed max-w-md">
             La plataforma que potencia tu flujo de trabajo creativo con IA. Genera, programa y publica — todo en un solo lugar.
           </p>
-          <div className="flex items-center gap-6 mt-10">
-            <div className="flex -space-x-2">
-              {[0, 1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="w-8 h-8 rounded-full border-2 border-background bg-muted"
-                  style={{
-                    background: `hsl(${220 + i * 30} 40% ${35 + i * 8}%)`,
-                  }}
-                />
-              ))}
+          <div className="flex items-center gap-3 mt-10">
+            <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+              <ArrowRight className="w-4 h-4 text-primary" />
             </div>
             <p className="text-sm text-muted-foreground">
-              <span className="text-foreground font-medium">2,400+</span> creadores activos
+              <span className="text-foreground font-semibold">+120M</span> views por mes
             </p>
           </div>
         </div>
