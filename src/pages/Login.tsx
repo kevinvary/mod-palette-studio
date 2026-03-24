@@ -20,88 +20,17 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[hsl(230,15%,4%)] flex items-center justify-center p-4 relative overflow-hidden">
-      {/* === FONDO ESTILO SPACE/TECH === */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        {/* Estrellas (puntos pequeños dispersos) */}
-        {Array.from({ length: 60 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full bg-foreground"
-            style={{
-              width: `${Math.random() * 2 + 0.5}px`,
-              height: `${Math.random() * 2 + 0.5}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              opacity: Math.random() * 0.25 + 0.05,
-              animationName: 'pulse',
-              animationDuration: `${Math.random() * 4 + 3}s`,
-              animationIterationCount: 'infinite',
-              animationDelay: `${Math.random() * 5}s`,
-            }}
-          />
-        ))}
-
-        {/* Resplandor planetario superior derecho */}
-        <div className="absolute -top-[30%] -right-[15%] w-[800px] h-[800px] rounded-full"
-          style={{
-            background: `radial-gradient(circle at 40% 60%, hsl(var(--primary) / 0.2) 0%, hsl(var(--primary) / 0.05) 40%, transparent 70%)`,
-          }}
-        />
-        {/* Halo atmosférico */}
-        <div className="absolute -top-[25%] -right-[10%] w-[600px] h-[600px] rounded-full"
-          style={{
-            border: '1px solid hsl(var(--primary) / 0.08)',
-            boxShadow: `inset 0 0 80px hsl(var(--primary) / 0.05), 0 0 60px hsl(var(--primary) / 0.03)`,
-          }}
-        />
-
-        {/* Anillo orbital 1 - elíptico grande */}
-        <svg className="absolute top-[-5%] right-[-10%] w-[900px] h-[700px] opacity-[0.08]" viewBox="0 0 900 700">
-          <ellipse cx="350" cy="350" rx="380" ry="150" fill="none" stroke="hsl(var(--primary))" strokeWidth="0.8"
-            transform="rotate(-25 350 350)" strokeDasharray="6 8" />
-          <ellipse cx="350" cy="350" rx="320" ry="120" fill="none" stroke="hsl(var(--primary))" strokeWidth="0.5"
-            transform="rotate(-25 350 350)" />
-        </svg>
-
-        {/* Anillo orbital 2 - inferior */}
-        <svg className="absolute bottom-[-15%] left-[-5%] w-[700px] h-[500px] opacity-[0.05]" viewBox="0 0 700 500">
-          <ellipse cx="350" cy="250" rx="300" ry="100" fill="none" stroke="hsl(var(--accent))" strokeWidth="0.7"
-            transform="rotate(15 350 250)" strokeDasharray="4 10" />
-        </svg>
-
-        {/* Gradiente inferior accent (nebulosa) */}
-        <div className="absolute bottom-0 left-0 w-full h-[40%]"
-          style={{
-            background: `radial-gradient(ellipse 80% 70% at 30% 100%, hsl(var(--accent) / 0.06), transparent 70%)`
-          }}
-        />
-
-        {/* Líneas de flujo horizontales sutiles */}
-        <svg className="absolute inset-0 w-full h-full opacity-[0.025]" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1440 900">
-          <path d="M-100,300 C200,280 400,320 700,290 S1100,260 1540,300" fill="none" stroke="hsl(var(--primary))" strokeWidth="1"/>
-          <path d="M-100,500 C300,480 500,520 800,490 S1200,460 1540,500" fill="none" stroke="hsl(var(--primary))" strokeWidth="0.7"/>
-          <path d="M-100,700 C250,680 550,720 850,690 S1150,660 1540,700" fill="none" stroke="hsl(var(--accent))" strokeWidth="0.5"/>
-        </svg>
-
-        {/* Puntos brillantes tipo satélite */}
-        <div className="absolute top-[22%] right-[28%] w-1.5 h-1.5 rounded-full bg-primary/50"
-          style={{ boxShadow: `0 0 12px 4px hsl(var(--primary) / 0.3), 0 0 30px 8px hsl(var(--primary) / 0.1)` }} />
-        <div className="absolute top-[45%] left-[12%] w-1 h-1 rounded-full bg-accent/40"
-          style={{ boxShadow: `0 0 10px 3px hsl(var(--accent) / 0.25), 0 0 25px 6px hsl(var(--accent) / 0.08)` }} />
-        <div className="absolute bottom-[30%] right-[15%] w-1 h-1 rounded-full bg-primary/30"
-          style={{ boxShadow: `0 0 8px 3px hsl(var(--primary) / 0.2)` }} />
-
-        {/* Viñeta oscura en bordes */}
-        <div className="absolute inset-0" style={{
-          background: `radial-gradient(ellipse 70% 60% at 50% 50%, transparent 40%, hsl(230 15% 4% / 0.8) 100%)`
-        }} />
-
-        {/* Noise texture */}
-        <div className="absolute inset-0 opacity-[0.02]" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-        }} />
-      </div>
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Imagen de fondo */}
+      <img
+        src={loginBg}
+        alt=""
+        width={1920}
+        height={1080}
+        className="fixed inset-0 w-full h-full object-cover"
+      />
+      {/* Overlay oscuro para legibilidad */}
+      <div className="fixed inset-0 bg-background/60 backdrop-blur-[2px]" />
 
       <div className="w-full max-w-md relative z-10">
         {/* Logo */}
