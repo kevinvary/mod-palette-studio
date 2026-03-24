@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import LtxGeneratorView from "@/components/LtxGeneratorView";
 import MotionTransferView from "@/components/MotionTransferView";
 import ContentScheduler from "@/components/ContentScheduler";
+import HowItWorksView from "@/components/HowItWorksView";
 
 interface Feature {
   id: string;
@@ -101,7 +102,7 @@ const StartPodView = ({
   </div>
 );
 
-type ViewState = null | { featureId: string; step: "schedule" | "deploy" | "studio" };
+type ViewState = null | { featureId: string; step: "schedule" | "howItWorks" | "deploy" | "studio" };
 
 const FeaturesPanel = () => {
   const [viewState, setViewState] = useState<ViewState>(null);
@@ -116,9 +117,20 @@ const FeaturesPanel = () => {
           featureTitle={feature.title}
           featureSubtitle={feature.subtitle}
           onBack={() => setViewState(null)}
-          onContinue={() => setViewState({ featureId: feature.id, step: "deploy" })}
+          onContinue={() => setViewState({ featureId: feature.id, step: "howItWorks" })}
           showPrompts={feature.id === "ltx-i2v"}
           showVideo={feature.id === "motion-transfer"}
+        />
+      );
+    }
+
+    if (viewState.step === "howItWorks") {
+      return (
+        <HowItWorksView
+          featureId={feature.id}
+          featureTitle={feature.title}
+          onBack={() => setViewState({ featureId: feature.id, step: "schedule" })}
+          onContinue={() => setViewState({ featureId: feature.id, step: "deploy" })}
         />
       );
     }
@@ -127,7 +139,7 @@ const FeaturesPanel = () => {
       return (
         <StartPodView
           feature={feature}
-          onBack={() => setViewState({ featureId: feature.id, step: "schedule" })}
+          onBack={() => setViewState({ featureId: feature.id, step: "howItWorks" })}
           onStart={() => setViewState({ featureId: feature.id, step: "studio" })}
         />
       );
