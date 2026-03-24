@@ -1,4 +1,4 @@
-import { Workflow, Image, Settings, Boxes, Server } from "lucide-react";
+import { Workflow, Settings, Boxes, Server, Archive } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/logo.png";
 
