@@ -190,18 +190,16 @@ const WorkflowsPanel = () => {
                   <p className="text-[11px] text-muted-foreground leading-relaxed line-clamp-2">
                     {wf.description}
                   </p>
-                  {!wf.comingSoon && (
-                    <button
-                      className="mt-2 flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground group-hover:text-foreground transition-colors"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedId(wf.id);
-                      }}
-                    >
-                      <Info className="w-3 h-3" />
-                      Info
-                    </button>
-                  )}
+                  <button
+                    className="mt-2 flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground group-hover:text-foreground transition-colors"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedId(wf.id);
+                    }}
+                  >
+                    <Info className="w-3 h-3" />
+                    Info
+                  </button>
                 </div>
               </div>
             ))}
