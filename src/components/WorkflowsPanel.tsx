@@ -134,9 +134,6 @@ const categories: { key: string; label: string }[] = [
 ];
 
 const WorkflowsPanel = () => {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const selectedWf = workflows.find((wf) => wf.id === selectedId);
-
   const grouped = categories
     .map((cat) => ({
       ...cat,
@@ -145,7 +142,7 @@ const WorkflowsPanel = () => {
     .filter((cat) => cat.items.length > 0);
 
   return (
-    <div className="flex-1 p-6 animate-fade-in overflow-y-auto relative">
+    <div className="flex-1 p-6 animate-fade-in overflow-y-auto">
       {grouped.map((group) => (
         <div key={group.key} className="mb-8">
           <div className="mb-4">
@@ -164,7 +161,6 @@ const WorkflowsPanel = () => {
                     ? "opacity-60 cursor-not-allowed"
                     : "hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 cursor-pointer"
                 )}
-                onClick={() => !wf.comingSoon && setSelectedId(wf.id)}
               >
                 <div className="relative aspect-[16/10] bg-secondary/50 flex items-center justify-center overflow-hidden">
                   <div className="w-12 h-12 rounded-2xl bg-background/80 backdrop-blur flex items-center justify-center">
@@ -194,59 +190,45 @@ const WorkflowsPanel = () => {
                   <p className="text-[11px] text-muted-foreground leading-relaxed line-clamp-2">
                     {wf.description}
                   </p>
-                  <button
-                    className="mt-2 flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground group-hover:text-foreground transition-colors"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedId(wf.id);
-                    }}
-                  >
-                    <Info className="w-3 h-3" />
-                    Info
-                  </button>
+
+                  <HoverCard openDelay={200} closeDelay={100}>
+                    <HoverCardTrigger asChild>
+                      <button
+                        className="mt-2 flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground hover:text-foreground transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Info className="w-3 h-3" />
+                        Info
+                      </button>
+                    </HoverCardTrigger>
+                    <HoverCardContent side="top" align="start" className="w-64 p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center shrink-0">
+                          {wf.icon}
+                        </div>
+                        <h4 className="text-sm font-semibold text-foreground">{wf.name}</h4>
+                      </div>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        {wf.description}
+                      </p>
+                      <div className="mt-3 flex items-center gap-2">
+                        <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-primary text-primary-foreground uppercase">
+                          {wf.category}
+                        </span>
+                        {wf.comingSoon && (
+                          <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-muted text-muted-foreground">
+                            Coming soon
+                          </span>
+                        )}
+                      </div>
+                    </HoverCardContent>
+                  </HoverCard>
                 </div>
               </div>
             ))}
           </div>
         </div>
       ))}
-
-      {/* Info overlay */}
-      {selectedWf && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/60 backdrop-blur-sm animate-fade-in">
-          <div className="bg-card border border-border rounded-2xl shadow-xl max-w-md w-full mx-4 overflow-hidden">
-            <div className="flex items-center justify-between p-5 border-b border-border">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center">
-                  {selectedWf.icon}
-                </div>
-                <h2 className="text-base font-semibold text-foreground">{selectedWf.name}</h2>
-              </div>
-              <button
-                onClick={() => setSelectedId(null)}
-                className="p-1.5 rounded-lg hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-            <div className="p-5">
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {selectedWf.description}
-              </p>
-              <div className="mt-4 flex items-center gap-2">
-                <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-primary text-primary-foreground uppercase">
-                  {selectedWf.category}
-                </span>
-                {selectedWf.comingSoon && (
-                  <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-muted text-muted-foreground">
-                    Coming soon
-                  </span>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
