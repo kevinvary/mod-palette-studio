@@ -1,4 +1,4 @@
-import { Workflow, Settings, Boxes, Server, Archive } from "lucide-react";
+import { Workflow, Settings, Boxes, Server, Archive, Wallet } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/logo.png";
 
@@ -37,6 +37,20 @@ const NavRail = ({ activeSection, onSectionChange }: NavRailProps) => {
           <span className="text-[10px] mt-1 font-medium">{item.label}</span>
         </button>
       ))}
+
+      {/* Saldos */}
+      <div className="mt-auto flex flex-col items-center gap-2 w-full px-2">
+        <div className="w-full flex flex-col items-center gap-0.5 py-2 rounded-lg bg-secondary/40">
+          <Wallet className="w-3 h-3 text-muted-foreground" />
+          <span className="text-[8px] text-muted-foreground font-medium">Vast.ai</span>
+          <span className="text-[11px] font-bold text-foreground font-mono">$24.50</span>
+        </div>
+        <div className="w-full flex flex-col items-center gap-0.5 py-2 rounded-lg bg-secondary/40">
+          <Wallet className="w-3 h-3 text-muted-foreground" />
+          <span className="text-[8px] text-muted-foreground font-medium">RunPod</span>
+          <span className="text-[11px] font-bold text-foreground font-mono">$18.73</span>
+        </div>
+      </div>
     </div>
   );
 };

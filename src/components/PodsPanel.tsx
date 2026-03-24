@@ -1,4 +1,4 @@
-import { Zap, Server, Cpu, HardDrive, Activity, AlertTriangle, Wallet } from "lucide-react";
+import { Zap, Server, Cpu, HardDrive, Activity, AlertTriangle } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -51,25 +51,6 @@ const PodsPanel = () => {
         </div>
       </div>
 
-      {/* Saldos de plataformas */}
-      <div className="grid grid-cols-2 gap-3 mb-6">
-        <div className="surface-card p-4">
-          <div className="flex items-center gap-2 mb-2">
-            <Wallet className="w-4 h-4 text-primary" />
-            <span className="text-xs font-semibold text-foreground">Vast.ai</span>
-          </div>
-          <p className="text-lg font-bold text-foreground font-mono">$24.50</p>
-          <p className="text-[10px] text-muted-foreground mt-0.5">Saldo disponible</p>
-        </div>
-        <div className="surface-card p-4">
-          <div className="flex items-center gap-2 mb-2">
-            <Wallet className="w-4 h-4 text-primary" />
-            <span className="text-xs font-semibold text-foreground">RunPod</span>
-          </div>
-          <p className="text-lg font-bold text-foreground font-mono">$18.73</p>
-          <p className="text-[10px] text-muted-foreground mt-0.5">Saldo disponible</p>
-        </div>
-      </div>
 
       <div className="space-y-3">
         {pods.map((pod) => {
