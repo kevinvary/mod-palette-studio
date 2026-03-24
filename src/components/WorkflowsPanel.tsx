@@ -124,10 +124,10 @@ const workflows: WorkflowCard[] = [
 
 const categories: { key: string; label: string }[] = [
   { key: "video", label: "VIDEO" },
-  { key: "imagen", label: "IMAGEN" },
   { key: "modelo", label: "MODELO" },
-  { key: "contenido", label: "CONTENIDO" },
-  { key: "analytics", label: "ANALYTICS" },
+  { key: "gestión", label: "GESTIÓN" },
+  { key: "multi", label: "MULTI" },
+];
   { key: "gestión", label: "GESTIÓN" },
   { key: "ia", label: "IA" },
   { key: "multi", label: "MULTI" },
