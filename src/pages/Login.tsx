@@ -132,47 +132,10 @@ const Login = () => {
 
             {/* REGISTRO */}
             {!isLogin && (
-              <form onSubmit={handleSendCode} className="space-y-4">
-                <div className="space-y-2">
-                  <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    Nombre
-                  </label>
-                  <Input
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Tu nombre"
-                    className="bg-secondary/40 border-border/50 pl-3 h-11"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    Email
-                  </label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                    <Input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="tu@email.com"
-                      className="bg-secondary/40 border-border/50 pl-10 h-11"
-                    />
-                  </div>
-                </div>
-
-                <Button type="submit" className="w-full h-11 mt-2 gap-2">
-                  Crear Cuenta
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-
-                {/* Separador */}
-                <div className="flex items-center gap-3 my-2">
-                  <div className="flex-1 h-px bg-border" />
-                  <span className="text-xs text-muted-foreground">o regístrate vía</span>
-                  <div className="flex-1 h-px bg-border" />
-                </div>
-
-                {/* Telegram */}
+              <div className="space-y-4">
+                <p className="text-sm text-muted-foreground text-center">
+                  Para registrarte, contáctanos por Telegram
+                </p>
                 <Button
                   type="button"
                   variant="outline"
@@ -182,7 +145,7 @@ const Login = () => {
                   <Send className="w-4 h-4" />
                   Telegram — @ofmkeviin
                 </Button>
-              </form>
+              </div>
             )}
           </CardContent>
         </Card>
