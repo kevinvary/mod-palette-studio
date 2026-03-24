@@ -3,7 +3,7 @@ import NavRail from "@/components/NavRail";
 import AssetsPanel from "@/components/AssetsPanel";
 import FeaturesPanel from "@/components/FeaturesPanel";
 import SettingsPanel from "@/components/SettingsPanel";
-import ConfigPanel from "@/components/ConfigPanel";
+
 import PodsPanel from "@/components/PodsPanel";
 import WorkflowsPanel from "@/components/WorkflowsPanel";
 
