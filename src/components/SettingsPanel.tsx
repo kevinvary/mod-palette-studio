@@ -19,6 +19,7 @@ const defaultApiKeys: ApiKeySlot[] = [
   { id: "vastai", name: "Vast.ai", description: "GPU cloud para entrenamiento e inferencia", value: "" },
   { id: "runpod", name: "RunPod", description: "GPU cloud para pods y serverless", value: "" },
   { id: "elevenlabs", name: "ElevenLabs", description: "Generación de voz y audio con IA", value: "" },
+  { id: "telegram", name: "Telegram", description: "Bot API para notificaciones y automatización", value: "" },
 ];
 
 const ApiKeysSection = () => {
