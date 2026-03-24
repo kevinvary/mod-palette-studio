@@ -1,35 +1,8 @@
-import { Cpu, Sparkles, Activity, Clock, Wallet } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 const ConfigPanel = () => {
   return (
     <div className="w-72 border-l border-border bg-sidebar p-4 space-y-6 overflow-y-auto">
-      <div>
-        <h3 className="text-label mb-3">Active Pod</h3>
-        <div className="surface-card p-3">
-          <div className="flex items-center gap-2 mb-2">
-            <div className="w-2 h-2 rounded-full bg-accent" />
-            <span className="text-sm font-medium text-foreground">A100 80GB</span>
-          </div>
-          <div className="space-y-2 text-[11px]">
-            <div className="flex justify-between">
-              <span className="text-muted-foreground flex items-center gap-1"><Cpu className="w-3 h-3" /> GPU</span>
-              <span className="text-foreground font-mono">A100 SXM</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground flex items-center gap-1"><Activity className="w-3 h-3" /> Usage</span>
-              <span className="text-foreground font-mono">87%</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground flex items-center gap-1"><Clock className="w-3 h-3" /> Uptime</span>
-              <span className="text-foreground font-mono">4h 23m</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground flex items-center gap-1"><Wallet className="w-3 h-3" /> Cost</span>
-              <span className="text-foreground font-mono">$3.12/hr</span>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <div>
         <h3 className="text-label mb-3">Active LoRAs</h3>
