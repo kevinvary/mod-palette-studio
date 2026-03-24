@@ -38,7 +38,7 @@ const workflows: WorkflowCard[] = [
     comingSoon: true,
     badge: "COMING SOON",
     badgeColor: "bg-muted text-muted-foreground",
-    category: "imagen",
+    category: "modelo",
   },
   {
     id: "train-lora",
