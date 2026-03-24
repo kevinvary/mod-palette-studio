@@ -117,9 +117,20 @@ const FeaturesPanel = () => {
           featureTitle={feature.title}
           featureSubtitle={feature.subtitle}
           onBack={() => setViewState(null)}
-          onContinue={() => setViewState({ featureId: feature.id, step: "deploy" })}
+          onContinue={() => setViewState({ featureId: feature.id, step: "howItWorks" })}
           showPrompts={feature.id === "ltx-i2v"}
           showVideo={feature.id === "motion-transfer"}
+        />
+      );
+    }
+
+    if (viewState.step === "howItWorks") {
+      return (
+        <HowItWorksView
+          featureId={feature.id}
+          featureTitle={feature.title}
+          onBack={() => setViewState({ featureId: feature.id, step: "schedule" })}
+          onContinue={() => setViewState({ featureId: feature.id, step: "deploy" })}
         />
       );
     }
@@ -128,7 +139,7 @@ const FeaturesPanel = () => {
       return (
         <StartPodView
           feature={feature}
-          onBack={() => setViewState({ featureId: feature.id, step: "schedule" })}
+          onBack={() => setViewState({ featureId: feature.id, step: "howItWorks" })}
           onStart={() => setViewState({ featureId: feature.id, step: "studio" })}
         />
       );
