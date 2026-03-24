@@ -64,45 +64,7 @@ const features: Feature[] = [
   },
 ];
 
-const StartPodView = ({
-  feature,
-  onBack,
-  onStart,
-}: {
-  feature: Feature;
-  onBack: () => void;
-  onStart: () => void;
-}) => (
-  <div className="flex flex-col h-full animate-fade-in">
-    <div className="px-6 pt-5 pb-3 border-b border-border">
-      <button
-        onClick={onBack}
-        className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-      >
-        <ArrowLeft className="w-4 h-4" />
-        Back to Features
-      </button>
-    </div>
-    <div className="flex-1 p-6">
-      <h1 className="text-lg font-semibold text-foreground">{feature.title}</h1>
-      <p className="text-sm text-muted-foreground mt-1">{feature.subtitle}</p>
 
-      <div className="mt-8 surface-card rounded-xl flex flex-col items-center justify-center py-16 px-8">
-        <div className="w-16 h-16 rounded-full bg-primary/15 flex items-center justify-center mb-6">
-          <Sparkles className="w-7 h-7 text-primary" />
-        </div>
-        <h2 className="text-base font-semibold text-foreground mb-2">{feature.podLabel}</h2>
-        <p className="text-sm text-muted-foreground text-center max-w-sm mb-6">{feature.podDescription}</p>
-        <button
-          onClick={onStart}
-          className="px-8 py-3 bg-primary text-primary-foreground rounded-xl text-sm font-semibold hover:bg-primary/90 transition-colors"
-        >
-          Iniciar pod
-        </button>
-      </div>
-    </div>
-  </div>
-);
 
 type ViewState = null | { featureId: string; step: "schedule" | "howItWorks" | "studio" };
 
