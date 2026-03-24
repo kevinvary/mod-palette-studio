@@ -68,25 +68,7 @@ const SettingsPanel = () => {
             </div>
           )}
 
-          {activeTab === "api" && (
-            <div className="space-y-6">
-              <h2 className="text-base font-semibold text-foreground">API Keys</h2>
-              <div className="space-y-3">
-                {[
-                  { name: "Production Key", key: "sk-prod-••••••••4f2a", created: "Jan 12, 2026" },
-                  { name: "Development Key", key: "sk-dev-••••••••8b1c", created: "Mar 01, 2026" },
-                ].map((apiKey) => (
-                  <div key={apiKey.name} className="flex items-center justify-between p-3 bg-background border border-border rounded-lg">
-                    <div>
-                      <p className="text-sm font-medium text-foreground">{apiKey.name}</p>
-                      <p className="font-mono text-xs text-muted-foreground mt-0.5">{apiKey.key}</p>
-                    </div>
-                    <span className="text-[11px] text-muted-foreground">{apiKey.created}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          {activeTab === "api" && <ApiKeysSection />}
 
           {activeTab !== "profile" && activeTab !== "api" && (
             <div className="flex items-center justify-center h-48 text-muted-foreground text-sm">
