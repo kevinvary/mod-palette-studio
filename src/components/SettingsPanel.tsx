@@ -1,4 +1,4 @@
-import { User, Key, Bell, Monitor, Shield, Globe, Eye, EyeOff, Copy } from "lucide-react";
+import { User, Key, Bell, Eye, EyeOff, Copy } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
@@ -6,9 +6,6 @@ const settingsSections = [
   { id: "profile", icon: User, label: "Profile" },
   { id: "api", icon: Key, label: "API Keys" },
   { id: "notifications", icon: Bell, label: "Notifications" },
-  { id: "appearance", icon: Monitor, label: "Appearance" },
-  { id: "security", icon: Shield, label: "Security" },
-  { id: "integrations", icon: Globe, label: "Integrations" },
 ];
 
 interface ApiKeySlot {
