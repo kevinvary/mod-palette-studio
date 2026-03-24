@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Plus, Upload, Trash2, ArrowLeft, ArrowRight, Film } from "lucide-react";
+import { useState, useCallback } from "react";
+import { Plus, Upload, Trash2, ArrowLeft, ArrowRight, Film, GripVertical } from "lucide-react";
 
 interface ContentItem {
   id: string;
@@ -39,6 +39,9 @@ const ContentScheduler = ({
 }: ContentSchedulerProps) => {
   const [items, setItems] = useState<ContentItem[]>([createItem()]);
 
+  const [dragIdx, setDragIdx] = useState<number | null>(null);
+  const [dragOverIdx, setDragOverIdx] = useState<number | null>(null);
+
   const addItem = () => setItems((prev) => [...prev, createItem()]);
 
   const removeItem = (id: string) => {
@@ -57,6 +60,18 @@ const ContentScheduler = ({
       updateItem(id, field, url);
     }
   };
+
+  const handleDrop = useCallback((targetIdx: number) => {
+    if (dragIdx === null || dragIdx === targetIdx) return;
+    setItems((prev) => {
+      const copy = [...prev];
+      const [moved] = copy.splice(dragIdx, 1);
+      copy.splice(targetIdx, 0, moved);
+      return copy;
+    });
+    setDragIdx(null);
+    setDragOverIdx(null);
+  }, [dragIdx]);
 
   const filledItems = items.filter((i) => i.image);
 
@@ -95,12 +110,25 @@ const ContentScheduler = ({
             {items.map((item, index) => (
               <div
                 key={item.id}
-                className="surface-card p-4 rounded-xl border border-border/50 relative group"
+                draggable
+                onDragStart={() => setDragIdx(index)}
+                onDragOver={(e) => { e.preventDefault(); setDragOverIdx(index); }}
+                onDragLeave={() => setDragOverIdx(null)}
+                onDrop={() => handleDrop(index)}
+                onDragEnd={() => { setDragIdx(null); setDragOverIdx(null); }}
+                className={`surface-card p-4 rounded-xl border relative group transition-all ${
+                  dragOverIdx === index ? "border-accent/50 bg-accent/5" : "border-border/50"
+                } ${dragIdx === index ? "opacity-50" : ""}`}
               >
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-semibold text-muted-foreground">
-                    #{index + 1}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <div className="cursor-grab active:cursor-grabbing text-muted-foreground hover:text-foreground transition-colors">
+                      <GripVertical className="w-4 h-4" />
+                    </div>
+                    <span className="text-xs font-semibold text-muted-foreground">
+                      #{index + 1}
+                    </span>
+                  </div>
                   {items.length > 1 && (
                     <button
                       onClick={() => removeItem(item.id)}
