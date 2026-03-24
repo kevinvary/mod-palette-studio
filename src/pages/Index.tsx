@@ -3,20 +3,12 @@ import NavRail from "@/components/NavRail";
 import AssetsPanel from "@/components/AssetsPanel";
 import FeaturesPanel from "@/components/FeaturesPanel";
 import SettingsPanel from "@/components/SettingsPanel";
-import ConfigPanel from "@/components/ConfigPanel";
+
 import PodsPanel from "@/components/PodsPanel";
-
-const PlaceholderPanel = ({ title }: { title: string }) => (
-  <div className="flex-1 p-6 animate-fade-in">
-    <h1 className="text-xl font-semibold text-foreground">{title}</h1>
-    <p className="text-sm text-muted-foreground mt-1">Coming soon</p>
-  </div>
-);
-
-const WorkflowsPlaceholder = () => <PlaceholderPanel title="Workflows" />;
+import WorkflowsPanel from "@/components/WorkflowsPanel";
 
 const panels: Record<string, React.FC> = {
-  workflows: WorkflowsPlaceholder,
+  workflows: WorkflowsPanel,
   features: FeaturesPanel,
   assets: AssetsPanel,
   pods: PodsPanel,
@@ -25,7 +17,7 @@ const panels: Record<string, React.FC> = {
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState("features");
-  const ActivePanel = panels[activeSection] || WorkflowsPlaceholder;
+  const ActivePanel = panels[activeSection] || WorkflowsPanel;
 
   return (
     <div className="flex h-screen bg-background overflow-hidden">
