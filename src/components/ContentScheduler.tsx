@@ -61,6 +61,18 @@ const ContentScheduler = ({
     }
   };
 
+  const handleDrop = useCallback((targetIdx: number) => {
+    if (dragIdx === null || dragIdx === targetIdx) return;
+    setItems((prev) => {
+      const copy = [...prev];
+      const [moved] = copy.splice(dragIdx, 1);
+      copy.splice(targetIdx, 0, moved);
+      return copy;
+    });
+    setDragIdx(null);
+    setDragOverIdx(null);
+  }, [dragIdx]);
+
   const filledItems = items.filter((i) => i.image);
 
   const hasDoubleUpload = showVideo;
