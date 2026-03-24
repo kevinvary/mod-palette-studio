@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Plus, Upload, Trash2, Image, ArrowLeft, ArrowRight } from "lucide-react";
+import { Plus, Upload, Trash2, ArrowLeft, ArrowRight, Film } from "lucide-react";
 
 interface ContentItem {
   id: string;
   image: string | null;
+  video: string | null;
   positivePrompt: string;
   negativePrompt: string;
 }
@@ -15,12 +16,14 @@ interface ContentSchedulerProps {
   onBack: () => void;
   onContinue: (items: ContentItem[]) => void;
   showPrompts?: boolean;
+  showVideo?: boolean;
 }
 
 let nextId = 1;
 const createItem = (): ContentItem => ({
   id: `item-${nextId++}`,
   image: null,
+  video: null,
   positivePrompt: "",
   negativePrompt: "",
 });
@@ -32,6 +35,7 @@ const ContentScheduler = ({
   onBack,
   onContinue,
   showPrompts = false,
+  showVideo = false,
 }: ContentSchedulerProps) => {
   const [items, setItems] = useState<ContentItem[]>([createItem()]);
 
@@ -46,15 +50,18 @@ const ContentScheduler = ({
     setItems((prev) => prev.map((i) => (i.id === id ? { ...i, [field]: value } : i)));
   };
 
-  const handleImageUpload = (id: string, e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = (id: string, field: "image" | "video", e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const url = URL.createObjectURL(file);
-      updateItem(id, "image", url);
+      updateItem(id, field, url);
     }
   };
 
   const filledItems = items.filter((i) => i.image);
+
+  const hasDoubleUpload = showVideo;
+  const hasPrompts = showPrompts;
 
   return (
     <div className="flex flex-col h-full animate-fade-in">
@@ -104,9 +111,12 @@ const ContentScheduler = ({
                   )}
                 </div>
 
-                <div className={showPrompts ? "grid grid-cols-[160px_1fr] gap-4" : ""}>
+                <div className={hasPrompts ? "grid grid-cols-[160px_1fr] gap-4" : hasDoubleUpload ? "grid grid-cols-2 gap-4" : ""}>
                   {/* Image upload */}
                   <div>
+                    <p className="text-[10px] font-semibold text-muted-foreground mb-1.5">
+                      {hasDoubleUpload ? "Imagen del personaje" : "Imagen"}
+                    </p>
                     {item.image ? (
                       <div className="relative rounded-lg overflow-hidden">
                         <img
@@ -126,21 +136,59 @@ const ContentScheduler = ({
                         <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center">
                           <Upload className="w-4 h-4 text-muted-foreground" />
                         </div>
-                        <p className="text-[10px] text-muted-foreground">
-                          Subir imagen
-                        </p>
+                        <p className="text-[10px] text-muted-foreground">Subir imagen</p>
                         <input
                           type="file"
                           accept="image/*"
                           className="hidden"
-                          onChange={(e) => handleImageUpload(item.id, e)}
+                          onChange={(e) => handleFileUpload(item.id, "image", e)}
                         />
                       </label>
                     )}
                   </div>
 
+                  {/* Video upload (for Motion Transfer) */}
+                  {hasDoubleUpload && (
+                    <div>
+                      <p className="text-[10px] font-semibold text-muted-foreground mb-1.5">
+                        Video / GIF de movimiento
+                      </p>
+                      {item.video ? (
+                        <div className="relative rounded-lg overflow-hidden">
+                          <video
+                            src={item.video}
+                            className="w-full h-28 object-cover rounded-lg"
+                            muted
+                            loop
+                            autoPlay
+                            playsInline
+                          />
+                          <button
+                            onClick={() => updateItem(item.id, "video", null)}
+                            className="absolute top-1.5 right-1.5 w-6 h-6 bg-background/80 backdrop-blur-sm rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ) : (
+                        <label className="flex flex-col items-center justify-center gap-2 cursor-pointer w-full h-28 rounded-lg border-2 border-dashed border-border hover:border-accent/40 transition-colors bg-secondary/30">
+                          <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center">
+                            <Film className="w-4 h-4 text-muted-foreground" />
+                          </div>
+                          <p className="text-[10px] text-muted-foreground">Subir video/GIF</p>
+                          <input
+                            type="file"
+                            accept="video/*,.gif"
+                            className="hidden"
+                            onChange={(e) => handleFileUpload(item.id, "video", e)}
+                          />
+                        </label>
+                      )}
+                    </div>
+                  )}
+
                   {/* Prompts (only for LTX) */}
-                  {showPrompts && (
+                  {hasPrompts && (
                     <div className="space-y-2">
                       <div>
                         <p className="text-[10px] font-semibold text-accent mb-1">
@@ -177,7 +225,6 @@ const ContentScheduler = ({
             ))}
           </div>
 
-          {/* Add more button */}
           <button
             onClick={addItem}
             className="w-full mt-4 py-3 rounded-xl border-2 border-dashed border-border hover:border-accent/40 text-muted-foreground hover:text-accent flex items-center justify-center gap-2 transition-colors"
@@ -188,7 +235,6 @@ const ContentScheduler = ({
         </div>
       </div>
 
-      {/* Footer */}
       <div className="px-6 py-4 border-t border-border flex items-center justify-between">
         <span className="text-xs text-muted-foreground">
           {items.length} {items.length === 1 ? "contenido" : "contenidos"} programados
