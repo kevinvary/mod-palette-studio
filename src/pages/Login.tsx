@@ -54,7 +54,7 @@ const Login = () => {
             <span className="text-primary">contenido.</span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed max-w-md">
-            La plataforma que potencia tu flujo de trabajo creativo con IA. Genera, programa y publica — todo en un solo lugar.
+            La plataforma que potencia tu flujo de trabajo creativo con IA. Genera, programa y publica — además de análisis de reels y gestión de trabajadores — todo en un solo lugar.
           </p>
           <div className="flex items-center gap-4 mt-10">
             <div className="flex items-center gap-2">
