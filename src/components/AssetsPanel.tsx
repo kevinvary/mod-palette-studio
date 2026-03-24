@@ -53,7 +53,17 @@ const AssetsPanel = () => {
         </div>
       </div>
 
-      {/* Stats */}
+      {/* Retention warning */}
+      <div className="flex items-start gap-3 p-4 rounded-xl border border-destructive/30 bg-destructive/5 mb-6 max-w-4xl">
+        <AlertTriangle className="w-4 h-4 text-destructive shrink-0 mt-0.5" />
+        <div>
+          <p className="text-sm font-medium text-foreground">Los archivos se eliminan automáticamente después de 3 días</p>
+          <p className="text-xs text-muted-foreground mt-0.5">
+            Descarga tus archivos en todo momento para conservar una copia. Pasados 3 días desde su creación, serán borrados permanentemente.
+          </p>
+        </div>
+      </div>
+
       <div className="grid grid-cols-4 gap-3 mb-6 max-w-2xl">
         {[
           { label: "Vídeos", count: contentItems.filter((c) => c.type === "video").length },
