@@ -17,7 +17,7 @@ const panels: Record<string, React.FC> = {
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState("features");
-  const ActivePanel = panels[activeSection] || WorkflowsPlaceholder;
+  const ActivePanel = panels[activeSection] || WorkflowsPanel;
 
   return (
     <div className="flex h-screen bg-background overflow-hidden">
