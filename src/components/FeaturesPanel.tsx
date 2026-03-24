@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import LtxGeneratorView from "@/components/LtxGeneratorView";
 import MotionTransferView from "@/components/MotionTransferView";
 import ContentScheduler from "@/components/ContentScheduler";
+import HowItWorksView from "@/components/HowItWorksView";
 
 interface Feature {
   id: string;
