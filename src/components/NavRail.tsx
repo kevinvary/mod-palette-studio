@@ -8,7 +8,7 @@ interface NavRailProps {
 }
 
 const navItems = [
-  { id: "workflows", icon: Workflow, label: "Workflows" },
+  { id: "workflows", icon: Workflow, label: "Funciones" },
   { id: "assets", icon: Archive, label: "Trabajos" },
   { id: "features", icon: Boxes, label: "Features" },
   { id: "pods", icon: Server, label: "Pods" },
