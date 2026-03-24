@@ -110,23 +110,12 @@ const workflows: WorkflowCard[] = [
     badgeColor: "bg-muted text-muted-foreground",
     category: "gestión",
   },
-  {
-    id: "iceklub-workflows",
-    name: "Kevin Workflows",
-    description: "10 workflows — imágenes, vídeos y captions",
-    icon: <Wand2 className="w-6 h-6 text-accent" />,
-    comingSoon: true,
-    badge: "COMING SOON",
-    badgeColor: "bg-muted text-muted-foreground",
-    category: "multi",
-  },
 ];
 
 const categories: { key: string; label: string }[] = [
   { key: "video", label: "VIDEO" },
   { key: "modelo", label: "MODELO" },
   { key: "gestión", label: "GESTIÓN" },
-  { key: "multi", label: "MULTI" },
 ];
 
 const WorkflowsPanel = () => {
