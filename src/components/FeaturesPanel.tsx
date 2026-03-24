@@ -18,6 +18,7 @@ interface Feature {
   icon: React.ReactNode;
   podLabel: string;
   podDescription: string;
+  comingSoon?: boolean;
 }
 
 const features: Feature[] = [
@@ -59,6 +60,7 @@ const features: Feature[] = [
     icon: <Wand2 className="w-5 h-5 text-accent" />,
     podLabel: "Iniciar Iceklub",
     podDescription: "Se creará una instancia GPU en RunPod.",
+    comingSoon: true,
   },
 ];
 
@@ -176,8 +178,12 @@ const FeaturesPanel = () => {
         {features.map((feature) => (
           <button
             key={feature.id}
-            onClick={() => setViewState({ featureId: feature.id, step: "schedule" })}
-            className="w-full surface-card p-5 text-left hover:border-primary/30 transition-colors duration-150 group"
+            onClick={() => !feature.comingSoon && setViewState({ featureId: feature.id, step: "schedule" })}
+            disabled={feature.comingSoon}
+            className={cn(
+              "w-full surface-card p-5 text-left transition-colors duration-150 group",
+              feature.comingSoon ? "opacity-50 cursor-not-allowed" : "hover:border-primary/30"
+            )}
           >
             <div className="flex items-start gap-4">
               <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center shrink-0 mt-0.5">
@@ -191,6 +197,11 @@ const FeaturesPanel = () => {
                   <span className={cn("px-2 py-0.5 rounded text-[10px] font-semibold", feature.categoryColor)}>
                     {feature.category}
                   </span>
+                  {feature.comingSoon && (
+                    <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-muted text-muted-foreground">
+                      Coming soon
+                    </span>
+                  )}
                 </div>
                 <p className="text-xs text-muted-foreground mb-3 leading-relaxed">{feature.description}</p>
                 <div className="flex flex-wrap gap-1.5">
