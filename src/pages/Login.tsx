@@ -211,7 +211,7 @@ const Login = () => {
             <p className="text-xs text-muted-foreground leading-relaxed">
               Contáctame y usa esta plataforma para vender tus workflows.
               <br />
-              <span className="text-primary font-semibold">0% de comisión</span> · <span className="text-foreground font-medium">100% de seguridad</span>
+              <span className="text-primary font-semibold">0% de comisión</span> · <span className="text-foreground font-medium">100% de seguridad</span> · <span className="text-foreground font-medium">Plug & Play</span>
             </p>
           </div>
 
