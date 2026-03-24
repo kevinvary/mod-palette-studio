@@ -1,4 +1,4 @@
-import {
+import { 
   Film, Image, Wand2, Lock, Paintbrush, Box, Mic, Volume2,
   LayoutGrid, BarChart3, Users, PenTool, Info
 } from "lucide-react";
