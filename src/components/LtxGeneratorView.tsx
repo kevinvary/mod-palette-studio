@@ -97,8 +97,7 @@ const LtxGeneratorView = () => {
 
         <div className="px-4 pb-4 mt-auto">
           <button className="w-full py-3 bg-accent text-accent-foreground rounded-xl text-sm font-bold hover:bg-accent/90 transition-colors flex items-center justify-center gap-2">
-            Generate
-            <span className="text-[11px] opacity-80">⚡ 5</span>
+            Añadir a la cola
           </button>
         </div>
       </div>
