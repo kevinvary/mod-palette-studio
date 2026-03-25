@@ -1,20 +1,15 @@
 import { useState } from "react";
-import { Play, Upload, Clock, RotateCcw, Copy, Trash2, Video, ImageIcon, AlertTriangle, Scissors, Star, MessageSquare, Camera, Timer } from "lucide-react";
+import { Upload, Clock, Video, ImageIcon, AlertTriangle, Scissors, Star, MessageSquare, Camera, Timer } from "lucide-react";
 import { cn } from "@/lib/utils";
 import exampleCleanPhoto from "@/assets/example-clean-photo.jpg";
 import exampleResultPhoto from "@/assets/example-result-photo.jpg";
 import exampleFinalResult from "@/assets/example-final-result.jpg";
+import QueuePipelineCards, { type QueueItem } from "@/components/QueuePipelineCards";
 
-interface GeneratedItem {
-  id: string;
-  model: string;
-  status: "completed" | "processing" | "failed";
-}
-
-const mockHistory: GeneratedItem[] = [
-  { id: "mt-001", model: "Motion Transfer", status: "completed" },
-  { id: "mt-002", model: "Motion Transfer", status: "completed" },
-  { id: "mt-003", model: "Motion Transfer", status: "processing" },
+const mockQueue: QueueItem[] = [
+  { id: "mt-001", index: 1, inputImage: null, inputVideo: null, positivePrompt: "foto 1, posando como foto 2, copiando la misma ropa y background que la foto 2", negativePrompt: "", outputVideo: null, status: "completed", generationTime: "14m 32s" },
+  { id: "mt-002", index: 2, inputImage: null, inputVideo: null, positivePrompt: "foto 1, posando como foto 2, misma ropa y escenario", negativePrompt: "blurry, distorted", outputVideo: null, status: "completed", generationTime: "18m 07s" },
+  { id: "mt-003", index: 3, inputImage: null, inputVideo: null, positivePrompt: "foto 1, replicando movimiento de foto 2, mismo outfit", negativePrompt: "", outputVideo: null, status: "processing", progress: 38 },
 ];
 
 const MotionTransferView = () => {
