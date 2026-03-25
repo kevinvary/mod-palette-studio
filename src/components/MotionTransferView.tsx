@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Upload, Clock, Video, ImageIcon, AlertTriangle, Scissors, Star, MessageSquare, Camera, Timer } from "lucide-react";
+import { Clock, Video, ImageIcon, AlertTriangle, Scissors, Star, MessageSquare, Camera, Timer } from "lucide-react";
 import { cn } from "@/lib/utils";
 import exampleCleanPhoto from "@/assets/example-clean-photo.jpg";
 import exampleResultPhoto from "@/assets/example-result-photo.jpg";
