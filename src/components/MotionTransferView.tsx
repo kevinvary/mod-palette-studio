@@ -15,7 +15,7 @@ const mockQueue: QueueItem[] = [
 const MotionTransferView = () => {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [uploadedVideo, setUploadedVideo] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<"history" | "howItWorks">("history");
+  const [activeTab, setActiveTab] = useState<"queue" | "howItWorks">("queue");
   const [viewMode, setViewMode] = useState<"list" | "grid">("list");
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
