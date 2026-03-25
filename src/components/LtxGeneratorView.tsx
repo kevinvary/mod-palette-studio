@@ -25,10 +25,8 @@ const LtxGeneratorView = () => {
   const [positivePrompt, setPositivePrompt] = useState("");
   const [negativePrompt, setNegativePrompt] = useState("");
   const [enhancePrompt, setEnhancePrompt] = useState(true);
-  const [selectedDuration, setSelectedDuration] = useState("5s");
-  const [selectedAspect, setSelectedAspect] = useState("9:16");
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<"history" | "howItWorks">("history");
+  const [activeTab, setActiveTab] = useState<"queue" | "howItWorks">("queue");
   const [viewMode, setViewMode] = useState<"list" | "grid">("list");
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
