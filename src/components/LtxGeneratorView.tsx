@@ -3,23 +3,22 @@ import { Play, Upload, Sparkles, Clock, RotateCcw, Copy, Trash2, Monitor, Messag
 import { cn } from "@/lib/utils";
 import { Switch } from "@/components/ui/switch";
 
-interface GeneratedItem {
+interface QueueItem {
   id: string;
-  model: string;
-  resolution: string;
-  duration: string;
-  thumbnails: string[];
-  status: "completed" | "processing" | "failed";
+  index: number;
+  inputImage: string | null;
+  positivePrompt: string;
+  negativePrompt: string;
+  outputVideo: string | null;
+  status: "queued" | "processing" | "completed" | "failed";
+  progress?: number;
 }
 
-const durations = ["5s", "10s", "15s"];
-const aspects = ["1:1", "9:16", "16:9", "4:3", "3:4"];
-
-const mockHistory: GeneratedItem[] = [
-  { id: "gen-001", model: "Image to Video", resolution: "1080p", duration: "29.0s", thumbnails: [], status: "completed" },
-  { id: "gen-002", model: "Image to Video", resolution: "1080p", duration: "29.0s", thumbnails: [], status: "completed" },
-  { id: "gen-003", model: "Image to Video", resolution: "720p", duration: "15.0s", thumbnails: [], status: "processing" },
-  { id: "gen-004", model: "Image to Video", resolution: "1080p", duration: "10.0s", thumbnails: [], status: "completed" },
+const mockQueue: QueueItem[] = [
+  { id: "q-001", index: 1, inputImage: null, positivePrompt: "A cinematic sunset over the ocean, golden light reflecting on waves", negativePrompt: "blurry, low quality", outputVideo: null, status: "completed" },
+  { id: "q-002", index: 2, inputImage: null, positivePrompt: "Urban street scene at night with neon lights", negativePrompt: "distorted, artifacts", outputVideo: null, status: "processing", progress: 64 },
+  { id: "q-003", index: 3, inputImage: null, positivePrompt: "Portrait of a woman in a garden with soft bokeh", negativePrompt: "ugly, deformed", outputVideo: null, status: "queued" },
+  { id: "q-004", index: 4, inputImage: null, positivePrompt: "Aerial view of mountains covered in snow", negativePrompt: "blurry", outputVideo: null, status: "queued" },
 ];
 
 const LtxGeneratorView = () => {
