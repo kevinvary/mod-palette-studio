@@ -21,6 +21,7 @@ interface Feature {
   podLabel: string;
   podDescription: string;
   comingSoon?: boolean;
+  progress?: number;
 }
 
 const features: Feature[] = [
