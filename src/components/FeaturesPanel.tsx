@@ -89,6 +89,7 @@ const features: Feature[] = [
     podLabel: "",
     podDescription: "",
     comingSoon: true,
+    progress: 52,
   },
   {
     id: "train-lora",
