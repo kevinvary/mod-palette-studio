@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Play, ChevronLeft, ChevronRight } from "lucide-react";
 
 const examples = [
-  { title: "Motion Transfer", desc: "Transfiere movimiento de un video a una imagen", tag: "IA Video" },
+  { title: "Motion Transfer", desc: "Transfiere movimiento de un video a una imagen", tag: "IA Video", video: "/videos/example-result.mp4" },
   { title: "Image to Video", desc: "Convierte cualquier imagen en un video animado", tag: "Generación" },
   { title: "Lip Sync", desc: "Sincroniza labios con cualquier audio", tag: "Audio IA" },
   { title: "LoRA Training", desc: "Entrena modelos personalizados con tus datos", tag: "Entrenamiento" },
@@ -35,16 +35,30 @@ const VideoShowcase = () => {
       {/* Main preview */}
       <div className="relative rounded-xl border border-border/50 bg-muted/20 overflow-hidden group">
         <div className="aspect-video bg-gradient-to-br from-primary/10 via-muted/30 to-primary/5 flex items-center justify-center relative">
-          {/* Placeholder pattern */}
-          <div className="absolute inset-0 opacity-[0.03]" style={{
-            backgroundImage: "radial-gradient(circle, hsl(var(--foreground)) 1px, transparent 1px)",
-            backgroundSize: "20px 20px",
-          }} />
-          
-          {/* Play button */}
-          <div className="w-14 h-14 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center backdrop-blur-sm transition-transform group-hover:scale-110">
-            <Play className="w-6 h-6 text-primary ml-0.5" fill="currentColor" />
-          </div>
+          {examples[active].video ? (
+            <video
+              key={examples[active].video}
+              src={examples[active].video}
+              className="absolute inset-0 w-full h-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
+          ) : (
+            <>
+              {/* Placeholder pattern */}
+              <div className="absolute inset-0 opacity-[0.03]" style={{
+                backgroundImage: "radial-gradient(circle, hsl(var(--foreground)) 1px, transparent 1px)",
+                backgroundSize: "20px 20px",
+              }} />
+              
+              {/* Play button */}
+              <div className="w-14 h-14 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center backdrop-blur-sm transition-transform group-hover:scale-110">
+                <Play className="w-6 h-6 text-primary ml-0.5" fill="currentColor" />
+              </div>
+            </>
+          )}
 
           {/* Tag */}
           <span className="absolute top-3 left-3 text-[10px] font-semibold uppercase tracking-wider bg-primary/20 text-primary px-2.5 py-1 rounded-md border border-primary/20">
