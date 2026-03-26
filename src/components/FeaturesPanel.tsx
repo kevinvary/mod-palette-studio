@@ -1,10 +1,15 @@
 import { useState } from "react";
-import { ArrowLeft, ChevronRight, Wand2, Film, Sparkles, Image } from "lucide-react";
+import { ArrowLeft, Film, Image, Wand2, Lock, Info, ChevronRight, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import LtxGeneratorView from "@/components/LtxGeneratorView";
 import MotionTransferView from "@/components/MotionTransferView";
 import ContentScheduler from "@/components/ContentScheduler";
 import HowItWorksView from "@/components/HowItWorksView";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 interface Feature {
   id: string;
@@ -14,7 +19,6 @@ interface Feature {
   category: string;
   categoryColor: string;
   description: string;
-  tags: string[];
   icon: React.ReactNode;
   podLabel: string;
   podDescription: string;
@@ -27,11 +31,10 @@ const features: Feature[] = [
     name: "Motion Transfer",
     title: "Motion Transfer",
     subtitle: "Movimiento de un vídeo + una imagen",
-    category: "Video",
+    category: "video",
     categoryColor: "bg-primary text-primary-foreground",
     description: "Combina el movimiento de un vídeo de referencia con una imagen estática — ideal para crear contenido dinámico.",
-    tags: [],
-    icon: <Film className="w-5 h-5 text-primary" />,
+    icon: <Film className="w-6 h-6 text-primary" />,
     podLabel: "Iniciar estudio Motion Transfer",
     podDescription: "Se creará una instancia GPU en RunPod con el pipeline de Motion Transfer.",
   },
@@ -40,11 +43,10 @@ const features: Feature[] = [
     name: "Image to Video",
     title: "Image to Video",
     subtitle: "Genera video cinematográfico a partir de una imagen con prompts personalizados",
-    category: "Video",
+    category: "video",
     categoryColor: "bg-primary text-primary-foreground",
     description: "Genera vídeos a partir de imágenes con prompts personalizados, prompt enhancement y upscale 2x integrado.",
-    tags: [],
-    icon: <Image className="w-5 h-5 text-primary" />,
+    icon: <Image className="w-6 h-6 text-primary" />,
     podLabel: "Iniciar estudio de video",
     podDescription: "Se creará una instancia GPU en RunPod.",
   },
@@ -53,11 +55,10 @@ const features: Feature[] = [
     name: "Kevin Workflows",
     title: "Iceklub Workflows",
     subtitle: "10 workflows de generación — imágenes, vídeos y captions",
-    category: "Multi",
+    category: "multi",
     categoryColor: "bg-accent text-accent-foreground",
     description: "10 workflows de generación — imágenes, vídeos y captions. Click para editar parámetros y ejecutar.",
-    tags: [],
-    icon: <Wand2 className="w-5 h-5 text-accent" />,
+    icon: <Wand2 className="w-6 h-6 text-accent" />,
     podLabel: "Iniciar Iceklub",
     podDescription: "Se creará una instancia GPU en RunPod.",
     comingSoon: true,
@@ -168,53 +169,82 @@ const FeaturesPanel = () => {
   }
 
   return (
-    <div className="flex-1 p-6 animate-fade-in">
+    <div className="flex-1 p-6 animate-fade-in overflow-y-auto">
       <div className="mb-6">
         <h1 className="text-xl font-semibold text-foreground">Features</h1>
         <p className="text-sm text-muted-foreground mt-1">Herramientas de generación de contenido</p>
       </div>
 
-      <div className="space-y-3 max-w-3xl">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 max-w-6xl">
         {features.map((feature) => (
-          <button
+          <div
             key={feature.id}
             onClick={() => !feature.comingSoon && setViewState({ featureId: feature.id, step: "schedule" })}
-            disabled={feature.comingSoon}
             className={cn(
-              "w-full surface-card p-5 text-left transition-colors duration-150 group",
-              feature.comingSoon ? "opacity-50 cursor-not-allowed" : "hover:border-primary/30"
+              "group rounded-xl overflow-hidden border border-border bg-card transition-all duration-200",
+              feature.comingSoon
+                ? "opacity-60 cursor-not-allowed"
+                : "hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 cursor-pointer"
             )}
           >
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center shrink-0 mt-0.5">
+            <div className="relative aspect-[16/10] bg-secondary/50 flex items-center justify-center overflow-hidden">
+              <div className="w-12 h-12 rounded-2xl bg-background/80 backdrop-blur flex items-center justify-center">
                 {feature.icon}
               </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <h3 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
-                    {feature.name}
-                  </h3>
-                  <span className={cn("px-2 py-0.5 rounded text-[10px] font-semibold", feature.categoryColor)}>
-                    {feature.category}
+              {feature.comingSoon && (
+                <>
+                  <span className="absolute bottom-2 left-2 px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-muted text-muted-foreground">
+                    COMING SOON
                   </span>
-                  {feature.comingSoon && (
-                    <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-muted text-muted-foreground">
-                      Coming soon
-                    </span>
-                  )}
-                </div>
-                <p className="text-xs text-muted-foreground mb-3 leading-relaxed">{feature.description}</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {feature.tags.map((tag) => (
-                    <span key={tag} className="px-2 py-1 bg-secondary rounded text-[10px] font-mono text-muted-foreground">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0 mt-2 group-hover:text-foreground transition-colors" />
+                  <div className="absolute inset-0 bg-background/40 backdrop-blur-[1px] flex items-center justify-center">
+                    <Lock className="w-5 h-5 text-muted-foreground" />
+                  </div>
+                </>
+              )}
             </div>
-          </button>
+
+            <div className="p-3">
+              <h3 className="text-xs font-semibold text-foreground mb-1 group-hover:text-primary transition-colors truncate">
+                {feature.name}
+              </h3>
+              <p className="text-[11px] text-muted-foreground leading-relaxed line-clamp-2">
+                {feature.description}
+              </p>
+
+              <HoverCard openDelay={200} closeDelay={100}>
+                <HoverCardTrigger asChild>
+                  <button
+                    className="mt-2 flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground hover:text-foreground transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Info className="w-3 h-3" />
+                    Info
+                  </button>
+                </HoverCardTrigger>
+                <HoverCardContent side="top" align="start" className="w-64 p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center shrink-0">
+                      {feature.icon}
+                    </div>
+                    <h4 className="text-sm font-semibold text-foreground">{feature.name}</h4>
+                  </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    {feature.description}
+                  </p>
+                  <div className="mt-3 flex items-center gap-2">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-primary text-primary-foreground uppercase">
+                      {feature.category}
+                    </span>
+                    {feature.comingSoon && (
+                      <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-muted text-muted-foreground">
+                        Coming soon
+                      </span>
+                    )}
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
+            </div>
+          </div>
         ))}
       </div>
     </div>
