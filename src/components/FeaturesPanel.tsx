@@ -21,6 +21,7 @@ interface Feature {
   podLabel: string;
   podDescription: string;
   comingSoon?: boolean;
+  progress?: number;
 }
 
 const features: Feature[] = [
@@ -112,6 +113,7 @@ const features: Feature[] = [
     podLabel: "",
     podDescription: "",
     comingSoon: true,
+    progress: 79,
   },
   {
     id: "carousel-post",
@@ -300,12 +302,25 @@ const FeaturesPanel = () => {
                   <span className={cn("px-2 py-0.5 rounded text-[10px] font-semibold", feature.categoryColor)}>
                     {feature.category}
                   </span>
-                  {feature.comingSoon && (
+                  {feature.comingSoon && !feature.progress && (
                     <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-muted text-muted-foreground">
                       Coming soon
                     </span>
                   )}
+                  {feature.progress != null && (
+                    <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-primary/15 text-primary">
+                      {feature.progress}%
+                    </span>
+                  )}
                 </div>
+                {feature.progress != null && (
+                  <div className="w-full h-1.5 bg-secondary rounded-full overflow-hidden mb-2">
+                    <div
+                      className="h-full bg-primary rounded-full transition-all duration-500"
+                      style={{ width: `${feature.progress}%` }}
+                    />
+                  </div>
+                )}
                 <p className="text-xs text-muted-foreground mb-3 leading-relaxed">{feature.description}</p>
               </div>
               {feature.comingSoon ? (
