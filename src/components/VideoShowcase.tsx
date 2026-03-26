@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Play, ChevronLeft, ChevronRight } from "lucide-react";
 
 const examples = [
@@ -9,19 +9,35 @@ const examples = [
   { title: "Reel Analytics", desc: "Analiza el rendimiento de tus reels automáticamente", tag: "Analytics" },
 ];
 
+const STATIC_SLIDE_DURATION = 3500;
+
 const VideoShowcase = () => {
   const [active, setActive] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActive((prev) => (prev + 1) % examples.length);
-    }, 3500);
-    return () => clearInterval(interval);
+  const goNext = useCallback(() => {
+    setActive((prev) => (prev + 1) % examples.length);
   }, []);
 
   const go = (dir: number) => {
     setActive((prev) => (prev + dir + examples.length) % examples.length);
   };
+
+  // For slides without video, auto-advance after STATIC_SLIDE_DURATION
+  useEffect(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+
+    const current = examples[active];
+    if (!current.video) {
+      timerRef.current = setTimeout(goNext, STATIC_SLIDE_DURATION);
+    }
+    // If it has video, onEnded will handle advancing
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [active, goNext]);
 
   return (
     <div
@@ -32,28 +48,26 @@ const VideoShowcase = () => {
         Ejemplos generados con IA
       </p>
 
-      {/* Main preview */}
+      {/* Main preview - larger aspect ratio */}
       <div className="relative rounded-xl border border-border/50 bg-muted/20 overflow-hidden group">
-        <div className="aspect-video bg-gradient-to-br from-primary/10 via-muted/30 to-primary/5 flex items-center justify-center relative">
+        <div className="aspect-[4/3] bg-gradient-to-br from-primary/10 via-muted/30 to-primary/5 flex items-center justify-center relative">
           {examples[active].video ? (
             <video
-              key={examples[active].video}
+              ref={videoRef}
+              key={active}
               src={examples[active].video}
               className="absolute inset-0 w-full h-full object-cover"
               autoPlay
               muted
-              loop
               playsInline
+              onEnded={goNext}
             />
           ) : (
             <>
-              {/* Placeholder pattern */}
               <div className="absolute inset-0 opacity-[0.03]" style={{
                 backgroundImage: "radial-gradient(circle, hsl(var(--foreground)) 1px, transparent 1px)",
                 backgroundSize: "20px 20px",
               }} />
-              
-              {/* Play button */}
               <div className="w-14 h-14 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center backdrop-blur-sm transition-transform group-hover:scale-110">
                 <Play className="w-6 h-6 text-primary ml-0.5" fill="currentColor" />
               </div>
