@@ -88,7 +88,7 @@ const Login = () => {
               A diferencia de Higgsfield y Freepik
             </span>
           </div>
-          </p>
+          </div>
 
           <VideoShowcase />
         </div>
