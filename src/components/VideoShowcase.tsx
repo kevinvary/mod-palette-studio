@@ -50,7 +50,7 @@ const VideoShowcase = () => {
 
       {/* Main preview - larger aspect ratio */}
       <div className="relative rounded-xl border border-border/50 bg-muted/20 overflow-hidden group">
-        <div className="aspect-[3/4] bg-gradient-to-br from-primary/10 via-muted/30 to-primary/5 flex items-center justify-center relative">
+        <div className="aspect-[1/1] bg-gradient-to-br from-primary/10 via-muted/30 to-primary/5 flex items-center justify-center relative">
           {examples[active].video ? (
             <video
               ref={videoRef}
