@@ -1,15 +1,13 @@
 import { useState } from "react";
-import { ArrowLeft, Film, Image, Wand2, Lock, Info, ChevronRight, Sparkles } from "lucide-react";
+import { 
+  ArrowLeft, ChevronRight, Film, Image, Wand2, Sparkles, Lock,
+  Paintbrush, Box, Mic, Volume2, LayoutGrid, BarChart3, Users, PenTool
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import LtxGeneratorView from "@/components/LtxGeneratorView";
 import MotionTransferView from "@/components/MotionTransferView";
 import ContentScheduler from "@/components/ContentScheduler";
 import HowItWorksView from "@/components/HowItWorksView";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
 
 interface Feature {
   id: string;
@@ -31,36 +29,140 @@ const features: Feature[] = [
     name: "Motion Transfer",
     title: "Motion Transfer",
     subtitle: "Movimiento de un vídeo + una imagen",
-    category: "video",
+    category: "Video",
     categoryColor: "bg-primary text-primary-foreground",
     description: "Combina el movimiento de un vídeo de referencia con una imagen estática — ideal para crear contenido dinámico.",
-    icon: <Film className="w-6 h-6 text-primary" />,
+    icon: <Film className="w-5 h-5 text-primary" />,
     podLabel: "Iniciar estudio Motion Transfer",
     podDescription: "Se creará una instancia GPU en RunPod con el pipeline de Motion Transfer.",
+  },
+  {
+    id: "motion-transfer-lora",
+    name: "Motion Transfer 2.1",
+    title: "Motion Transfer 2.1",
+    subtitle: "Motion Transfer con LoRA — Plug & Play",
+    category: "Video",
+    categoryColor: "bg-primary text-primary-foreground",
+    description: "Motion Transfer con LoRA — Plug & Play, solo pega el link del vídeo a replicar.",
+    icon: <Film className="w-5 h-5 text-primary" />,
+    podLabel: "",
+    podDescription: "",
+    comingSoon: true,
   },
   {
     id: "ltx-i2v",
     name: "Image to Video",
     title: "Image to Video",
     subtitle: "Genera video cinematográfico a partir de una imagen con prompts personalizados",
-    category: "video",
+    category: "Video",
     categoryColor: "bg-primary text-primary-foreground",
     description: "Genera vídeos a partir de imágenes con prompts personalizados, prompt enhancement y upscale 2x integrado.",
-    icon: <Image className="w-6 h-6 text-primary" />,
+    icon: <Image className="w-5 h-5 text-primary" />,
     podLabel: "Iniciar estudio de video",
     podDescription: "Se creará una instancia GPU en RunPod.",
   },
   {
-    id: "iceklub-workflows",
-    name: "Kevin Workflows",
-    title: "Iceklub Workflows",
-    subtitle: "10 workflows de generación — imágenes, vídeos y captions",
-    category: "multi",
+    id: "create-image",
+    name: "Crea tu Imagen",
+    title: "Crea tu Imagen",
+    subtitle: "Genera imágenes únicas con IA a partir de prompts personalizados",
+    category: "Modelo",
+    categoryColor: "bg-primary text-primary-foreground",
+    description: "Genera imágenes únicas con IA a partir de prompts personalizados.",
+    icon: <Paintbrush className="w-5 h-5 text-primary" />,
+    podLabel: "",
+    podDescription: "",
+    comingSoon: true,
+  },
+  {
+    id: "train-lora",
+    name: "Crea tu LoRA 1:1",
+    title: "Crea tu LoRA 1:1",
+    subtitle: "Entrena un modelo personalizado con tus propias imágenes",
+    category: "Modelo",
+    categoryColor: "bg-primary text-primary-foreground",
+    description: "Entrena un modelo personalizado con tus propias imágenes para resultados únicos.",
+    icon: <Box className="w-5 h-5 text-primary" />,
+    podLabel: "",
+    podDescription: "",
+    comingSoon: true,
+  },
+  {
+    id: "lip-sync",
+    name: "Sincronizador de Labios",
+    title: "Sincronizador de Labios",
+    subtitle: "Sincroniza labios de cualquier vídeo con un audio o voz generada",
+    category: "Video",
+    categoryColor: "bg-primary text-primary-foreground",
+    description: "Sincroniza labios de cualquier vídeo con un audio o voz generada.",
+    icon: <Mic className="w-5 h-5 text-primary" />,
+    podLabel: "",
+    podDescription: "",
+    comingSoon: true,
+  },
+  {
+    id: "i2v-elevenlabs",
+    name: "Image to Video + ElevenLabs",
+    title: "Image to Video + ElevenLabs",
+    subtitle: "Genera vídeo a partir de imagen y añade voz con ElevenLabs",
+    category: "Video",
+    categoryColor: "bg-primary text-primary-foreground",
+    description: "Genera vídeo a partir de imagen y añade voz con ElevenLabs automáticamente.",
+    icon: <Volume2 className="w-5 h-5 text-primary" />,
+    podLabel: "",
+    podDescription: "",
+    comingSoon: true,
+  },
+  {
+    id: "carousel-post",
+    name: "Carrousel de Post",
+    title: "Carrousel de Post",
+    subtitle: "Crea un carrousel completo para redes sociales",
+    category: "Modelo",
     categoryColor: "bg-accent text-accent-foreground",
-    description: "10 workflows de generación — imágenes, vídeos y captions. Click para editar parámetros y ejecutar.",
-    icon: <Wand2 className="w-6 h-6 text-accent" />,
-    podLabel: "Iniciar Iceklub",
-    podDescription: "Se creará una instancia GPU en RunPod.",
+    description: "Crea un carrousel completo para redes sociales a partir de una sola foto.",
+    icon: <LayoutGrid className="w-5 h-5 text-accent" />,
+    podLabel: "",
+    podDescription: "",
+    comingSoon: true,
+  },
+  {
+    id: "reel-tracker",
+    name: "Reel Tracker",
+    title: "Reel Tracker",
+    subtitle: "Trackea el rendimiento de todos tus reels",
+    category: "Gestión",
+    categoryColor: "bg-accent text-accent-foreground",
+    description: "Trackea el rendimiento de todos tus reels desde la misma plataforma.",
+    icon: <BarChart3 className="w-5 h-5 text-accent" />,
+    podLabel: "",
+    podDescription: "",
+    comingSoon: true,
+  },
+  {
+    id: "va-management",
+    name: "Gestión de VA",
+    title: "Gestión de VA",
+    subtitle: "Trackea trabajadores y programa contenido",
+    category: "Gestión",
+    categoryColor: "bg-accent text-accent-foreground",
+    description: "Trackea trabajadores y programa contenido — conectado con Telegram.",
+    icon: <Users className="w-5 h-5 text-accent" />,
+    podLabel: "",
+    podDescription: "",
+    comingSoon: true,
+  },
+  {
+    id: "grok-integration",
+    name: "Integración con Grok",
+    title: "Integración con Grok",
+    subtitle: "Genera guiones automáticos a partir de tu LLM",
+    category: "Gestión",
+    categoryColor: "bg-accent text-accent-foreground",
+    description: "Genera guiones automáticos a partir de tu LLM con integración directa.",
+    icon: <PenTool className="w-5 h-5 text-accent" />,
+    podLabel: "",
+    podDescription: "",
     comingSoon: true,
   },
 ];
@@ -169,82 +271,50 @@ const FeaturesPanel = () => {
   }
 
   return (
-    <div className="flex-1 p-6 animate-fade-in overflow-y-auto">
+    <div className="flex-1 p-6 animate-fade-in">
       <div className="mb-6">
         <h1 className="text-xl font-semibold text-foreground">Features</h1>
         <p className="text-sm text-muted-foreground mt-1">Herramientas de generación de contenido</p>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 max-w-6xl">
+      <div className="space-y-3 max-w-3xl">
         {features.map((feature) => (
-          <div
+          <button
             key={feature.id}
             onClick={() => !feature.comingSoon && setViewState({ featureId: feature.id, step: "schedule" })}
+            disabled={feature.comingSoon}
             className={cn(
-              "group rounded-xl overflow-hidden border border-border bg-card transition-all duration-200",
-              feature.comingSoon
-                ? "opacity-60 cursor-not-allowed"
-                : "hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 cursor-pointer"
+              "w-full surface-card p-5 text-left transition-colors duration-150 group",
+              feature.comingSoon ? "opacity-50 cursor-not-allowed" : "hover:border-primary/30"
             )}
           >
-            <div className="relative aspect-[16/10] bg-secondary/50 flex items-center justify-center overflow-hidden">
-              <div className="w-12 h-12 rounded-2xl bg-background/80 backdrop-blur flex items-center justify-center">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center shrink-0 mt-0.5">
                 {feature.icon}
               </div>
-              {feature.comingSoon && (
-                <>
-                  <span className="absolute bottom-2 left-2 px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-muted text-muted-foreground">
-                    COMING SOON
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <h3 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
+                    {feature.name}
+                  </h3>
+                  <span className={cn("px-2 py-0.5 rounded text-[10px] font-semibold", feature.categoryColor)}>
+                    {feature.category}
                   </span>
-                  <div className="absolute inset-0 bg-background/40 backdrop-blur-[1px] flex items-center justify-center">
-                    <Lock className="w-5 h-5 text-muted-foreground" />
-                  </div>
-                </>
+                  {feature.comingSoon && (
+                    <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-muted text-muted-foreground">
+                      Coming soon
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-muted-foreground mb-3 leading-relaxed">{feature.description}</p>
+              </div>
+              {feature.comingSoon ? (
+                <Lock className="w-4 h-4 text-muted-foreground shrink-0 mt-2" />
+              ) : (
+                <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0 mt-2 group-hover:text-foreground transition-colors" />
               )}
             </div>
-
-            <div className="p-3">
-              <h3 className="text-xs font-semibold text-foreground mb-1 group-hover:text-primary transition-colors truncate">
-                {feature.name}
-              </h3>
-              <p className="text-[11px] text-muted-foreground leading-relaxed line-clamp-2">
-                {feature.description}
-              </p>
-
-              <HoverCard openDelay={200} closeDelay={100}>
-                <HoverCardTrigger asChild>
-                  <button
-                    className="mt-2 flex items-center gap-1.5 text-[11px] font-medium text-muted-foreground hover:text-foreground transition-colors"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <Info className="w-3 h-3" />
-                    Info
-                  </button>
-                </HoverCardTrigger>
-                <HoverCardContent side="top" align="start" className="w-64 p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center shrink-0">
-                      {feature.icon}
-                    </div>
-                    <h4 className="text-sm font-semibold text-foreground">{feature.name}</h4>
-                  </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {feature.description}
-                  </p>
-                  <div className="mt-3 flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-primary text-primary-foreground uppercase">
-                      {feature.category}
-                    </span>
-                    {feature.comingSoon && (
-                      <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-muted text-muted-foreground">
-                        Coming soon
-                      </span>
-                    )}
-                  </div>
-                </HoverCardContent>
-              </HoverCard>
-            </div>
-          </div>
+          </button>
         ))}
       </div>
     </div>
