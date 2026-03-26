@@ -103,6 +103,7 @@ const features: Feature[] = [
     podLabel: "",
     podDescription: "",
     comingSoon: true,
+    progress: 40,
   },
   {
     id: "lip-sync",
