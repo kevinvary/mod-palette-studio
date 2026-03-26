@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Play, ChevronLeft, ChevronRight } from "lucide-react";
+import { Play, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 
 const examples = [
   { title: "Motion Transfer", desc: "Transfiere movimiento de un video a una imagen", tag: "IA Video", video: "/videos/example-result.mp4" },
@@ -7,6 +7,7 @@ const examples = [
   { title: "Lip Sync", desc: "Sincroniza labios con cualquier audio", tag: "Audio IA" },
   { title: "LoRA Training", desc: "Entrena modelos personalizados con tus datos", tag: "Entrenamiento" },
   { title: "Reel Analytics", desc: "Analiza el rendimiento de tus reels automáticamente", tag: "Analytics" },
+  { title: "+10 Herramientas", desc: "Automatiza todo tu flujo de trabajo con un solo click", tag: "All-in-One" },
 ];
 
 const STATIC_SLIDE_DURATION = 3500;
@@ -62,6 +63,18 @@ const VideoShowcase = () => {
               playsInline
               onEnded={goNext}
             />
+          ) : active === examples.length - 1 ? (
+            <div className="flex flex-col items-center gap-4 text-center px-8">
+              <div className="w-16 h-16 rounded-2xl bg-primary/15 border border-primary/25 flex items-center justify-center">
+                <Sparkles className="w-7 h-7 text-primary" />
+              </div>
+              <div>
+                <p className="text-lg font-bold text-foreground mb-1">+10 herramientas similares</p>
+                <p className="text-xs text-muted-foreground leading-relaxed max-w-[260px]">
+                  Que te ayudarán a automatizar todo tu contenido con un solo click
+                </p>
+              </div>
+            </div>
           ) : (
             <>
               <div className="absolute inset-0 opacity-[0.03]" style={{
