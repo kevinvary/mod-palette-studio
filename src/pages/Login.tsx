@@ -66,7 +66,7 @@ const Login = () => {
             La plataforma que potencia tu flujo de trabajo creativo con IA. Genera, programa y publica — además de análisis de reels y gestión de trabajadores.
           </p>
           <div
-            className="flex items-center gap-4 mt-10 animate-fade-in"
+            className="flex items-center gap-4 mt-5 animate-fade-in"
             style={{ animationDuration: "0.7s", animationDelay: "0.45s", animationFillMode: "both" }}
           >
             <div className="flex items-center gap-2">
