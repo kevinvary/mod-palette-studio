@@ -159,6 +159,7 @@ const features: Feature[] = [
     podLabel: "",
     podDescription: "",
     comingSoon: true,
+    progress: 5,
   },
   {
     id: "grok-integration",
