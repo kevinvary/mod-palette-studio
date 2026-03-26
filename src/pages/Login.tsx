@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { ArrowRight, Send } from "lucide-react";
+import VideoShowcase from "@/components/VideoShowcase";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -87,6 +88,8 @@ const Login = () => {
               <span className="text-foreground font-semibold">+120M</span> views por mes
             </p>
           </div>
+
+          <VideoShowcase />
         </div>
       </div>
 
