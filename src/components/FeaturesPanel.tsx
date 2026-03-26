@@ -75,6 +75,7 @@ const features: Feature[] = [
     podLabel: "",
     podDescription: "",
     comingSoon: true,
+    progress: 65,
   },
   {
     id: "create-image",
@@ -88,6 +89,7 @@ const features: Feature[] = [
     podLabel: "",
     podDescription: "",
     comingSoon: true,
+    progress: 52,
   },
   {
     id: "train-lora",
@@ -101,6 +103,7 @@ const features: Feature[] = [
     podLabel: "",
     podDescription: "",
     comingSoon: true,
+    progress: 40,
   },
   {
     id: "lip-sync",
@@ -114,6 +117,7 @@ const features: Feature[] = [
     podLabel: "",
     podDescription: "",
     comingSoon: true,
+    progress: 30,
   },
   {
     id: "carousel-post",
@@ -127,6 +131,7 @@ const features: Feature[] = [
     podLabel: "",
     podDescription: "",
     comingSoon: true,
+    progress: 20,
   },
   {
     id: "reel-tracker",
@@ -140,6 +145,7 @@ const features: Feature[] = [
     podLabel: "",
     podDescription: "",
     comingSoon: true,
+    progress: 12,
   },
   {
     id: "va-management",
@@ -153,6 +159,7 @@ const features: Feature[] = [
     podLabel: "",
     podDescription: "",
     comingSoon: true,
+    progress: 5,
   },
   {
     id: "grok-integration",
@@ -166,6 +173,7 @@ const features: Feature[] = [
     podLabel: "",
     podDescription: "",
     comingSoon: true,
+    progress: 2,
   },
 ];
 
