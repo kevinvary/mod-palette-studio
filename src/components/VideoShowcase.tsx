@@ -63,6 +63,18 @@ const VideoShowcase = () => {
               playsInline
               onEnded={goNext}
             />
+          ) : active === examples.length - 1 ? (
+            <div className="flex flex-col items-center gap-4 text-center px-8">
+              <div className="w-16 h-16 rounded-2xl bg-primary/15 border border-primary/25 flex items-center justify-center">
+                <Sparkles className="w-7 h-7 text-primary" />
+              </div>
+              <div>
+                <p className="text-lg font-bold text-foreground mb-1">+10 herramientas similares</p>
+                <p className="text-xs text-muted-foreground leading-relaxed max-w-[260px]">
+                  Que te ayudarán a automatizar todo tu contenido con un solo click
+                </p>
+              </div>
+            </div>
           ) : (
             <>
               <div className="absolute inset-0 opacity-[0.03]" style={{
