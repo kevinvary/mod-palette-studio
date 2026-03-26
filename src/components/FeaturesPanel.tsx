@@ -145,6 +145,7 @@ const features: Feature[] = [
     podLabel: "",
     podDescription: "",
     comingSoon: true,
+    progress: 12,
   },
   {
     id: "va-management",
