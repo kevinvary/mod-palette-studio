@@ -131,6 +131,7 @@ const features: Feature[] = [
     podLabel: "",
     podDescription: "",
     comingSoon: true,
+    progress: 20,
   },
   {
     id: "reel-tracker",
