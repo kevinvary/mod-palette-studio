@@ -112,6 +112,7 @@ const features: Feature[] = [
     podLabel: "",
     podDescription: "",
     comingSoon: true,
+    progress: 79,
   },
   {
     id: "carousel-post",
