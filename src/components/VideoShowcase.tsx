@@ -3,7 +3,7 @@ import { Play, ChevronLeft, ChevronRight } from "lucide-react";
 
 const examples = [
   { title: "Motion Transfer", desc: "Transfiere movimiento de un video a una imagen", tag: "IA Video", video: "/videos/example-result.mp4" },
-  { title: "Image to Video", desc: "Convierte cualquier imagen en un video animado", tag: "Generación" },
+  { title: "Image to Video", desc: "Convierte cualquier imagen en un video animado", tag: "Generación", video: "/videos/example-image-to-video.mp4" },
   { title: "Lip Sync", desc: "Sincroniza labios con cualquier audio", tag: "Audio IA" },
   { title: "LoRA Training", desc: "Entrena modelos personalizados con tus datos", tag: "Entrenamiento" },
   { title: "Reel Analytics", desc: "Analiza el rendimiento de tus reels automáticamente", tag: "Analytics" },
