@@ -41,10 +41,10 @@ const VideoShowcase = () => {
 
   return (
     <div
-      className="mt-10 animate-fade-in"
+      className="mt-6 animate-fade-in"
       style={{ animationDuration: "0.7s", animationDelay: "0.55s", animationFillMode: "both" }}
     >
-      <p className="text-xs font-medium text-muted-foreground uppercase tracking-widest mb-3">
+      <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-widest mb-2">
         Ejemplos generados con IA
       </p>
 

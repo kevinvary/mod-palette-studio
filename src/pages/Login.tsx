@@ -44,30 +44,29 @@ const Login = () => {
       <div className="hidden lg:flex flex-1 items-center justify-center relative z-10 px-16">
         <div className="max-w-lg">
           <div
-            className="flex items-center gap-3 mb-8 animate-fade-in"
+            className="flex items-center gap-3 mb-5 animate-fade-in"
             style={{ animationDuration: "0.6s", animationFillMode: "both" }}
           >
-            <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center hover-scale">
-              <div className="w-3 h-3 rounded-sm bg-primary" />
+            <div className="w-9 h-9 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center hover-scale">
+              <div className="w-2.5 h-2.5 rounded-sm bg-primary" />
             </div>
-            <span className="text-lg font-semibold text-foreground tracking-tight">Pomodoro</span>
+            <span className="text-base font-semibold text-foreground tracking-tight">Pomodoro</span>
           </div>
           <h2
-            className="text-5xl font-bold text-foreground leading-[1.1] tracking-tight mb-6 animate-fade-in"
+            className="text-3xl font-bold text-foreground leading-[1.1] tracking-tight mb-3 animate-fade-in"
             style={{ animationDuration: "0.7s", animationDelay: "0.15s", animationFillMode: "both" }}
           >
             Automatiza tu
-            <br />
-            <span className="text-primary">contenido.</span>
+            <span className="text-primary"> contenido.</span>
           </h2>
           <p
-            className="text-lg text-muted-foreground leading-relaxed max-w-md animate-fade-in"
+            className="text-sm text-muted-foreground leading-relaxed max-w-md animate-fade-in"
             style={{ animationDuration: "0.7s", animationDelay: "0.3s", animationFillMode: "both" }}
           >
-            La plataforma que potencia tu flujo de trabajo creativo con IA. Genera, programa y publica — además de análisis de reels y gestión de trabajadores — todo en un solo lugar.
+            La plataforma que potencia tu flujo de trabajo creativo con IA. Genera, programa y publica — además de análisis de reels y gestión de trabajadores.
           </p>
           <div
-            className="flex items-center gap-4 mt-10 animate-fade-in"
+            className="flex items-center gap-4 mt-5 animate-fade-in"
             style={{ animationDuration: "0.7s", animationDelay: "0.45s", animationFillMode: "both" }}
           >
             <div className="flex items-center gap-2">
