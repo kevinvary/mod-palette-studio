@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Play, ChevronLeft, ChevronRight } from "lucide-react";
+import { Play, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 
 const examples = [
   { title: "Motion Transfer", desc: "Transfiere movimiento de un video a una imagen", tag: "IA Video", video: "/videos/example-result.mp4" },
