@@ -77,6 +77,17 @@ const Login = () => {
           >
             Genera, programa y publica con IA — análisis de reels y gestión de trabajadores.
           </p>
+          <div
+            className="flex items-center gap-2 mt-2 animate-fade-in"
+            style={{ animationDuration: "0.7s", animationDelay: "0.4s", animationFillMode: "both" }}
+          >
+            <span className="text-[10px] font-semibold uppercase tracking-wider bg-primary/15 text-primary px-2 py-0.5 rounded border border-primary/20">
+              NSFW permitido
+            </span>
+            <span className="text-[10px] text-muted-foreground">
+              A diferencia de Higgsfield y Freepik
+            </span>
+          </div>
 
           <VideoShowcase />
         </div>
