@@ -7,6 +7,7 @@ const examples = [
   { title: "Lip Sync", desc: "Sincroniza labios con cualquier audio", tag: "Audio IA" },
   { title: "LoRA Training", desc: "Entrena modelos personalizados con tus datos", tag: "Entrenamiento" },
   { title: "Reel Analytics", desc: "Analiza el rendimiento de tus reels automáticamente", tag: "Analytics" },
+  { title: "+10 Herramientas", desc: "Automatiza todo tu flujo de trabajo con un solo click", tag: "All-in-One" },
 ];
 
 const STATIC_SLIDE_DURATION = 3500;
