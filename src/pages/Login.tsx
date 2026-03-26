@@ -88,6 +88,8 @@ const Login = () => {
               <span className="text-foreground font-semibold">+120M</span> views por mes
             </p>
           </div>
+
+          <VideoShowcase />
         </div>
       </div>
 
