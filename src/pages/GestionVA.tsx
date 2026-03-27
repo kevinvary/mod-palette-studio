@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft, Users, Plus, Search, MoreVertical, Calendar, MessageCircle, CheckCircle2, Clock, AlertCircle, Trash2, Edit, Eye } from "lucide-react";
+import { ArrowLeft, Users, Plus, Search, MoreVertical, Calendar, CheckCircle2, Clock, AlertCircle, Trash2, Edit, Eye, DollarSign, QrCode, CreditCard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import {
@@ -25,6 +25,11 @@ interface VA {
   avatar: string;
   lastActive: string;
   email: string;
+  salary: number;
+  currency: string;
+  paymentDay: number;
+  paymentMethod: string;
+  walletAddress: string;
 }
 
 interface Task {
@@ -36,10 +41,10 @@ interface Task {
 
 
 const mockVAs: VA[] = [
-  { id: "1", name: "Carlos M.", role: "Editor de vídeo", status: "active", tasksCompleted: 24, tasksPending: 3, avatar: "CM", lastActive: "Ahora", email: "carlos@studio.com" },
-  { id: "2", name: "Laura R.", role: "Diseñadora gráfica", status: "active", tasksCompleted: 18, tasksPending: 5, avatar: "LR", lastActive: "Hace 5 min", email: "laura@studio.com" },
-  { id: "3", name: "Miguel A.", role: "Content Manager", status: "idle", tasksCompleted: 31, tasksPending: 1, avatar: "MA", lastActive: "Hace 2h", email: "miguel@studio.com" },
-  { id: "4", name: "Ana S.", role: "Motion Designer", status: "offline", tasksCompleted: 12, tasksPending: 0, avatar: "AS", lastActive: "Hace 1 día", email: "ana@studio.com" },
+  { id: "1", name: "Carlos M.", role: "Editor de vídeo", status: "active", tasksCompleted: 24, tasksPending: 3, avatar: "CM", lastActive: "Ahora", email: "carlos@studio.com", salary: 800, currency: "USD", paymentDay: 1, paymentMethod: "PayPal", walletAddress: "carlos.m@paypal.com" },
+  { id: "2", name: "Laura R.", role: "Diseñadora gráfica", status: "active", tasksCompleted: 18, tasksPending: 5, avatar: "LR", lastActive: "Hace 5 min", email: "laura@studio.com", salary: 650, currency: "USD", paymentDay: 15, paymentMethod: "Wise", walletAddress: "laura.r@wise.com" },
+  { id: "3", name: "Miguel A.", role: "Content Manager", status: "idle", tasksCompleted: 31, tasksPending: 1, avatar: "MA", lastActive: "Hace 2h", email: "miguel@studio.com", salary: 900, currency: "USD", paymentDay: 1, paymentMethod: "Crypto (USDT)", walletAddress: "0x1a2B3c4D5e6F7890abCDef1234567890ABcDeF12" },
+  { id: "4", name: "Ana S.", role: "Motion Designer", status: "offline", tasksCompleted: 12, tasksPending: 0, avatar: "AS", lastActive: "Hace 1 día", email: "ana@studio.com", salary: 1200, currency: "USD", paymentDay: 5, paymentMethod: "Transferencia bancaria", walletAddress: "ES91 2100 0418 4502 0005 1332" },
 ];
 
 const mockTasks: Record<string, Task[]> = {
@@ -79,6 +84,7 @@ const GestionVA = () => {
   const [detailVA, setDetailVA] = useState<VA | null>(null);
   const [editVA, setEditVA] = useState<VA | null>(null);
   const [deleteVA, setDeleteVA] = useState<VA | null>(null);
+  const [paymentVA, setPaymentVA] = useState<VA | null>(null);
 
   // Form states
   const [newName, setNewName] = useState("");
@@ -129,12 +135,13 @@ const GestionVA = () => {
       </div>
 
       {/* Stats */}
-      <div className="px-6 py-4 grid grid-cols-4 gap-4 max-w-5xl">
+      <div className="px-6 py-4 grid grid-cols-5 gap-4 max-w-6xl">
         {[
-          { label: "VAs Activos", value: mockVAs.filter(v => v.status === "active").length, icon: CheckCircle2, color: "text-accent" },
-          { label: "Tareas Pendientes", value: mockVAs.reduce((a, v) => a + v.tasksPending, 0), icon: Clock, color: "text-yellow-500" },
-          { label: "Completadas Hoy", value: 12, icon: CheckCircle2, color: "text-primary" },
-          { label: "Alertas", value: 1, icon: AlertCircle, color: "text-destructive" },
+          { label: "VAs Activos", value: String(mockVAs.filter(v => v.status === "active").length), icon: CheckCircle2, color: "text-accent" },
+          { label: "Tareas Pendientes", value: String(mockVAs.reduce((a, v) => a + v.tasksPending, 0)), icon: Clock, color: "text-yellow-500" },
+          { label: "Completadas Hoy", value: "12", icon: CheckCircle2, color: "text-primary" },
+          { label: "Nómina Total", value: `$${mockVAs.reduce((a, v) => a + v.salary, 0).toLocaleString()}`, icon: DollarSign, color: "text-accent" },
+          { label: "Próximo Pago", value: (() => { const now = new Date(); const days = mockVAs.map(v => { let d = v.paymentDay - now.getDate(); if (d < 0) d += 30; return d; }); return `${Math.min(...days)} días`; })(), icon: CreditCard, color: "text-primary" },
         ].map((stat) => (
           <div key={stat.label} className="surface-card p-4 rounded-xl border border-border">
             <div className="flex items-center gap-2 mb-2">
@@ -196,6 +203,10 @@ const GestionVA = () => {
                     <p className="text-muted-foreground">pendientes</p>
                   </div>
                   <div className="text-center">
+                    <p className="font-bold text-accent">${va.salary}</p>
+                    <p className="text-muted-foreground">día {va.paymentDay}</p>
+                  </div>
+                  <div className="text-center">
                     <p className="text-muted-foreground">{va.lastActive}</p>
                   </div>
                 </div>
@@ -221,6 +232,9 @@ const GestionVA = () => {
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={() => setCalendarVA(va)}>
                         <Calendar className="w-4 h-4 mr-2" /> Ver tareas
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => setPaymentVA(va)}>
+                        <CreditCard className="w-4 h-4 mr-2" /> Info de pago
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem onClick={() => setDeleteVA(va)} className="text-destructive focus:text-destructive">
@@ -351,6 +365,18 @@ const GestionVA = () => {
                   <span className="text-foreground">{detailVA.email}</span>
                 </div>
                 <div className="flex justify-between">
+                  <span className="text-muted-foreground">Sueldo</span>
+                  <span className="font-semibold text-accent">${detailVA.salary} {detailVA.currency}/mes</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Día de pago</span>
+                  <span className="text-foreground">Día {detailVA.paymentDay} de cada mes</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Método de pago</span>
+                  <span className="text-foreground">{detailVA.paymentMethod}</span>
+                </div>
+                <div className="flex justify-between">
                   <span className="text-muted-foreground">Última actividad</span>
                   <span className="text-foreground">{detailVA.lastActive}</span>
                 </div>
@@ -360,6 +386,9 @@ const GestionVA = () => {
           <DialogFooter>
             <Button variant="outline" onClick={() => { setDetailVA(null); if (detailVA) openEdit(detailVA); }}>
               <Edit className="w-4 h-4" /> Editar
+            </Button>
+            <Button variant="outline" onClick={() => { setDetailVA(null); if (detailVA) setPaymentVA(detailVA); }}>
+              <CreditCard className="w-4 h-4" /> Pago
             </Button>
             <Button onClick={() => { setDetailVA(null); if (detailVA) setCalendarVA(detailVA); }}>
               <Calendar className="w-4 h-4" /> Ver tareas
@@ -409,6 +438,78 @@ const GestionVA = () => {
             </DialogClose>
             <Button variant="destructive" onClick={() => setDeleteVA(null)}>
               <Trash2 className="w-4 h-4" /> Eliminar
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* ===== DIALOG: Info de Pago ===== */}
+      <Dialog open={!!paymentVA} onOpenChange={() => setPaymentVA(null)}>
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <CreditCard className="w-5 h-5 text-primary" />
+              Pago — {paymentVA?.name}
+            </DialogTitle>
+            <DialogDescription>Información de pago y datos de cobro.</DialogDescription>
+          </DialogHeader>
+          {paymentVA && (
+            <div className="space-y-4 py-2">
+              <div className="p-4 rounded-xl border border-border bg-secondary/50 text-center">
+                <p className="text-3xl font-bold text-accent">${paymentVA.salary}</p>
+                <p className="text-xs text-muted-foreground mt-1">{paymentVA.currency} / mes</p>
+              </div>
+
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Día de pago</span>
+                  <span className="text-foreground font-medium">Día {paymentVA.paymentDay} de cada mes</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Método</span>
+                  <span className="text-foreground font-medium">{paymentVA.paymentMethod}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Próximo pago</span>
+                  <span className="text-foreground font-medium">
+                    {(() => {
+                      const now = new Date();
+                      let next = new Date(now.getFullYear(), now.getMonth(), paymentVA.paymentDay);
+                      if (next <= now) next = new Date(now.getFullYear(), now.getMonth() + 1, paymentVA.paymentDay);
+                      return next.toLocaleDateString("es-ES", { day: "numeric", month: "short", year: "numeric" });
+                    })()}
+                  </span>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <p className="text-xs text-muted-foreground font-medium">Dirección / cuenta de cobro</p>
+                <div className="p-3 rounded-lg border border-border bg-secondary/30 font-mono text-xs text-foreground break-all select-all">
+                  {paymentVA.walletAddress}
+                </div>
+              </div>
+
+              {/* QR de pago */}
+              <div className="space-y-2">
+                <p className="text-xs text-muted-foreground font-medium flex items-center gap-1">
+                  <QrCode className="w-3 h-3" /> QR de pago
+                </p>
+                <div className="flex justify-center p-4 rounded-lg border border-border bg-white">
+                  <img
+                    src={`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(paymentVA.walletAddress)}`}
+                    alt={`QR de pago para ${paymentVA.name}`}
+                    className="w-40 h-40"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setPaymentVA(null)}>Cerrar</Button>
+            <Button onClick={() => {
+              navigator.clipboard.writeText(paymentVA?.walletAddress || "");
+            }}>
+              Copiar dirección
             </Button>
           </DialogFooter>
         </DialogContent>
