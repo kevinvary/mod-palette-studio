@@ -111,9 +111,7 @@ const workflows: WorkflowCard[] = [
     name: "Gestión de VA",
     description: "Trackea trabajadores y programa contenido — conectado con Telegram",
     icon: <Users className="w-6 h-6 text-accent" />,
-    comingSoon: true,
-    badge: "COMING SOON",
-    badgeColor: "bg-muted text-muted-foreground",
+    route: "/gestion-va",
     category: "gestión",
   },
   {
