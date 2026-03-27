@@ -41,10 +41,10 @@ interface Task {
 
 
 const mockVAs: VA[] = [
-  { id: "1", name: "Carlos M.", role: "Editor de vídeo", status: "active", tasksCompleted: 24, tasksPending: 3, avatar: "CM", lastActive: "Ahora", email: "carlos@studio.com" },
-  { id: "2", name: "Laura R.", role: "Diseñadora gráfica", status: "active", tasksCompleted: 18, tasksPending: 5, avatar: "LR", lastActive: "Hace 5 min", email: "laura@studio.com" },
-  { id: "3", name: "Miguel A.", role: "Content Manager", status: "idle", tasksCompleted: 31, tasksPending: 1, avatar: "MA", lastActive: "Hace 2h", email: "miguel@studio.com" },
-  { id: "4", name: "Ana S.", role: "Motion Designer", status: "offline", tasksCompleted: 12, tasksPending: 0, avatar: "AS", lastActive: "Hace 1 día", email: "ana@studio.com" },
+  { id: "1", name: "Carlos M.", role: "Editor de vídeo", status: "active", tasksCompleted: 24, tasksPending: 3, avatar: "CM", lastActive: "Ahora", email: "carlos@studio.com", salary: 800, currency: "USD", paymentDay: 1, paymentMethod: "PayPal", walletAddress: "carlos.m@paypal.com" },
+  { id: "2", name: "Laura R.", role: "Diseñadora gráfica", status: "active", tasksCompleted: 18, tasksPending: 5, avatar: "LR", lastActive: "Hace 5 min", email: "laura@studio.com", salary: 650, currency: "USD", paymentDay: 15, paymentMethod: "Wise", walletAddress: "laura.r@wise.com" },
+  { id: "3", name: "Miguel A.", role: "Content Manager", status: "idle", tasksCompleted: 31, tasksPending: 1, avatar: "MA", lastActive: "Hace 2h", email: "miguel@studio.com", salary: 900, currency: "USD", paymentDay: 1, paymentMethod: "Crypto (USDT)", walletAddress: "0x1a2B3c4D5e6F7890abCDef1234567890ABcDeF12" },
+  { id: "4", name: "Ana S.", role: "Motion Designer", status: "offline", tasksCompleted: 12, tasksPending: 0, avatar: "AS", lastActive: "Hace 1 día", email: "ana@studio.com", salary: 1200, currency: "USD", paymentDay: 5, paymentMethod: "Transferencia bancaria", walletAddress: "ES91 2100 0418 4502 0005 1332" },
 ];
 
 const mockTasks: Record<string, Task[]> = {
