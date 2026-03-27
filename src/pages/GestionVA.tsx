@@ -61,22 +61,6 @@ const mockTasks: Record<string, Task[]> = {
   "4": [],
 };
 
-const mockMessages: Record<string, Message[]> = {
-  "1": [
-    { id: "m1", from: "me", text: "¿Cómo va el reel de producto?", time: "10:30" },
-    { id: "m2", from: "va", text: "Casi listo, estoy en color grading", time: "10:32" },
-    { id: "m3", from: "me", text: "Perfecto, avísame cuando termines", time: "10:33" },
-  ],
-  "2": [
-    { id: "m4", from: "va", text: "Subí los mockups al drive", time: "09:15" },
-    { id: "m5", from: "me", text: "Genial, los reviso ahora", time: "09:20" },
-  ],
-  "3": [
-    { id: "m6", from: "me", text: "¿Puedes programar los posts de la semana?", time: "Ayer" },
-    { id: "m7", from: "va", text: "Sí, ya los tengo listos para revisión", time: "Ayer" },
-  ],
-  "4": [],
-};
 
 const statusConfig = {
   active: { label: "Activo", color: "bg-accent", textColor: "text-accent" },
