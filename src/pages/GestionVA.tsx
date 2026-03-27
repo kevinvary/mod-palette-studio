@@ -25,6 +25,11 @@ interface VA {
   avatar: string;
   lastActive: string;
   email: string;
+  salary: number;
+  currency: string;
+  paymentDay: number;
+  paymentMethod: string;
+  walletAddress: string;
 }
 
 interface Task {
