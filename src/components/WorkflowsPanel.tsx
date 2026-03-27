@@ -1,8 +1,9 @@
 import { 
-  Film, Image, Wand2, Lock, Paintbrush, Box, Mic, Volume2,
+  Film, Image, Lock, Paintbrush, Box, Mic, Volume2,
   LayoutGrid, BarChart3, Users, PenTool, Info
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 import {
   HoverCard,
   HoverCardContent,
@@ -18,6 +19,7 @@ interface WorkflowCard {
   badge?: string;
   badgeColor?: string;
   category?: string;
+  route?: string;
 }
 
 const workflows: WorkflowCard[] = [
@@ -110,9 +112,7 @@ const workflows: WorkflowCard[] = [
     name: "Gestión de VA",
     description: "Trackea trabajadores y programa contenido — conectado con Telegram",
     icon: <Users className="w-6 h-6 text-accent" />,
-    comingSoon: true,
-    badge: "COMING SOON",
-    badgeColor: "bg-muted text-muted-foreground",
+    route: "/gestion-va",
     category: "gestión",
   },
   {
@@ -134,6 +134,7 @@ const categories: { key: string; label: string }[] = [
 ];
 
 const WorkflowsPanel = () => {
+  const navigate = useNavigate();
   const grouped = categories
     .map((cat) => ({
       ...cat,
@@ -155,6 +156,7 @@ const WorkflowsPanel = () => {
             {group.items.map((wf) => (
               <div
                 key={wf.id}
+                onClick={() => wf.route && navigate(wf.route)}
                 className={cn(
                   "group rounded-xl overflow-hidden border border-border bg-card transition-all duration-200",
                   wf.comingSoon
