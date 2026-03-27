@@ -84,6 +84,7 @@ const GestionVA = () => {
   const [detailVA, setDetailVA] = useState<VA | null>(null);
   const [editVA, setEditVA] = useState<VA | null>(null);
   const [deleteVA, setDeleteVA] = useState<VA | null>(null);
+  const [paymentVA, setPaymentVA] = useState<VA | null>(null);
 
   // Form states
   const [newName, setNewName] = useState("");
