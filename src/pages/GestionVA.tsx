@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft, Users, Plus, Search, MoreVertical, Calendar, MessageCircle, CheckCircle2, Clock, AlertCircle, Trash2, Edit, Eye, Send, Paperclip } from "lucide-react";
+import { ArrowLeft, Users, Plus, Search, MoreVertical, Calendar, MessageCircle, CheckCircle2, Clock, AlertCircle, Trash2, Edit, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import {
