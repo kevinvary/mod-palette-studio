@@ -156,6 +156,7 @@ const WorkflowsPanel = () => {
             {group.items.map((wf) => (
               <div
                 key={wf.id}
+                onClick={() => wf.route && navigate(wf.route)}
                 className={cn(
                   "group rounded-xl overflow-hidden border border-border bg-card transition-all duration-200",
                   wf.comingSoon
