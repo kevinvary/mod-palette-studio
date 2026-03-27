@@ -365,6 +365,18 @@ const GestionVA = () => {
                   <span className="text-foreground">{detailVA.email}</span>
                 </div>
                 <div className="flex justify-between">
+                  <span className="text-muted-foreground">Sueldo</span>
+                  <span className="font-semibold text-accent">${detailVA.salary} {detailVA.currency}/mes</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Día de pago</span>
+                  <span className="text-foreground">Día {detailVA.paymentDay} de cada mes</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Método de pago</span>
+                  <span className="text-foreground">{detailVA.paymentMethod}</span>
+                </div>
+                <div className="flex justify-between">
                   <span className="text-muted-foreground">Última actividad</span>
                   <span className="text-foreground">{detailVA.lastActive}</span>
                 </div>
@@ -374,6 +386,9 @@ const GestionVA = () => {
           <DialogFooter>
             <Button variant="outline" onClick={() => { setDetailVA(null); if (detailVA) openEdit(detailVA); }}>
               <Edit className="w-4 h-4" /> Editar
+            </Button>
+            <Button variant="outline" onClick={() => { setDetailVA(null); if (detailVA) setPaymentVA(detailVA); }}>
+              <CreditCard className="w-4 h-4" /> Pago
             </Button>
             <Button onClick={() => { setDetailVA(null); if (detailVA) setCalendarVA(detailVA); }}>
               <Calendar className="w-4 h-4" /> Ver tareas
