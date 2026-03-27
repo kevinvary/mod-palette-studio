@@ -84,7 +84,7 @@ const GestionVA = () => {
   const [newName, setNewName] = useState("");
   const [newRole, setNewRole] = useState("");
   const [newEmail, setNewEmail] = useState("");
-  const [chatMsg, setChatMsg] = useState("");
+  
   const [editName, setEditName] = useState("");
   const [editRole, setEditRole] = useState("");
   const [newTaskTitle, setNewTaskTitle] = useState("");
