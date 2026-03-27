@@ -206,12 +206,6 @@ const GestionVA = () => {
                   >
                     <Calendar className="w-4 h-4" />
                   </button>
-                  <button
-                    onClick={() => setChatVA(va)}
-                    className="p-2 rounded-lg hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground"
-                  >
-                    <MessageCircle className="w-4 h-4" />
-                  </button>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <button className="p-2 rounded-lg hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground">
