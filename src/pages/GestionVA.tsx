@@ -203,6 +203,10 @@ const GestionVA = () => {
                     <p className="text-muted-foreground">pendientes</p>
                   </div>
                   <div className="text-center">
+                    <p className="font-bold text-accent">${va.salary}</p>
+                    <p className="text-muted-foreground">día {va.paymentDay}</p>
+                  </div>
+                  <div className="text-center">
                     <p className="text-muted-foreground">{va.lastActive}</p>
                   </div>
                 </div>
