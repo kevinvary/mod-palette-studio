@@ -442,6 +442,78 @@ const GestionVA = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* ===== DIALOG: Info de Pago ===== */}
+      <Dialog open={!!paymentVA} onOpenChange={() => setPaymentVA(null)}>
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <CreditCard className="w-5 h-5 text-primary" />
+              Pago — {paymentVA?.name}
+            </DialogTitle>
+            <DialogDescription>Información de pago y datos de cobro.</DialogDescription>
+          </DialogHeader>
+          {paymentVA && (
+            <div className="space-y-4 py-2">
+              <div className="p-4 rounded-xl border border-border bg-secondary/50 text-center">
+                <p className="text-3xl font-bold text-accent">${paymentVA.salary}</p>
+                <p className="text-xs text-muted-foreground mt-1">{paymentVA.currency} / mes</p>
+              </div>
+
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Día de pago</span>
+                  <span className="text-foreground font-medium">Día {paymentVA.paymentDay} de cada mes</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Método</span>
+                  <span className="text-foreground font-medium">{paymentVA.paymentMethod}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Próximo pago</span>
+                  <span className="text-foreground font-medium">
+                    {(() => {
+                      const now = new Date();
+                      let next = new Date(now.getFullYear(), now.getMonth(), paymentVA.paymentDay);
+                      if (next <= now) next = new Date(now.getFullYear(), now.getMonth() + 1, paymentVA.paymentDay);
+                      return next.toLocaleDateString("es-ES", { day: "numeric", month: "short", year: "numeric" });
+                    })()}
+                  </span>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <p className="text-xs text-muted-foreground font-medium">Dirección / cuenta de cobro</p>
+                <div className="p-3 rounded-lg border border-border bg-secondary/30 font-mono text-xs text-foreground break-all select-all">
+                  {paymentVA.walletAddress}
+                </div>
+              </div>
+
+              {/* QR de pago */}
+              <div className="space-y-2">
+                <p className="text-xs text-muted-foreground font-medium flex items-center gap-1">
+                  <QrCode className="w-3 h-3" /> QR de pago
+                </p>
+                <div className="flex justify-center p-4 rounded-lg border border-border bg-white">
+                  <img
+                    src={`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(paymentVA.walletAddress)}`}
+                    alt={`QR de pago para ${paymentVA.name}`}
+                    className="w-40 h-40"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setPaymentVA(null)}>Cerrar</Button>
+            <Button onClick={() => {
+              navigator.clipboard.writeText(paymentVA?.walletAddress || "");
+            }}>
+              Copiar dirección
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
