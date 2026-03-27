@@ -75,7 +75,7 @@ const GestionVA = () => {
   // Dialog states
   const [addVAOpen, setAddVAOpen] = useState(false);
   const [calendarVA, setCalendarVA] = useState<VA | null>(null);
-  const [chatVA, setChatVA] = useState<VA | null>(null);
+  
   const [detailVA, setDetailVA] = useState<VA | null>(null);
   const [editVA, setEditVA] = useState<VA | null>(null);
   const [deleteVA, setDeleteVA] = useState<VA | null>(null);
