@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft, Users, Plus, Search, MoreVertical, Calendar, MessageCircle, CheckCircle2, Clock, AlertCircle, Trash2, Edit, Eye, Send, Paperclip } from "lucide-react";
+import { ArrowLeft, Users, Plus, Search, MoreVertical, Calendar, MessageCircle, CheckCircle2, Clock, AlertCircle, Trash2, Edit, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import {
@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Textarea } from "@/components/ui/textarea";
+
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface VA {
@@ -34,12 +34,6 @@ interface Task {
   status: "pending" | "done";
 }
 
-interface Message {
-  id: string;
-  from: "me" | "va";
-  text: string;
-  time: string;
-}
 
 const mockVAs: VA[] = [
   { id: "1", name: "Carlos M.", role: "Editor de vídeo", status: "active", tasksCompleted: 24, tasksPending: 3, avatar: "CM", lastActive: "Ahora", email: "carlos@studio.com" },
@@ -67,22 +61,6 @@ const mockTasks: Record<string, Task[]> = {
   "4": [],
 };
 
-const mockMessages: Record<string, Message[]> = {
-  "1": [
-    { id: "m1", from: "me", text: "¿Cómo va el reel de producto?", time: "10:30" },
-    { id: "m2", from: "va", text: "Casi listo, estoy en color grading", time: "10:32" },
-    { id: "m3", from: "me", text: "Perfecto, avísame cuando termines", time: "10:33" },
-  ],
-  "2": [
-    { id: "m4", from: "va", text: "Subí los mockups al drive", time: "09:15" },
-    { id: "m5", from: "me", text: "Genial, los reviso ahora", time: "09:20" },
-  ],
-  "3": [
-    { id: "m6", from: "me", text: "¿Puedes programar los posts de la semana?", time: "Ayer" },
-    { id: "m7", from: "va", text: "Sí, ya los tengo listos para revisión", time: "Ayer" },
-  ],
-  "4": [],
-};
 
 const statusConfig = {
   active: { label: "Activo", color: "bg-accent", textColor: "text-accent" },
@@ -97,7 +75,7 @@ const GestionVA = () => {
   // Dialog states
   const [addVAOpen, setAddVAOpen] = useState(false);
   const [calendarVA, setCalendarVA] = useState<VA | null>(null);
-  const [chatVA, setChatVA] = useState<VA | null>(null);
+  
   const [detailVA, setDetailVA] = useState<VA | null>(null);
   const [editVA, setEditVA] = useState<VA | null>(null);
   const [deleteVA, setDeleteVA] = useState<VA | null>(null);
@@ -106,7 +84,7 @@ const GestionVA = () => {
   const [newName, setNewName] = useState("");
   const [newRole, setNewRole] = useState("");
   const [newEmail, setNewEmail] = useState("");
-  const [chatMsg, setChatMsg] = useState("");
+  
   const [editName, setEditName] = useState("");
   const [editRole, setEditRole] = useState("");
   const [newTaskTitle, setNewTaskTitle] = useState("");
@@ -228,12 +206,6 @@ const GestionVA = () => {
                   >
                     <Calendar className="w-4 h-4" />
                   </button>
-                  <button
-                    onClick={() => setChatVA(va)}
-                    className="p-2 rounded-lg hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground"
-                  >
-                    <MessageCircle className="w-4 h-4" />
-                  </button>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <button className="p-2 rounded-lg hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground">
@@ -249,9 +221,6 @@ const GestionVA = () => {
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={() => setCalendarVA(va)}>
                         <Calendar className="w-4 h-4 mr-2" /> Ver tareas
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setChatVA(va)}>
-                        <MessageCircle className="w-4 h-4 mr-2" /> Enviar mensaje
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem onClick={() => setDeleteVA(va)} className="text-destructive focus:text-destructive">
@@ -342,45 +311,6 @@ const GestionVA = () => {
         </DialogContent>
       </Dialog>
 
-      {/* ===== DIALOG: Chat ===== */}
-      <Dialog open={!!chatVA} onOpenChange={() => setChatVA(null)}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <MessageCircle className="w-5 h-5 text-primary" />
-              Chat — {chatVA?.name}
-            </DialogTitle>
-            <DialogDescription>{chatVA?.role}</DialogDescription>
-          </DialogHeader>
-          <div className="space-y-3 max-h-64 overflow-y-auto py-2">
-            {chatVA && (mockMessages[chatVA.id] || []).length === 0 && (
-              <p className="text-sm text-muted-foreground text-center py-6">No hay mensajes aún</p>
-            )}
-            {chatVA && (mockMessages[chatVA.id] || []).map((msg) => (
-              <div key={msg.id} className={cn("flex", msg.from === "me" ? "justify-end" : "justify-start")}>
-                <div className={cn(
-                  "max-w-[75%] px-3 py-2 rounded-xl text-sm",
-                  msg.from === "me"
-                    ? "bg-primary text-primary-foreground rounded-br-sm"
-                    : "bg-secondary text-secondary-foreground rounded-bl-sm"
-                )}>
-                  <p>{msg.text}</p>
-                  <p className={cn("text-[10px] mt-1", msg.from === "me" ? "text-primary-foreground/60" : "text-muted-foreground")}>{msg.time}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="flex gap-2 pt-2">
-            <Button variant="outline" size="icon" className="shrink-0">
-              <Paperclip className="w-4 h-4" />
-            </Button>
-            <Input placeholder="Escribe un mensaje..." value={chatMsg} onChange={(e) => setChatMsg(e.target.value)} className="flex-1" />
-            <Button size="icon" disabled={!chatMsg} onClick={() => setChatMsg("")}>
-              <Send className="w-4 h-4" />
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
 
       {/* ===== DIALOG: Ver Perfil ===== */}
       <Dialog open={!!detailVA} onOpenChange={() => setDetailVA(null)}>
@@ -431,8 +361,8 @@ const GestionVA = () => {
             <Button variant="outline" onClick={() => { setDetailVA(null); if (detailVA) openEdit(detailVA); }}>
               <Edit className="w-4 h-4" /> Editar
             </Button>
-            <Button onClick={() => { setDetailVA(null); if (detailVA) setChatVA(detailVA); }}>
-              <MessageCircle className="w-4 h-4" /> Mensaje
+            <Button onClick={() => { setDetailVA(null); if (detailVA) setCalendarVA(detailVA); }}>
+              <Calendar className="w-4 h-4" /> Ver tareas
             </Button>
           </DialogFooter>
         </DialogContent>
