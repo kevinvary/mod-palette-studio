@@ -135,12 +135,13 @@ const GestionVA = () => {
       </div>
 
       {/* Stats */}
-      <div className="px-6 py-4 grid grid-cols-4 gap-4 max-w-5xl">
+      <div className="px-6 py-4 grid grid-cols-5 gap-4 max-w-6xl">
         {[
-          { label: "VAs Activos", value: mockVAs.filter(v => v.status === "active").length, icon: CheckCircle2, color: "text-accent" },
-          { label: "Tareas Pendientes", value: mockVAs.reduce((a, v) => a + v.tasksPending, 0), icon: Clock, color: "text-yellow-500" },
-          { label: "Completadas Hoy", value: 12, icon: CheckCircle2, color: "text-primary" },
-          { label: "Alertas", value: 1, icon: AlertCircle, color: "text-destructive" },
+          { label: "VAs Activos", value: String(mockVAs.filter(v => v.status === "active").length), icon: CheckCircle2, color: "text-accent" },
+          { label: "Tareas Pendientes", value: String(mockVAs.reduce((a, v) => a + v.tasksPending, 0)), icon: Clock, color: "text-yellow-500" },
+          { label: "Completadas Hoy", value: "12", icon: CheckCircle2, color: "text-primary" },
+          { label: "Nómina Total", value: `$${mockVAs.reduce((a, v) => a + v.salary, 0).toLocaleString()}`, icon: DollarSign, color: "text-accent" },
+          { label: "Próximo Pago", value: (() => { const now = new Date(); const days = mockVAs.map(v => { let d = v.paymentDay - now.getDate(); if (d < 0) d += 30; return d; }); return `${Math.min(...days)} días`; })(), icon: CreditCard, color: "text-primary" },
         ].map((stat) => (
           <div key={stat.label} className="surface-card p-4 rounded-xl border border-border">
             <div className="flex items-center gap-2 mb-2">
