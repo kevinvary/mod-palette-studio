@@ -361,8 +361,8 @@ const GestionVA = () => {
             <Button variant="outline" onClick={() => { setDetailVA(null); if (detailVA) openEdit(detailVA); }}>
               <Edit className="w-4 h-4" /> Editar
             </Button>
-            <Button onClick={() => { setDetailVA(null); if (detailVA) setChatVA(detailVA); }}>
-              <MessageCircle className="w-4 h-4" /> Mensaje
+            <Button onClick={() => { setDetailVA(null); if (detailVA) setCalendarVA(detailVA); }}>
+              <Calendar className="w-4 h-4" /> Ver tareas
             </Button>
           </DialogFooter>
         </DialogContent>
