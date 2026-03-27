@@ -19,6 +19,7 @@ interface WorkflowCard {
   badge?: string;
   badgeColor?: string;
   category?: string;
+  route?: string;
 }
 
 const workflows: WorkflowCard[] = [
