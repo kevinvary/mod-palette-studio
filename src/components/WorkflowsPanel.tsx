@@ -134,6 +134,7 @@ const categories: { key: string; label: string }[] = [
 ];
 
 const WorkflowsPanel = () => {
+  const navigate = useNavigate();
   const grouped = categories
     .map((cat) => ({
       ...cat,
