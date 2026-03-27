@@ -3,6 +3,7 @@ import {
   LayoutGrid, BarChart3, Users, PenTool, Info
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 import {
   HoverCard,
   HoverCardContent,
