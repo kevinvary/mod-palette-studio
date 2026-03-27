@@ -34,12 +34,6 @@ interface Task {
   status: "pending" | "done";
 }
 
-interface Message {
-  id: string;
-  from: "me" | "va";
-  text: string;
-  time: string;
-}
 
 const mockVAs: VA[] = [
   { id: "1", name: "Carlos M.", role: "Editor de vídeo", status: "active", tasksCompleted: 24, tasksPending: 3, avatar: "CM", lastActive: "Ahora", email: "carlos@studio.com" },
