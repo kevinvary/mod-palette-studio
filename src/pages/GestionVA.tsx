@@ -311,45 +311,6 @@ const GestionVA = () => {
         </DialogContent>
       </Dialog>
 
-      {/* ===== DIALOG: Chat ===== */}
-      <Dialog open={!!chatVA} onOpenChange={() => setChatVA(null)}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <MessageCircle className="w-5 h-5 text-primary" />
-              Chat — {chatVA?.name}
-            </DialogTitle>
-            <DialogDescription>{chatVA?.role}</DialogDescription>
-          </DialogHeader>
-          <div className="space-y-3 max-h-64 overflow-y-auto py-2">
-            {chatVA && (mockMessages[chatVA.id] || []).length === 0 && (
-              <p className="text-sm text-muted-foreground text-center py-6">No hay mensajes aún</p>
-            )}
-            {chatVA && (mockMessages[chatVA.id] || []).map((msg) => (
-              <div key={msg.id} className={cn("flex", msg.from === "me" ? "justify-end" : "justify-start")}>
-                <div className={cn(
-                  "max-w-[75%] px-3 py-2 rounded-xl text-sm",
-                  msg.from === "me"
-                    ? "bg-primary text-primary-foreground rounded-br-sm"
-                    : "bg-secondary text-secondary-foreground rounded-bl-sm"
-                )}>
-                  <p>{msg.text}</p>
-                  <p className={cn("text-[10px] mt-1", msg.from === "me" ? "text-primary-foreground/60" : "text-muted-foreground")}>{msg.time}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="flex gap-2 pt-2">
-            <Button variant="outline" size="icon" className="shrink-0">
-              <Paperclip className="w-4 h-4" />
-            </Button>
-            <Input placeholder="Escribe un mensaje..." value={chatMsg} onChange={(e) => setChatMsg(e.target.value)} className="flex-1" />
-            <Button size="icon" disabled={!chatMsg} onClick={() => setChatMsg("")}>
-              <Send className="w-4 h-4" />
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
 
       {/* ===== DIALOG: Ver Perfil ===== */}
       <Dialog open={!!detailVA} onOpenChange={() => setDetailVA(null)}>
