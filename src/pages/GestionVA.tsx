@@ -222,9 +222,6 @@ const GestionVA = () => {
                       <DropdownMenuItem onClick={() => setCalendarVA(va)}>
                         <Calendar className="w-4 h-4 mr-2" /> Ver tareas
                       </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setChatVA(va)}>
-                        <MessageCircle className="w-4 h-4 mr-2" /> Enviar mensaje
-                      </DropdownMenuItem>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem onClick={() => setDeleteVA(va)} className="text-destructive focus:text-destructive">
                         <Trash2 className="w-4 h-4 mr-2" /> Eliminar
