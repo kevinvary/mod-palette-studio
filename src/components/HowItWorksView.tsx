@@ -135,7 +135,7 @@ const MotionTransferHowItWorks = () => (
 
 const I2VElevenLabsHowItWorks = () => (
   <div className="max-w-2xl mx-auto space-y-6 py-4">
-    <h2 className="text-lg font-semibold text-foreground">¿Cómo funciona Image to Video + ElevenLabs?</h2>
+    <h2 className="text-lg font-semibold text-foreground">¿Cómo funciona Image to Video + Voice - LipSync?</h2>
     <p className="text-xs text-muted-foreground leading-relaxed">
       Este pipeline combina generación de vídeo a partir de imagen con narración de voz automática usando ElevenLabs. El resultado es un clip listo para publicar con voz en off profesional.
     </p>
