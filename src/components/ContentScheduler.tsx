@@ -301,8 +301,8 @@ const ContentScheduler = ({
                           <span className="text-[10px] font-bold text-primary px-3 py-2 shrink-0 select-none">[SOUNDS]:</span>
                           <input
                             type="text"
-                            value={(item as any).sounds || ""}
-                            onChange={(e) => updateItem(item.id, "sounds" as any, e.target.value)}
+                            value={item.sounds}
+                            onChange={(e) => updateItem(item.id, "sounds", e.target.value)}
                             placeholder="sonido ambiente..."
                             className="flex-1 bg-transparent py-2 pr-3 text-[11px] text-foreground placeholder:text-muted-foreground focus:outline-none font-mono"
                           />
