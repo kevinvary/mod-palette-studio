@@ -210,7 +210,7 @@ const I2VElevenLabsHowItWorks = () => (
         <Film className="w-4 h-4" /> Paso 5 — Resultado listo para publicar
       </h3>
       <p className="text-xs text-muted-foreground leading-relaxed">
-        Recibirás un <span className="text-foreground font-medium">clip de ~5 segundos con voz en off integrada</span>, listo para descargar y publicar en redes sociales.
+        Recibirás un <span className="text-foreground font-medium">clip de ~5 segundos con voz y labios sincronizados</span>, listo para descargar y publicar en redes sociales.
       </p>
     </div>
 
