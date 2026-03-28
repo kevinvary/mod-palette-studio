@@ -114,10 +114,8 @@ const features: Feature[] = [
     categoryColor: "bg-primary text-primary-foreground",
     description: "Sincroniza labios de cualquier vídeo con un audio o voz generada.",
     icon: <Mic className="w-5 h-5 text-primary" />,
-    podLabel: "",
-    podDescription: "",
-    comingSoon: true,
-    progress: 30,
+    podLabel: "Iniciar estudio Sincronizador de Labios",
+    podDescription: "Se creará una instancia GPU con el pipeline de Lip Sync.",
   },
   {
     id: "carousel-post",
