@@ -227,7 +227,7 @@ const I2VElevenLabsHowItWorks = () => (
   </div>
 );
 
-
+const HowItWorksView = ({ featureId, featureTitle, onBack, onContinue }: HowItWorksViewProps) => {
   return (
     <div className="flex flex-col h-full animate-fade-in">
       <div className="px-6 pt-5 pb-3 border-b border-border">
