@@ -137,7 +137,7 @@ const I2VElevenLabsHowItWorks = () => (
   <div className="max-w-2xl mx-auto space-y-6 py-4">
     <h2 className="text-lg font-semibold text-foreground">¿Cómo funciona Image to Video + Voice - LipSync?</h2>
     <p className="text-xs text-muted-foreground leading-relaxed">
-      Este pipeline combina generación de vídeo a partir de imagen con narración de voz automática usando ElevenLabs. El resultado es un clip listo para publicar con voz en off profesional.
+      Este pipeline genera un vídeo a partir de una imagen, le añade voz con ElevenLabs y <span className="text-foreground font-medium">sincroniza los labios del personaje con el audio automáticamente</span>. El resultado es un clip con lip-sync listo para publicar.
     </p>
 
     {/* Paso 1 */}
@@ -199,7 +199,8 @@ const I2VElevenLabsHowItWorks = () => (
       <ol className="text-xs text-muted-foreground leading-relaxed space-y-1.5 list-decimal list-inside">
         <li>Genera el vídeo a partir de la imagen + prompt</li>
         <li>Genera el audio con ElevenLabs usando el texto de narración</li>
-        <li>Sincroniza y mezcla vídeo + audio en un clip final</li>
+        <li><span className="text-foreground font-medium">Sincroniza los labios</span> del personaje con el audio generado (LipSync)</li>
+        <li>Mezcla vídeo + audio en un clip final</li>
       </ol>
     </div>
 
@@ -209,7 +210,7 @@ const I2VElevenLabsHowItWorks = () => (
         <Film className="w-4 h-4" /> Paso 5 — Resultado listo para publicar
       </h3>
       <p className="text-xs text-muted-foreground leading-relaxed">
-        Recibirás un <span className="text-foreground font-medium">clip de ~5 segundos con voz en off integrada</span>, listo para descargar y publicar en redes sociales.
+        Recibirás un <span className="text-foreground font-medium">clip de ~5 segundos con voz y labios sincronizados</span>, listo para descargar y publicar en redes sociales.
       </p>
     </div>
 
