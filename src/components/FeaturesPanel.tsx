@@ -289,7 +289,7 @@ const FeaturesPanel = () => {
         {features.map((feature) => (
           <button
             key={feature.id}
-            onClick={() => !feature.comingSoon && setViewState({ featureId: feature.id, step: "schedule" })}
+            onClick={() => !feature.comingSoon && setViewState({ featureId: feature.id, step: "howItWorks" })}
             disabled={feature.comingSoon}
             className={cn(
               "w-full surface-card p-5 text-left transition-colors duration-150 group",
