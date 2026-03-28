@@ -60,8 +60,8 @@ const features: Feature[] = [
     icon: <Volume2 className="w-5 h-5 text-primary" />,
     podLabel: "",
     podDescription: "",
-    comingSoon: true,
-    progress: 79,
+    podLabel: "Iniciar estudio Image to Video + ElevenLabs",
+    podDescription: "Se creará una instancia GPU con el pipeline de I2V + ElevenLabs.",
   },
   {
     id: "motion-transfer-lora",
