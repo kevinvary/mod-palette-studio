@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, MessageSquare, Sparkles, AlertTriangle, Timer, Headphones, Camera, Scissors, Star } from "lucide-react";
+import { ArrowLeft, ArrowRight, MessageSquare, Sparkles, AlertTriangle, Timer, Headphones, Camera, Scissors, Star, Upload, Volume2, Wand2, Film } from "lucide-react";
 import exampleCleanPhoto from "@/assets/example-clean-photo.jpg";
 import exampleResultPhoto from "@/assets/example-result-photo.jpg";
 import exampleFinalResult from "@/assets/example-final-result.jpg";
