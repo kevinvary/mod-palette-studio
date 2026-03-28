@@ -199,7 +199,8 @@ const I2VElevenLabsHowItWorks = () => (
       <ol className="text-xs text-muted-foreground leading-relaxed space-y-1.5 list-decimal list-inside">
         <li>Genera el vídeo a partir de la imagen + prompt</li>
         <li>Genera el audio con ElevenLabs usando el texto de narración</li>
-        <li>Sincroniza y mezcla vídeo + audio en un clip final</li>
+        <li><span className="text-foreground font-medium">Sincroniza los labios</span> del personaje con el audio generado (LipSync)</li>
+        <li>Mezcla vídeo + audio en un clip final</li>
       </ol>
     </div>
 
