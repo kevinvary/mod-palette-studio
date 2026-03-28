@@ -137,7 +137,7 @@ const I2VElevenLabsHowItWorks = () => (
   <div className="max-w-2xl mx-auto space-y-6 py-4">
     <h2 className="text-lg font-semibold text-foreground">¿Cómo funciona Image to Video + Voice - LipSync?</h2>
     <p className="text-xs text-muted-foreground leading-relaxed">
-      Este pipeline combina generación de vídeo a partir de imagen con narración de voz automática usando ElevenLabs. El resultado es un clip listo para publicar con voz en off profesional.
+      Este pipeline genera un vídeo a partir de una imagen, le añade voz con ElevenLabs y <span className="text-foreground font-medium">sincroniza los labios del personaje con el audio automáticamente</span>. El resultado es un clip con lip-sync listo para publicar.
     </p>
 
     {/* Paso 1 */}
