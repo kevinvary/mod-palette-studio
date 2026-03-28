@@ -30,6 +30,7 @@ const createItem = (): ContentItem => ({
   audio: null,
   positivePrompt: "",
   negativePrompt: "",
+  sounds: "",
 });
 
 const ContentScheduler = ({
