@@ -1,10 +1,11 @@
 import { useState, useCallback } from "react";
-import { Plus, Upload, Trash2, ArrowLeft, ArrowRight, Film, GripVertical } from "lucide-react";
+import { Plus, Upload, Trash2, ArrowLeft, ArrowRight, Film, GripVertical, Music, Check } from "lucide-react";
 
 interface ContentItem {
   id: string;
   image: string | null;
   video: string | null;
+  audio: string | null;
   positivePrompt: string;
   negativePrompt: string;
 }
@@ -17,6 +18,7 @@ interface ContentSchedulerProps {
   onContinue: (items: ContentItem[]) => void;
   showPrompts?: boolean;
   showVideo?: boolean;
+  showAudio?: boolean;
 }
 
 let nextId = 1;
@@ -24,6 +26,7 @@ const createItem = (): ContentItem => ({
   id: `item-${nextId++}`,
   image: null,
   video: null,
+  audio: null,
   positivePrompt: "",
   negativePrompt: "",
 });
@@ -36,11 +39,15 @@ const ContentScheduler = ({
   onContinue,
   showPrompts = false,
   showVideo = false,
+  showAudio = false,
 }: ContentSchedulerProps) => {
   const [items, setItems] = useState<ContentItem[]>([createItem()]);
-
   const [dragIdx, setDragIdx] = useState<number | null>(null);
   const [dragOverIdx, setDragOverIdx] = useState<number | null>(null);
+
+  // Global audio state for lip-sync
+  const [globalAudio, setGlobalAudio] = useState<string | null>(null);
+  const [useGlobalAudio, setUseGlobalAudio] = useState(false);
 
   const addItem = () => setItems((prev) => [...prev, createItem()]);
 
@@ -53,11 +60,18 @@ const ContentScheduler = ({
     setItems((prev) => prev.map((i) => (i.id === id ? { ...i, [field]: value } : i)));
   };
 
-  const handleFileUpload = (id: string, field: "image" | "video", e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = (id: string, field: "image" | "video" | "audio", e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const url = URL.createObjectURL(file);
       updateItem(id, field, url);
+    }
+  };
+
+  const handleGlobalAudioUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setGlobalAudio(URL.createObjectURL(file));
     }
   };
 
@@ -74,7 +88,6 @@ const ContentScheduler = ({
   }, [dragIdx]);
 
   const filledItems = items.filter((i) => i.image);
-
   const hasDoubleUpload = showVideo;
   const hasPrompts = showPrompts;
 
@@ -86,7 +99,7 @@ const ContentScheduler = ({
           className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to Features
+          Volver
         </button>
       </div>
 
@@ -105,6 +118,64 @@ const ContentScheduler = ({
               {filledItems.length} {filledItems.length === 1 ? "item" : "items"} listos
             </span>
           </div>
+
+          {/* Global audio card for lip-sync */}
+          {showAudio && (
+            <div className="surface-card p-4 rounded-xl border border-accent/30 mb-6 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-accent/15 flex items-center justify-center">
+                    <Music className="w-4 h-4 text-accent" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold text-foreground">Audio global</p>
+                    <p className="text-[10px] text-muted-foreground">Sube un audio para usarlo en todas las cards</p>
+                  </div>
+                </div>
+              </div>
+
+              {globalAudio ? (
+                <div className="flex items-center gap-3">
+                  <audio src={globalAudio} controls className="h-8 flex-1" style={{ maxHeight: "32px" }} />
+                  <button
+                    onClick={() => { setGlobalAudio(null); setUseGlobalAudio(false); }}
+                    className="w-6 h-6 rounded-full bg-destructive/15 flex items-center justify-center text-destructive hover:bg-destructive/25 transition-colors text-xs"
+                  >
+                    ×
+                  </button>
+                </div>
+              ) : (
+                <label className="flex flex-col items-center justify-center gap-2 cursor-pointer w-full h-20 rounded-lg border-2 border-dashed border-accent/30 hover:border-accent/50 transition-colors bg-accent/5">
+                  <Upload className="w-4 h-4 text-accent" />
+                  <p className="text-[10px] text-accent font-medium">Subir audio (MP3)</p>
+                  <input
+                    type="file"
+                    accept="audio/*"
+                    className="hidden"
+                    onChange={handleGlobalAudioUpload}
+                  />
+                </label>
+              )}
+
+              {globalAudio && (
+                <button
+                  onClick={() => setUseGlobalAudio(!useGlobalAudio)}
+                  className={`flex items-center gap-2 w-full px-3 py-2.5 rounded-lg transition-colors text-xs font-medium ${
+                    useGlobalAudio
+                      ? "bg-accent/15 text-accent border border-accent/30"
+                      : "bg-secondary/50 text-muted-foreground hover:bg-secondary border border-border"
+                  }`}
+                >
+                  <div className={`w-4 h-4 rounded border-2 flex items-center justify-center transition-colors ${
+                    useGlobalAudio ? "bg-accent border-accent" : "border-muted-foreground/40"
+                  }`}>
+                    {useGlobalAudio && <Check className="w-3 h-3 text-accent-foreground" />}
+                  </div>
+                  Usar este mismo audio en todas
+                </button>
+              )}
+            </div>
+          )}
 
           <div className="space-y-4">
             {items.map((item, index) => (
@@ -139,60 +210,92 @@ const ContentScheduler = ({
                   )}
                 </div>
 
-                <div className={hasPrompts ? "grid grid-cols-[160px_1fr] gap-4" : hasDoubleUpload ? "grid grid-cols-2 gap-4" : ""}>
-                  {/* Image upload */}
-                  <div>
-                    <p className="text-[10px] font-semibold text-muted-foreground mb-1.5">
-                      {hasDoubleUpload ? "Imagen del personaje" : "Imagen"}
-                    </p>
-                    {item.image ? (
-                      <div className="relative rounded-lg overflow-hidden">
-                        <img
-                          src={item.image}
-                          alt={`Content ${index + 1}`}
-                          className="w-full h-28 object-cover rounded-lg"
-                        />
-                        <button
-                          onClick={() => updateItem(item.id, "image", null)}
-                          className="absolute top-1.5 right-1.5 w-6 h-6 bg-background/80 backdrop-blur-sm rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
-                        >
-                          ×
-                        </button>
+                {/* Lip-sync layout: image + audio + prompt */}
+                {showAudio ? (
+                  <div className="space-y-3">
+                    <div className="grid grid-cols-2 gap-3">
+                      {/* Image */}
+                      <div>
+                        <p className="text-[10px] font-semibold text-muted-foreground mb-1.5">Imagen del personaje</p>
+                        {item.image ? (
+                          <div className="relative rounded-lg overflow-hidden">
+                            <img src={item.image} alt={`Content ${index + 1}`} className="w-full h-28 object-cover rounded-lg" />
+                            <button
+                              onClick={() => updateItem(item.id, "image", null)}
+                              className="absolute top-1.5 right-1.5 w-6 h-6 bg-background/80 backdrop-blur-sm rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ) : (
+                          <label className="flex flex-col items-center justify-center gap-2 cursor-pointer w-full h-28 rounded-lg border-2 border-dashed border-border hover:border-accent/40 transition-colors bg-secondary/30">
+                            <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center">
+                              <Upload className="w-4 h-4 text-muted-foreground" />
+                            </div>
+                            <p className="text-[10px] text-muted-foreground">Subir imagen</p>
+                            <input type="file" accept="image/*" className="hidden" onChange={(e) => handleFileUpload(item.id, "image", e)} />
+                          </label>
+                        )}
                       </div>
-                    ) : (
-                      <label className="flex flex-col items-center justify-center gap-2 cursor-pointer w-full h-28 rounded-lg border-2 border-dashed border-border hover:border-accent/40 transition-colors bg-secondary/30">
-                        <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center">
-                          <Upload className="w-4 h-4 text-muted-foreground" />
-                        </div>
-                        <p className="text-[10px] text-muted-foreground">Subir imagen</p>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                          onChange={(e) => handleFileUpload(item.id, "image", e)}
-                        />
-                      </label>
-                    )}
-                  </div>
 
-                  {/* Video upload (for Motion Transfer) */}
-                  {hasDoubleUpload && (
+                      {/* Audio (per-item, disabled if global) */}
+                      <div>
+                        <p className="text-[10px] font-semibold text-muted-foreground mb-1.5">
+                          Audio {useGlobalAudio && <span className="text-accent">(global)</span>}
+                        </p>
+                        {useGlobalAudio && globalAudio ? (
+                          <div className="flex flex-col items-center justify-center gap-2 w-full h-28 rounded-lg border border-accent/30 bg-accent/5">
+                            <Music className="w-5 h-5 text-accent" />
+                            <p className="text-[10px] text-accent font-medium">Audio global aplicado</p>
+                          </div>
+                        ) : item.audio ? (
+                          <div className="relative rounded-lg overflow-hidden border border-border bg-secondary/30 h-28 flex flex-col items-center justify-center gap-2 p-2">
+                            <Music className="w-4 h-4 text-accent" />
+                            <audio src={item.audio} controls className="w-full h-7" />
+                            <button
+                              onClick={() => updateItem(item.id, "audio", null)}
+                              className="absolute top-1.5 right-1.5 w-6 h-6 bg-background/80 backdrop-blur-sm rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ) : (
+                          <label className="flex flex-col items-center justify-center gap-2 cursor-pointer w-full h-28 rounded-lg border-2 border-dashed border-border hover:border-accent/40 transition-colors bg-secondary/30">
+                            <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center">
+                              <Music className="w-4 h-4 text-muted-foreground" />
+                            </div>
+                            <p className="text-[10px] text-muted-foreground">Subir audio (MP3)</p>
+                            <input type="file" accept="audio/*" className="hidden" onChange={(e) => handleFileUpload(item.id, "audio", e)} />
+                          </label>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Prompt */}
+                    <div>
+                      <p className="text-[10px] font-semibold text-accent mb-1">Prompt</p>
+                      <textarea
+                        value={item.positivePrompt}
+                        onChange={(e) => updateItem(item.id, "positivePrompt", e.target.value)}
+                        placeholder={"[VISUAL]: entorno y movimientos...\n[SPEECH]: guion / texto que dirá...\n[SOUNDS]: sonido ambiente..."}
+                        rows={3}
+                        className="w-full bg-secondary/50 rounded-lg px-3 py-2 text-[11px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-accent/30 resize-none font-mono"
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  /* Default layouts */
+                  <div className={hasPrompts ? "grid grid-cols-[160px_1fr] gap-4" : hasDoubleUpload ? "grid grid-cols-2 gap-4" : ""}>
+                    {/* Image upload */}
                     <div>
                       <p className="text-[10px] font-semibold text-muted-foreground mb-1.5">
-                        Video / GIF de movimiento
+                        {hasDoubleUpload ? "Imagen del personaje" : "Imagen"}
                       </p>
-                      {item.video ? (
+                      {item.image ? (
                         <div className="relative rounded-lg overflow-hidden">
-                          <video
-                            src={item.video}
-                            className="w-full h-28 object-cover rounded-lg"
-                            muted
-                            loop
-                            autoPlay
-                            playsInline
-                          />
+                          <img src={item.image} alt={`Content ${index + 1}`} className="w-full h-28 object-cover rounded-lg" />
                           <button
-                            onClick={() => updateItem(item.id, "video", null)}
+                            onClick={() => updateItem(item.id, "image", null)}
                             className="absolute top-1.5 right-1.5 w-6 h-6 bg-background/80 backdrop-blur-sm rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
                           >
                             ×
@@ -201,54 +304,67 @@ const ContentScheduler = ({
                       ) : (
                         <label className="flex flex-col items-center justify-center gap-2 cursor-pointer w-full h-28 rounded-lg border-2 border-dashed border-border hover:border-accent/40 transition-colors bg-secondary/30">
                           <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center">
-                            <Film className="w-4 h-4 text-muted-foreground" />
+                            <Upload className="w-4 h-4 text-muted-foreground" />
                           </div>
-                          <p className="text-[10px] text-muted-foreground">Subir video/GIF</p>
-                          <input
-                            type="file"
-                            accept="video/*,.gif"
-                            className="hidden"
-                            onChange={(e) => handleFileUpload(item.id, "video", e)}
-                          />
+                          <p className="text-[10px] text-muted-foreground">Subir imagen</p>
+                          <input type="file" accept="image/*" className="hidden" onChange={(e) => handleFileUpload(item.id, "image", e)} />
                         </label>
                       )}
                     </div>
-                  )}
 
-                  {/* Prompts (only for LTX) */}
-                  {hasPrompts && (
-                    <div className="space-y-2">
+                    {/* Video upload (for Motion Transfer) */}
+                    {hasDoubleUpload && (
                       <div>
-                        <p className="text-[10px] font-semibold text-accent mb-1">
-                          Positive Prompt
-                        </p>
-                        <textarea
-                          value={item.positivePrompt}
-                          onChange={(e) =>
-                            updateItem(item.id, "positivePrompt", e.target.value)
-                          }
-                          placeholder="Describe the scene you imagine..."
-                          rows={2}
-                          className="w-full bg-secondary/50 rounded-lg px-3 py-2 text-[11px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-accent/30 resize-none font-mono"
-                        />
+                        <p className="text-[10px] font-semibold text-muted-foreground mb-1.5">Video / GIF de movimiento</p>
+                        {item.video ? (
+                          <div className="relative rounded-lg overflow-hidden">
+                            <video src={item.video} className="w-full h-28 object-cover rounded-lg" muted loop autoPlay playsInline />
+                            <button
+                              onClick={() => updateItem(item.id, "video", null)}
+                              className="absolute top-1.5 right-1.5 w-6 h-6 bg-background/80 backdrop-blur-sm rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ) : (
+                          <label className="flex flex-col items-center justify-center gap-2 cursor-pointer w-full h-28 rounded-lg border-2 border-dashed border-border hover:border-accent/40 transition-colors bg-secondary/30">
+                            <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center">
+                              <Film className="w-4 h-4 text-muted-foreground" />
+                            </div>
+                            <p className="text-[10px] text-muted-foreground">Subir video/GIF</p>
+                            <input type="file" accept="video/*,.gif" className="hidden" onChange={(e) => handleFileUpload(item.id, "video", e)} />
+                          </label>
+                        )}
                       </div>
-                      <div>
-                        <p className="text-[10px] font-semibold text-destructive mb-1">
-                          Negative Prompt
-                        </p>
-                        <textarea
-                          value={item.negativePrompt}
-                          onChange={(e) =>
-                            updateItem(item.id, "negativePrompt", e.target.value)
-                          }
-                          placeholder="What to avoid: blurry, low quality..."
-                          rows={2}
-                          className="w-full bg-secondary/50 rounded-lg px-3 py-2 text-[11px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-destructive/20 resize-none font-mono"
-                        />
+                    )}
+
+                    {/* Prompts (only for LTX) */}
+                    {hasPrompts && (
+                      <div className="space-y-2">
+                        <div>
+                          <p className="text-[10px] font-semibold text-accent mb-1">Positive Prompt</p>
+                          <textarea
+                            value={item.positivePrompt}
+                            onChange={(e) => updateItem(item.id, "positivePrompt", e.target.value)}
+                            placeholder="Describe the scene you imagine..."
+                            rows={2}
+                            className="w-full bg-secondary/50 rounded-lg px-3 py-2 text-[11px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-accent/30 resize-none font-mono"
+                          />
+                        </div>
+                        <div>
+                          <p className="text-[10px] font-semibold text-destructive mb-1">Negative Prompt</p>
+                          <textarea
+                            value={item.negativePrompt}
+                            onChange={(e) => updateItem(item.id, "negativePrompt", e.target.value)}
+                            placeholder="What to avoid: blurry, low quality..."
+                            rows={2}
+                            className="w-full bg-secondary/50 rounded-lg px-3 py-2 text-[11px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-destructive/20 resize-none font-mono"
+                          />
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>
