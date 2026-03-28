@@ -69,8 +69,8 @@ const workflows: WorkflowCard[] = [
   },
   {
     id: "lip-sync",
-    name: "Sincronizador de Labios",
-    description: "Sincroniza labios de cualquier vídeo con un audio o voz generada",
+    name: "I2V + Voice - LipSync",
+    description: "Genera vídeo a partir de imagen, añade voz y sincroniza labios automáticamente",
     icon: <Mic className="w-6 h-6 text-primary" />,
     category: "video",
   },
@@ -79,6 +79,9 @@ const workflows: WorkflowCard[] = [
     name: "Image to Video + ElevenLabs",
     description: "Genera vídeo a partir de imagen y añade voz con ElevenLabs automáticamente",
     icon: <Volume2 className="w-6 h-6 text-primary" />,
+    comingSoon: true,
+    badge: "COMING SOON",
+    badgeColor: "bg-muted text-muted-foreground",
     category: "video",
   },
   {
