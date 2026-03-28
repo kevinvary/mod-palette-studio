@@ -6,6 +6,7 @@ import {
 import { cn } from "@/lib/utils";
 import LtxGeneratorView from "@/components/LtxGeneratorView";
 import MotionTransferView from "@/components/MotionTransferView";
+import LipSyncStudioView from "@/components/LipSyncStudioView";
 import ContentScheduler from "@/components/ContentScheduler";
 import HowItWorksView from "@/components/HowItWorksView";
 
@@ -259,7 +260,7 @@ const FeaturesPanel = () => {
       );
     }
 
-    if (viewState.step === "studio" && (feature.id === "ltx-i2v" || feature.id === "motion-transfer")) {
+    if (viewState.step === "studio" && (feature.id === "ltx-i2v" || feature.id === "motion-transfer" || feature.id === "lip-sync")) {
       return (
         <div className="flex flex-col h-full">
           <div className="px-6 pt-5 pb-3 border-b border-border">
@@ -272,7 +273,7 @@ const FeaturesPanel = () => {
             </button>
           </div>
           <div className="flex-1 overflow-hidden">
-            {feature.id === "ltx-i2v" ? <LtxGeneratorView /> : <MotionTransferView />}
+            {feature.id === "ltx-i2v" ? <LtxGeneratorView /> : feature.id === "lip-sync" ? <LipSyncStudioView /> : <MotionTransferView />}
           </div>
         </div>
       );
