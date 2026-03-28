@@ -149,7 +149,8 @@ const HowItWorksView = ({ featureId, featureTitle, onBack, onContinue }: HowItWo
       <div className="flex-1 overflow-y-auto p-6">
         {featureId === "ltx-i2v" && <LtxHowItWorks />}
         {featureId === "motion-transfer" && <MotionTransferHowItWorks />}
-        {featureId !== "ltx-i2v" && featureId !== "motion-transfer" && (
+        {featureId === "i2v-elevenlabs" && <I2VElevenLabsHowItWorks />}
+        {!["ltx-i2v", "motion-transfer", "i2v-elevenlabs"].includes(featureId) && (
           <div className="max-w-2xl mx-auto py-4">
             <h2 className="text-lg font-semibold text-foreground">¿Cómo funciona {featureTitle}?</h2>
             <p className="text-sm text-muted-foreground mt-2">Información próximamente.</p>
