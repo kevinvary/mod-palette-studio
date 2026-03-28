@@ -223,27 +223,27 @@ const FeaturesPanel = () => {
   if (viewState) {
     const feature = features.find((f) => f.id === viewState.featureId)!;
 
+    if (viewState.step === "howItWorks") {
+      return (
+        <HowItWorksView
+          featureId={feature.id}
+          featureTitle={feature.title}
+          onBack={() => setViewState(null)}
+          onContinue={() => setViewState({ featureId: feature.id, step: "schedule" })}
+        />
+      );
+    }
+
     if (viewState.step === "schedule") {
       return (
         <ContentScheduler
           featureId={feature.id}
           featureTitle={feature.title}
           featureSubtitle={feature.subtitle}
-          onBack={() => setViewState(null)}
-          onContinue={() => setViewState({ featureId: feature.id, step: "howItWorks" })}
+          onBack={() => setViewState({ featureId: feature.id, step: "howItWorks" })}
+          onContinue={() => setViewState({ featureId: feature.id, step: "deploy" })}
           showPrompts={feature.id === "ltx-i2v"}
           showVideo={feature.id === "motion-transfer"}
-        />
-      );
-    }
-
-    if (viewState.step === "howItWorks") {
-      return (
-        <HowItWorksView
-          featureId={feature.id}
-          featureTitle={feature.title}
-          onBack={() => setViewState({ featureId: feature.id, step: "schedule" })}
-          onContinue={() => setViewState({ featureId: feature.id, step: "deploy" })}
         />
       );
     }
@@ -252,7 +252,7 @@ const FeaturesPanel = () => {
       return (
         <StartPodView
           feature={feature}
-          onBack={() => setViewState({ featureId: feature.id, step: "howItWorks" })}
+          onBack={() => setViewState({ featureId: feature.id, step: "schedule" })}
           onStart={() => setViewState({ featureId: feature.id, step: "studio" })}
         />
       );
@@ -289,7 +289,7 @@ const FeaturesPanel = () => {
         {features.map((feature) => (
           <button
             key={feature.id}
-            onClick={() => !feature.comingSoon && setViewState({ featureId: feature.id, step: "schedule" })}
+            onClick={() => !feature.comingSoon && setViewState({ featureId: feature.id, step: "howItWorks" })}
             disabled={feature.comingSoon}
             className={cn(
               "w-full surface-card p-5 text-left transition-colors duration-150 group",
