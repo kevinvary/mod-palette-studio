@@ -242,8 +242,9 @@ const FeaturesPanel = () => {
           featureSubtitle={feature.subtitle}
           onBack={() => setViewState({ featureId: feature.id, step: "howItWorks" })}
           onContinue={() => setViewState({ featureId: feature.id, step: "deploy" })}
-          showPrompts={feature.id === "ltx-i2v"}
+          showPrompts={feature.id === "ltx-i2v" || feature.id === "lip-sync"}
           showVideo={feature.id === "motion-transfer"}
+          showAudio={feature.id === "lip-sync"}
         />
       );
     }
