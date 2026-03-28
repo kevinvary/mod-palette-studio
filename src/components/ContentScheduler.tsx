@@ -8,6 +8,7 @@ interface ContentItem {
   audio: string | null;
   positivePrompt: string;
   negativePrompt: string;
+  sounds: string;
 }
 
 interface ContentSchedulerProps {
