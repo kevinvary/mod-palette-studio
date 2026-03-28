@@ -72,9 +72,6 @@ const workflows: WorkflowCard[] = [
     name: "Sincronizador de Labios",
     description: "Sincroniza labios de cualquier vídeo con un audio o voz generada",
     icon: <Mic className="w-6 h-6 text-primary" />,
-    comingSoon: true,
-    badge: "COMING SOON",
-    badgeColor: "bg-muted text-muted-foreground",
     category: "video",
   },
   {
