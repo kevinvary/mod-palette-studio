@@ -58,8 +58,6 @@ const features: Feature[] = [
     categoryColor: "bg-primary text-primary-foreground",
     description: "Genera vídeo a partir de imagen y añade voz con ElevenLabs automáticamente.",
     icon: <Volume2 className="w-5 h-5 text-primary" />,
-    podLabel: "",
-    podDescription: "",
     podLabel: "Iniciar estudio Image to Video + ElevenLabs",
     podDescription: "Se creará una instancia GPU con el pipeline de I2V + ElevenLabs.",
   },
