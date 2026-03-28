@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, MessageSquare, Sparkles, AlertTriangle, Timer, Headphones, Camera, Scissors, Star } from "lucide-react";
+import { ArrowLeft, ArrowRight, MessageSquare, Sparkles, AlertTriangle, Timer, Headphones, Camera, Scissors, Star, Upload, Volume2, Wand2, Film } from "lucide-react";
 import exampleCleanPhoto from "@/assets/example-clean-photo.jpg";
 import exampleResultPhoto from "@/assets/example-result-photo.jpg";
 import exampleFinalResult from "@/assets/example-final-result.jpg";
@@ -133,6 +133,100 @@ const MotionTransferHowItWorks = () => (
   </div>
 );
 
+const I2VElevenLabsHowItWorks = () => (
+  <div className="max-w-2xl mx-auto space-y-6 py-4">
+    <h2 className="text-lg font-semibold text-foreground">¿Cómo funciona Image to Video + ElevenLabs?</h2>
+    <p className="text-xs text-muted-foreground leading-relaxed">
+      Este pipeline combina generación de vídeo a partir de imagen con narración de voz automática usando ElevenLabs. El resultado es un clip listo para publicar con voz en off profesional.
+    </p>
+
+    {/* Paso 1 */}
+    <div className="surface-card p-5 rounded-xl space-y-3">
+      <h3 className="text-sm font-semibold text-primary flex items-center gap-2">
+        <Upload className="w-4 h-4" /> Paso 1 — Sube una foto del personaje
+      </h3>
+      <p className="text-xs text-muted-foreground leading-relaxed">
+        Sube una <span className="text-foreground font-medium">imagen nítida y de alta calidad</span> del personaje o escena que quieres animar. Cuanto más limpia sea la foto, mejor será el resultado del vídeo generado.
+      </p>
+      <div className="flex items-center gap-2 px-3 py-2 bg-primary/10 rounded-lg border border-primary/20">
+        <Camera className="w-3.5 h-3.5 text-primary shrink-0" />
+        <span className="text-[11px] text-primary font-medium">Formatos admitidos: PNG, JPG. Resolución recomendada: mínimo 512×512px.</span>
+      </div>
+    </div>
+
+    {/* Paso 2 */}
+    <div className="surface-card p-5 rounded-xl space-y-3">
+      <h3 className="text-sm font-semibold text-accent flex items-center gap-2">
+        <MessageSquare className="w-4 h-4" /> Paso 2 — Escribe el Prompt del vídeo
+      </h3>
+      <p className="text-xs text-muted-foreground leading-relaxed">
+        Describe la <span className="text-foreground font-medium">acción o escena</span> que quieres generar. Incluye detalles de movimiento, iluminación y estilo cinematográfico.
+      </p>
+      <div className="bg-secondary rounded-lg p-3">
+        <p className="text-xs text-foreground font-mono leading-relaxed italic">
+          "La modelo gira lentamente hacia la cámara con una sonrisa suave, luz dorada de atardecer ilumina su rostro"
+        </p>
+      </div>
+      <div className="flex items-center gap-2 px-3 py-2 bg-accent/10 rounded-lg border border-accent/20">
+        <Sparkles className="w-3.5 h-3.5 text-accent shrink-0" />
+        <span className="text-[11px] text-accent font-medium">"Mejorar Prompt" está activado por defecto — el sistema optimiza tu descripción automáticamente.</span>
+      </div>
+    </div>
+
+    {/* Paso 3 */}
+    <div className="surface-card p-5 rounded-xl space-y-3">
+      <h3 className="text-sm font-semibold text-primary flex items-center gap-2">
+        <Volume2 className="w-4 h-4" /> Paso 3 — Configura la voz con ElevenLabs
+      </h3>
+      <p className="text-xs text-muted-foreground leading-relaxed">
+        Escribe el <span className="text-foreground font-medium">texto de la narración</span> y selecciona una voz de la librería de ElevenLabs. El audio se genera y se sincroniza automáticamente con el vídeo.
+      </p>
+      <ul className="text-xs text-muted-foreground leading-relaxed space-y-1.5 list-disc list-inside">
+        <li><span className="text-foreground font-medium">Voces disponibles:</span> +30 voces profesionales en español e inglés</li>
+        <li><span className="text-foreground font-medium">Idioma:</span> Multilingüe — escribe en el idioma que necesites</li>
+        <li><span className="text-foreground font-medium">Ajustes:</span> Estabilidad, similitud y estilo de la voz configurables</li>
+      </ul>
+    </div>
+
+    {/* Paso 4 */}
+    <div className="surface-card p-5 rounded-xl space-y-3">
+      <h3 className="text-sm font-semibold text-accent flex items-center gap-2">
+        <Wand2 className="w-4 h-4" /> Paso 4 — Generación automática
+      </h3>
+      <p className="text-xs text-muted-foreground leading-relaxed">
+        Al añadir a la cola, el sistema ejecuta el pipeline completo de forma automática:
+      </p>
+      <ol className="text-xs text-muted-foreground leading-relaxed space-y-1.5 list-decimal list-inside">
+        <li>Genera el vídeo a partir de la imagen + prompt</li>
+        <li>Genera el audio con ElevenLabs usando el texto de narración</li>
+        <li>Sincroniza y mezcla vídeo + audio en un clip final</li>
+      </ol>
+    </div>
+
+    {/* Paso 5 */}
+    <div className="surface-card p-5 rounded-xl space-y-3">
+      <h3 className="text-sm font-semibold text-primary flex items-center gap-2">
+        <Film className="w-4 h-4" /> Paso 5 — Resultado listo para publicar
+      </h3>
+      <p className="text-xs text-muted-foreground leading-relaxed">
+        Recibirás un <span className="text-foreground font-medium">clip de ~5 segundos con voz en off integrada</span>, listo para descargar y publicar en redes sociales.
+      </p>
+    </div>
+
+    {/* Notas */}
+    <div className="surface-card p-5 rounded-xl space-y-3">
+      <h3 className="text-sm font-semibold text-destructive flex items-center gap-2">
+        <AlertTriangle className="w-4 h-4" /> Notas importantes
+      </h3>
+      <ul className="text-xs text-muted-foreground leading-relaxed space-y-2 list-disc list-inside">
+        <li>Duración óptima del vídeo: <span className="text-foreground font-medium">5 segundos</span>. Para más, fraccionar en partes.</li>
+        <li>El texto de narración debe ser <span className="text-foreground font-medium">corto y conciso</span> — ajustado a la duración del clip.</li>
+        <li>Usa una imagen <span className="text-foreground font-medium">sin marcas de agua ni texto superpuesto</span> para mejores resultados.</li>
+      </ul>
+    </div>
+  </div>
+);
+
 const HowItWorksView = ({ featureId, featureTitle, onBack, onContinue }: HowItWorksViewProps) => {
   return (
     <div className="flex flex-col h-full animate-fade-in">
@@ -149,7 +243,8 @@ const HowItWorksView = ({ featureId, featureTitle, onBack, onContinue }: HowItWo
       <div className="flex-1 overflow-y-auto p-6">
         {featureId === "ltx-i2v" && <LtxHowItWorks />}
         {featureId === "motion-transfer" && <MotionTransferHowItWorks />}
-        {featureId !== "ltx-i2v" && featureId !== "motion-transfer" && (
+        {featureId === "i2v-elevenlabs" && <I2VElevenLabsHowItWorks />}
+        {!["ltx-i2v", "motion-transfer", "i2v-elevenlabs"].includes(featureId) && (
           <div className="max-w-2xl mx-auto py-4">
             <h2 className="text-lg font-semibold text-foreground">¿Cómo funciona {featureTitle}?</h2>
             <p className="text-sm text-muted-foreground mt-2">Información próximamente.</p>
