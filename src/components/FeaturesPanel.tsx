@@ -252,7 +252,7 @@ const FeaturesPanel = () => {
       return (
         <StartPodView
           feature={feature}
-          onBack={() => setViewState({ featureId: feature.id, step: "howItWorks" })}
+          onBack={() => setViewState({ featureId: feature.id, step: "schedule" })}
           onStart={() => setViewState({ featureId: feature.id, step: "studio" })}
         />
       );
