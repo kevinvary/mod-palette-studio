@@ -223,27 +223,27 @@ const FeaturesPanel = () => {
   if (viewState) {
     const feature = features.find((f) => f.id === viewState.featureId)!;
 
+    if (viewState.step === "howItWorks") {
+      return (
+        <HowItWorksView
+          featureId={feature.id}
+          featureTitle={feature.title}
+          onBack={() => setViewState(null)}
+          onContinue={() => setViewState({ featureId: feature.id, step: "schedule" })}
+        />
+      );
+    }
+
     if (viewState.step === "schedule") {
       return (
         <ContentScheduler
           featureId={feature.id}
           featureTitle={feature.title}
           featureSubtitle={feature.subtitle}
-          onBack={() => setViewState(null)}
-          onContinue={() => setViewState({ featureId: feature.id, step: "howItWorks" })}
+          onBack={() => setViewState({ featureId: feature.id, step: "howItWorks" })}
+          onContinue={() => setViewState({ featureId: feature.id, step: "deploy" })}
           showPrompts={feature.id === "ltx-i2v"}
           showVideo={feature.id === "motion-transfer"}
-        />
-      );
-    }
-
-    if (viewState.step === "howItWorks") {
-      return (
-        <HowItWorksView
-          featureId={feature.id}
-          featureTitle={feature.title}
-          onBack={() => setViewState({ featureId: feature.id, step: "schedule" })}
-          onContinue={() => setViewState({ featureId: feature.id, step: "deploy" })}
         />
       );
     }
