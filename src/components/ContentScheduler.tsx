@@ -271,16 +271,41 @@ const ContentScheduler = ({
                       </div>
                     </div>
 
-                    {/* Prompt */}
-                    <div>
-                      <p className="text-[10px] font-semibold text-accent mb-1">Prompt</p>
-                      <textarea
-                        value={item.positivePrompt}
-                        onChange={(e) => updateItem(item.id, "positivePrompt", e.target.value)}
-                        placeholder={"[VISUAL]: entorno y movimientos...\n[SPEECH]: guion / texto que dirá...\n[SOUNDS]: sonido ambiente..."}
-                        rows={3}
-                        className="w-full bg-secondary/50 rounded-lg px-3 py-2 text-[11px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-accent/30 resize-none font-mono"
-                      />
+                    {/* Prompt sections */}
+                    <div className="space-y-2">
+                      <p className="text-[10px] font-semibold text-accent mb-1">Prompt <span className="text-destructive">(Obligatorio)</span></p>
+                      <div className="bg-secondary/50 rounded-lg overflow-hidden">
+                        <div className="flex items-start gap-0">
+                          <span className="text-[10px] font-bold text-primary px-3 py-2 shrink-0 select-none">[VISUAL]:</span>
+                          <textarea
+                            value={item.positivePrompt}
+                            onChange={(e) => updateItem(item.id, "positivePrompt", e.target.value)}
+                            placeholder="entorno y movimientos..."
+                            rows={1}
+                            className="flex-1 bg-transparent py-2 pr-3 text-[11px] text-foreground placeholder:text-muted-foreground focus:outline-none resize-none font-mono"
+                          />
+                        </div>
+                        <div className="border-t border-border/50 flex items-start gap-0">
+                          <span className="text-[10px] font-bold text-accent px-3 py-2 shrink-0 select-none">[SPEECH]:</span>
+                          <textarea
+                            value={item.negativePrompt}
+                            onChange={(e) => updateItem(item.id, "negativePrompt", e.target.value)}
+                            placeholder="guion / texto que dirá..."
+                            rows={1}
+                            className="flex-1 bg-transparent py-2 pr-3 text-[11px] text-foreground placeholder:text-muted-foreground focus:outline-none resize-none font-mono"
+                          />
+                        </div>
+                        <div className="border-t border-border/50 flex items-start gap-0">
+                          <span className="text-[10px] font-bold text-primary px-3 py-2 shrink-0 select-none">[SOUNDS]:</span>
+                          <input
+                            type="text"
+                            value={(item as any).sounds || ""}
+                            onChange={(e) => updateItem(item.id, "sounds" as any, e.target.value)}
+                            placeholder="sonido ambiente..."
+                            className="flex-1 bg-transparent py-2 pr-3 text-[11px] text-foreground placeholder:text-muted-foreground focus:outline-none font-mono"
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ) : (
