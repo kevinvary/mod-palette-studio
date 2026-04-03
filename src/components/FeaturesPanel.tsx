@@ -100,10 +100,8 @@ const features: Feature[] = [
     categoryColor: "bg-primary text-primary-foreground",
     description: "Genera imágenes únicas con IA a partir de prompts personalizados.",
     icon: <Paintbrush className="w-5 h-5 text-primary" />,
-    podLabel: "",
-    podDescription: "",
-    comingSoon: true,
-    progress: 52,
+    podLabel: "Iniciar estudio de imagen",
+    podDescription: "Se creará una instancia GPU para generación de imágenes.",
   },
   {
     id: "train-lora",
