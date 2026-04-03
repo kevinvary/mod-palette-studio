@@ -272,7 +272,7 @@ const FeaturesPanel = () => {
             </button>
           </div>
           <div className="flex-1 overflow-hidden">
-            {feature.id === "ltx-i2v" ? <LtxGeneratorView /> : feature.id === "lip-sync" ? <LipSyncStudioView /> : <MotionTransferView />}
+            {feature.id === "ltx-i2v" ? <LtxGeneratorView /> : feature.id === "lip-sync" ? <LipSyncStudioView /> : feature.id === "create-image" ? <ImageGeneratorView /> : <MotionTransferView />}
           </div>
         </div>
       );
