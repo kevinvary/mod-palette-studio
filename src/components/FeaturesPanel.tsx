@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import LtxGeneratorView from "@/components/LtxGeneratorView";
 import MotionTransferView from "@/components/MotionTransferView";
 import LipSyncStudioView from "@/components/LipSyncStudioView";
+import ImageGeneratorView from "@/components/ImageGeneratorView";
 import ContentScheduler from "@/components/ContentScheduler";
 import HowItWorksView from "@/components/HowItWorksView";
 
@@ -99,10 +100,8 @@ const features: Feature[] = [
     categoryColor: "bg-primary text-primary-foreground",
     description: "Genera imágenes únicas con IA a partir de prompts personalizados.",
     icon: <Paintbrush className="w-5 h-5 text-primary" />,
-    podLabel: "",
-    podDescription: "",
-    comingSoon: true,
-    progress: 52,
+    podLabel: "Iniciar estudio de imagen",
+    podDescription: "Se creará una instancia GPU para generación de imágenes.",
   },
   {
     id: "train-lora",
@@ -260,7 +259,7 @@ const FeaturesPanel = () => {
       );
     }
 
-    if (viewState.step === "studio" && (feature.id === "ltx-i2v" || feature.id === "motion-transfer" || feature.id === "lip-sync")) {
+    if (viewState.step === "studio" && (feature.id === "ltx-i2v" || feature.id === "motion-transfer" || feature.id === "lip-sync" || feature.id === "create-image")) {
       return (
         <div className="flex flex-col h-full">
           <div className="px-6 pt-5 pb-3 border-b border-border">
@@ -273,7 +272,7 @@ const FeaturesPanel = () => {
             </button>
           </div>
           <div className="flex-1 overflow-hidden">
-            {feature.id === "ltx-i2v" ? <LtxGeneratorView /> : feature.id === "lip-sync" ? <LipSyncStudioView /> : <MotionTransferView />}
+            {feature.id === "ltx-i2v" ? <LtxGeneratorView /> : feature.id === "lip-sync" ? <LipSyncStudioView /> : feature.id === "create-image" ? <ImageGeneratorView /> : <MotionTransferView />}
           </div>
         </div>
       );
