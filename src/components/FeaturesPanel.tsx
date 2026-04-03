@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import LtxGeneratorView from "@/components/LtxGeneratorView";
 import MotionTransferView from "@/components/MotionTransferView";
 import LipSyncStudioView from "@/components/LipSyncStudioView";
+import ImageGeneratorView from "@/components/ImageGeneratorView";
 import ContentScheduler from "@/components/ContentScheduler";
 import HowItWorksView from "@/components/HowItWorksView";
 
